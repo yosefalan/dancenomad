@@ -37,7 +37,6 @@ function LoginForm() {
             placeholder="username or email"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
-            required
           />
           <input
             type="password"
@@ -45,7 +44,6 @@ function LoginForm() {
             placeholder="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
           />
 
         <button type="submit" id="loginSubmitButton">Log In</button>
