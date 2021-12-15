@@ -11,6 +11,8 @@
   "license": "ISC",
   "proxy": "http://localhost:5000",
   "dependencies": {
+    "aws-sdk": "^2.1046.0",
+    "multer": "^1.4.4",
     "sequelize-cli": "^6.3.0"
   }
 }
