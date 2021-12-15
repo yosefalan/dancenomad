@@ -1,0 +1,65 @@
+
+/* .profileButton {
+  justify-self: flex-end;
+  height: 44px;
+  cursor: pointer;
+} */
+
+/*
+.buttonContainer {
+
+  display: flex;
+  height: 40px;
+  width: 100px;
+  background-color: #C1C8E4;
+  height: 44px;
+  cursor: pointer;
+  border-radius: 25px;
+  overflow: hidden;
+  justify-self: flex-end;
+} */
+
+
+
+.profileImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  font-size: 35px;
+}
+
+.profileImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.dropdownContent {
+  margin-top: 45px;
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdownContent a {
+  color: #333333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdownContent a:hover {
+  background-color: #333333;
+  color: #999999;
+}
+
+/* .hamburgerMenu:hover
+.profileButtonImage:hover */
+.buttonContainer:hover
+.dropdownContent {
+  display: block;
+}
