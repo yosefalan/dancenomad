@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { signup } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import styles from './SignupPage.module.css'
 
 function SignupForm() {
@@ -13,6 +13,7 @@ function SignupForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector((state) => state.session.user);
 
   if (sessionUser) return <Redirect to="/" />;
@@ -26,6 +27,7 @@ function SignupForm() {
         setEmail("");
         setPassword("");
         setImage(null);
+        history.push("/")
       })
       .catch(async (res) => {
         const data = await res.json();
