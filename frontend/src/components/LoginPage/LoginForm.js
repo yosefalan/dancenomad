@@ -34,20 +34,20 @@ function LoginForm() {
         </ul>
           <input
             type="text"
-            className={styles.field}
+            className={styles.loginField}
             placeholder="username or email"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
           />
           <input
             type="password"
-            className={styles.field}
+            className={styles.loginField}
             placeholder="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
 
-        <button type="submit" id="loginSubmitButton">Log In</button>
+        <button type="submit" className={styles.loginSubmitButton}>Log In</button>
       </form>
     </div>
   );

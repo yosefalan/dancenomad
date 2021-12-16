@@ -28,7 +28,7 @@ const setTokenCookie = (res, user) => {
 
 
 const restoreUser = (req, res, next) => {
-
+  // token parsed from cookies
   const { token } = req.cookies;
 
   return jwt.verify(token, secret, null, async (err, jwtPayload) => {

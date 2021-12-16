@@ -29,10 +29,21 @@ function Navigation({ isLoaded }){
           <NavLink exact to="/"><img className={styles.navLogo} src={'images/logo.png'}></img></NavLink>
         </div>
         {sessionUser ?
-        <ProfileButton user={sessionUser} /> :
-        <NavLink exact to="/login">Log In</NavLink>
-        }
-      </div>
+        <ProfileButton user={sessionUser} />:
+        <div className={styles.linksContainer}>
+          <div
+          className={styles.navBarLink}>
+          <NavLink exact to="/login/manage"
+          className={styles.navBarLinkText}
+          >Create Event</NavLink></div>
+          <div
+          className={styles.navBarLink}>
+          <NavLink exact to="/login"
+          className={styles.navBarLinkText}
+          >Log In</NavLink></div>
+        </div>
+            }
+        </div>
     </div>
   );
 }
