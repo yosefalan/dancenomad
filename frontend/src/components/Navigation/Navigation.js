@@ -29,7 +29,7 @@ function Navigation({ isLoaded }){
           <NavLink exact to="/"><img className={styles.navLogo} src={'images/logo.png'}></img></NavLink>
         </div>
         {sessionUser ?
-        <ProfileButton user={sessionUser} /> :
+        <ProfileButton user={sessionUser} />:
         <div className={styles.linksContainer}>
           <div
           className={styles.navBarLink}>

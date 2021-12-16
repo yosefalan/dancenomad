@@ -5,12 +5,19 @@
   cursor: pointer;
 } */
 
+
+.userLinks {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+
 .buttonContainer {
   display: flex;
   height: 100%;
-  width: 200px;
+  width:60px;
   cursor: pointer;
-  overflow: hidden;
   justify-self: flex-end;
 }
 
@@ -20,7 +27,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40%;
+  width: 100%;
   font-size: 35px;
 }
 
@@ -41,7 +48,7 @@
 }
 
 .dropdownContent a {
-  color: #333333;
+  color: #39364F;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
@@ -61,4 +68,18 @@
 
 .buttonContainer:hover {
   background-color: #C1C8E4;
+}
+
+.userText {
+  display: flex;
+  align-items: center;
+  width: 130px;
+  color: #39364F;
+}
+
+.caret {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
 }

@@ -35,26 +35,29 @@ function ProfileButton({ user }) {
   };
 
   return (
-    <div className={styles.buttonContainer}
-    onClick={openMenu}
-    >
-      <div className={styles.profileImageContainer}>
-      {user
-      ? user.url
-      ? <img src={user.url} className={styles.profileImage}></img>
-      : <i class="fas fa-user-circle"></i>
-      : <i class="fas fa-user-circle"></i>
+    <div className={styles.userLinks}>
+      <div className={styles.buttonContainer}
+      onClick={openMenu}>
+        <div className={styles.profileImageContainer}>
+        {user
+        ? user.url
+        ? <img src={user.url} className={styles.profileImage}></img>
+        : <i class="fas fa-user-circle"></i>
+        : <i class="fas fa-user-circle"></i>
       }
-      </div>
-        <div className={styles.dropdownContent}>
-          {user ?
-            <a onClick={logout} href="/">
-            Log Out
-            </a> :
-            <div className={styles.modalLinks}>
-            </div>
-            }
         </div>
+          <div className={styles.dropdownContent}>
+            {user ?
+              <a onClick={logout} href="/">
+              Log Out
+              </a> :
+              <div className={styles.modalLinks}>
+              </div>
+              }
+          </div>
+      </div>
+      <p className={styles.userText}>{user?.username}</p>
+      {/* <img src="/images/caret.svg" className={styles.caret}></img> */}
     </div>
   );
 }
