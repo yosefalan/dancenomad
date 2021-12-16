@@ -5,19 +5,14 @@
   cursor: pointer;
 } */
 
-/*
 .buttonContainer {
-
   display: flex;
-  height: 40px;
-  width: 100px;
-  background-color: #C1C8E4;
-  height: 44px;
+  height: 100%;
+  width: 200px;
   cursor: pointer;
-  border-radius: 25px;
   overflow: hidden;
   justify-self: flex-end;
-} */
+}
 
 
 
@@ -36,11 +31,11 @@
 }
 
 .dropdownContent {
-  margin-top: 45px;
+  margin-top: 60px;
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
-  min-width: 100px;
+  background-color: #FFFFFF;
+  width: 200px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
@@ -53,13 +48,17 @@
 }
 
 .dropdownContent a:hover {
-  background-color: #333333;
-  color: #999999;
+  background-color: #C1C8E4;
 }
 
 /* .hamburgerMenu:hover
 .profileButtonImage:hover */
 .buttonContainer:hover
 .dropdownContent {
-  display: block;
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonContainer:hover {
+  background-color: #C1C8E4;
 }
