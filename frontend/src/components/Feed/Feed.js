@@ -7,12 +7,13 @@ import styles from './Feed.module.css'
 function Feed () {
 
   const dispatch = useDispatch();
-  const events = useSelector(state => Object.values(state?.events));
 
 
   useEffect(() => {
     dispatch(getEvents());
   }, [dispatch]);
+
+  const events = useSelector(state => Object.values(state?.events));
 
   return (
     <div className={styles.feed_main_container}>
