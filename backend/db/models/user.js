@@ -59,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'userId',
       otherKey: 'eventId'
     });
-    User.hasMany(models.Event, { foreignKey: 'userId' });
+    User.hasMany(models.Event, { foreignKey: 'hostId' });
   };
 
   User.prototype.toSafeObject = function() {
