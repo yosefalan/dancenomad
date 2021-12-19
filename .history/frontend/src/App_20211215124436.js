@@ -11,23 +11,13 @@ import Main from "./components/Main/Main";
 
 function App() {
   const sessionUser = useSelector(state => state.session.user);
-  console.log("SESSION USER:", sessionUser)
-  const dispatch = useDispatch();
-  const [isLoaded, setIsLoaded] = useState(false);
-  useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-  }, [dispatch]);
-
-  if(sessionUser)
+  // const dispatch = useDispatch();
+  // const [isLoaded, setIsLoaded] = useState(false);
+  // useEffect(() => {
+  //   dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+  // }, [dispatch]);
+if(!sessionUser)
   return (
-    <>
-      <Route exact path='/'>
-        <Main />
-      </Route>
-    </>
-  )
-  
-  else return (
     <>
       <Switch />
 
@@ -46,6 +36,16 @@ function App() {
       {/* <Route exact path='/'>
         <NotFoundPage />
       </Route> */}
+    </>
+  )
+  return (
+
+    <>
+      <Switch />
+
+      <Route exact path='/'>
+        <Main />
+      </Route>
     </>
 
   )

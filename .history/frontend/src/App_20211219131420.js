@@ -26,7 +26,6 @@ function App() {
       </Route>
     </>
   )
-  
   else return (
     <>
       <Switch />

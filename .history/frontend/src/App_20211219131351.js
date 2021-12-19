@@ -17,8 +17,7 @@ function App() {
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
-
-  if(sessionUser)
+if(sessionUser)
   return (
     <>
       <Route exact path='/'>
@@ -26,7 +25,6 @@ function App() {
       </Route>
     </>
   )
-  
   else return (
     <>
       <Switch />
