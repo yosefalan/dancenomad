@@ -1,0 +1,1 @@
+iport styles from './EventPage.,'
