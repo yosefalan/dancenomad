@@ -1,0 +1,94 @@
+
+/* .profileButton {
+  justify-self: flex-end;
+  height: 44px;
+  cursor: pointer;
+} */
+
+
+.userLinks {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+
+.buttonContainer {
+  display: flex;
+  height: 100%;
+  width:60px;
+  cursor: pointer;
+  justify-self: flex-end;
+}
+
+
+
+.profileImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 35px;
+}
+
+.profileImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.dropdownContent {
+  margin-top: 60px;
+  display: none;
+  position: absolute;
+  background-color: #FFFFFF;
+  width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdownContent a {
+  color: #39364F;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdownContent a:hover {
+  background-color: #C1C8E4;
+}
+
+/* .hamburgerMenu:hover
+.profileButtonImage:hover */
+.buttonContainer:hover
+.dropdownContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonContainer:hover {
+  background-color: #C1C8E4;
+}
+
+.buttonContainer:hover +
+.userText
+{
+  background-color: #C1C8E4;
+}
+
+.userText {
+  display: flex;
+  align-items: center;
+  ali
+  width: 130px;
+  height: 100%;
+  font-size: 18px;
+  color: #39364F;
+}
+
+.caret {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
