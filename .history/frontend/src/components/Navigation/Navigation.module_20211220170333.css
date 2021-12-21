@@ -1,0 +1,61 @@
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+
+.mainNavContainer {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.centerNavContainer {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.homeLogo {
+
+  justify-self: flex-start;
+  margin: 10px;
+}
+
+.navLogo {
+  height: 40px;
+}
+
+.
+
+.linksContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+
+.navBarLink {
+  display: flex;
+  height: 100%;
+  margin-right: 10px;
+  font-size: 18px;
+  align-items: center;
+  padding: 0px 15px 0px 15px
+}
+
+.navBarLinkText {
+  color: #39364F;
+  text-decoration: none;
+}
+
+.navBarLink:hover {
+  background-color: #C1C8E4;
+}
+
+.navBarLink:hover > {
+  background-color: #C1C8E4;
+}
