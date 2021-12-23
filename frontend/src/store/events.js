@@ -59,6 +59,7 @@ export const getEvent = (id) => async (dispatch) => {
 
 
 export const newEvent = (event) => async (dispatch) => {
+  console.log("THUNK")
   const {
     hostId,
     name,
@@ -77,8 +78,10 @@ export const newEvent = (event) => async (dispatch) => {
     genres,
     types,
     image,
-    video
+    video,
+
    } = event;
+
    const g = JSON.stringify(genres)
    const t = JSON.stringify(types)
    const v = JSON.stringify(venue_types)
@@ -99,9 +102,9 @@ export const newEvent = (event) => async (dispatch) => {
    formData.append("lng", lng);
    formData.append("genres", g);
    formData.append("types", t);
-  if (image) formData.append("image", image);
-  //  if (video) formData.append("video", video);
-  console.log("IMAGE IN THUNK:", image)
+  if (image) formData.append("files", image);
+  if (video) formData.append("files", video);
+
   const res = await csrfFetch('/api/events/', {
     method: "POST",
     headers: {
@@ -116,7 +119,6 @@ export const newEvent = (event) => async (dispatch) => {
     dispatch(createEvent(event));
   };
 }
-
 
 const initialState = {};
 

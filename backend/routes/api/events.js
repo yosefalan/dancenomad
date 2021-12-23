@@ -14,7 +14,7 @@ const {
 } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
-const { singlePublicFileUpload, singleMulterUpload } = require("../../awsS3");
+const { singlePublicFileUpload, singleMulterUpload, multipleMulterUpload, multiplePublicFileUpload } = require("../../awsS3");
 
 const router = express.Router();
 
@@ -46,8 +46,8 @@ router.get(
 
 router.post(
   "/",
-  singleMulterUpload("image"),
-  // singleMulterUpload("video"),
+  multipleMulterUpload("files"),
+
   // validateSignup,
   asyncHandler(async (req, res) => {
     const {
@@ -67,63 +67,65 @@ router.post(
       lng,
       genres,
       types,
-      image,
-      video,
+      // image,
+      // files
     } = req.body;
-    console.log("++++++++++++++++++++++++++ IMAGE:", req.file)
-    const image_url = await singlePublicFileUpload(req.file);
-    // const video_url = await singlePublicFileUpload(video);
-    // const v = await Venue.create({
-    //   name: venue,
-    //   address,
-    //   city,
-    //   state,
-    //   zip,
-    //   country,
-    //   lat,
-    //   lng,
-    // });
-    // const venueId = v.id;
-    // const event = await Event.create({
-    //   hostId,
-    //   venueId: venueId,
-    //   name,
-    //   description,
-    //   start_date,
-    //   end_date,
-    //   image_url,
-    //   // video_url
-    // });
-    // const eventId = event.id;
-    // const g = JSON.parse(genres)
-    // g.map((genre) => {
+    const url = await multiplePublicFileUpload(req.files);
+    console.log("++++++++++++++++++++++++++ URL:", start_date, end_date)
+    const image_url = url[0]
+    const video_url = url[1]
+    console.log("&&&&&&&&&", image_url, video_url)
+    const v = await Venue.create({
+      name: venue,
+      address,
+      city,
+      state,
+      zip,
+      country,
+      lat,
+      lng,
+    });
+    const venueId = v.id;
+    const event = await Event.create({
+      hostId,
+      venueId: venueId,
+      name,
+      description,
+      start_date,
+      end_date,
+      image_url,
+      video_url
+    });
+    const eventId = event.id;
+    const g = JSON.parse(genres)
+    g.map((genre) => {
 
-    //   Event_genre.create({
-    //     eventId,
-    //     genreId: +genre.value,
-    //   });
-    // });
+      Event_genre.create({
+        eventId,
+        genreId: +genre.value,
+      });
+    });
 
-    // const t = JSON.parse(types)
-    // t.map((type) => {
+    const t = JSON.parse(types)
+    t.map((type) => {
 
-    //   Event_type.create({
-    //     eventId,
-    //     typeId: +type.value,
-    //   });
-    // });
+      Event_type.create({
+        eventId,
+        typeId: +type.value,
+      });
+    });
 
-    // const vt = JSON.parse(venue_types)
-    // vt.map((venue_type) => {
+    const vt = JSON.parse(venue_types)
+    vt.map((venue_type) => {
 
-    //   Venue_venue_type.create({
-    //     venueId,
-    //     venue_typeId: +venue_type.value,
-    //   });
-    // });
+      Venue_venue_type.create({
+        venueId,
+        venue_typeId: +venue_type.value,
+      });
+    });
 
     return res.json({
-
+      event
     });
   })
 );

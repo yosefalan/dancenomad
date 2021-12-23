@@ -29,23 +29,11 @@ function CreateEventForm () {
   const [types, setTypes] = useState([]);
   const [errors, setErrors] = useState([]);
 
-  // const types_val = []
-  // if(types) {
-  //   types.forEach((t) => {
-  //   types_val.push(t.value)
-  // })}
-
-  // const venue_types_val = []
-  // if(venue_types) {
-  //   venue_types.forEach((v) => {
-  //   venue_types_val.push(v.value)
-  // })}
-
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    console.log("HANDLE SUBMIT")
     e.preventDefault();
     let newErrors = [];
-    const new_event = dispatch(newEvent({
+    const new_event = await dispatch(newEvent({
       hostId,
       name,
       description,
@@ -63,7 +51,7 @@ function CreateEventForm () {
       genres,
       types,
       image,
-      video
+      video,
     }))
     .then(() => {
       setName("");
@@ -93,14 +81,12 @@ function CreateEventForm () {
     }
 
     const updateImageFile = (e) => {
-      const file = e.target.files[0];
-      console.log("UPDATE IMAGE FILE:", "E:", e, "FILE:", file)
+      const file = e.target.files[0]
       if (file) setImage(file);
     };
 
     const updateVideoFile = (e) => {
       const file = e.target.files[0];
-      // console.log("UPDATE VIDEO FILE:", "E:", e, "FILE:", file)
       if (file) setVideo(file);
     };
 

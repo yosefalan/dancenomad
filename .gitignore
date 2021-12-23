@@ -3,4 +3,4 @@ node_modules
 .env
 build
 .DS_Store
-.history 
+.history/
