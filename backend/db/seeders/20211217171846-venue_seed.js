@@ -1,0 +1,123 @@
+'use strict';
+
+module.exports = {
+  up: (queryInterface, Sequelize) => {
+    return queryInterface.bulkInsert('Venues', [
+     {
+      name: 'Glen Echo Spanish Ballroom',
+      address: '7300 Macarthur Blvd, 18910, United States,',
+      city: 'Bethesda',
+      state: 'MD',
+      zip: '20812',
+      country: 'USA',
+      lat: 38.96578747,
+      lng: -77.13902804,
+     },
+     {
+      name: 'Crystal Gateway Marriott',
+      address: '1700 Richmond Hwy',
+      city: 'Arlington',
+      state: 'VA',
+      zip: '22202',
+      country: 'USA',
+      lat: 38.85943745,
+      lng: -77.05253425,
+     },
+     {
+      name: 'Salsa Con Todo Studio ',
+      address: '211 N 36th St, ',
+      city: 'Seattle',
+      state: 'WA',
+      zip: '98103',
+      country: 'USA',
+      lat: 47.65258789,
+      lng: -122.3560322,
+     },
+     {
+      name: 'Hilton Palm Beach Airport',
+      address: '2875 NE 191st St',
+      city: 'Miami ',
+      state: 'FL',
+      zip: '22180',
+      country: 'USA',
+      lat: 25.95310519,
+      lng: -80.14341516,
+     },
+     {
+      name: 'Sheraton New York Times Square',
+      address: '811 7th Avenue ',
+      city: 'New York ',
+      state: 'NY',
+      zip: '10019',
+      country: 'USA',
+      lat: 40.76261375,
+      lng: -73.98162146,
+     },
+     {
+      name: 'The Westin Baltimore Washington Airport - BWI',
+      address: '1110 Old Elkridge Landing Rd',
+      city: 'Baltimore ',
+      state: 'MD',
+      zip: '21090',
+      country: 'USA',
+      lat: 39.20687339,
+      lng: -76.69302545,
+     },
+     {
+      name: 'New York Marriot Marquis',
+      address: '1535 Broadway, 45th St',
+      city: 'New York ',
+      state: 'NY',
+      zip: '10036',
+      country: 'USA',
+      lat: 40.75811375,
+      lng: -73.98572146,
+     },
+     {
+      name: 'Playa del Carmen ',
+      address: '',
+      city: 'Playa del Carmen ',
+      state: '',
+      zip: '',
+      country: 'Mexico ',
+      lat: 20.63997374,
+      lng: -87.0627707,
+     },
+     {
+      name: 'Renaissance Hotel',
+      address: '999 9th St NW',
+      city: 'Washington ',
+      state: 'DC',
+      zip: '20001',
+      country: 'USA',
+      lat: 38.90164192,
+      lng: -77.0234,
+     },
+     {
+      name: 'Hilton Baltimore',
+      address: '401 W Pratt St',
+      city: 'Baltimore ',
+      state: 'MD',
+      zip: '21201',
+      country: 'USA',
+      lat: 39.28601589,
+      lng: -76.62054292,
+     },
+    //  {
+    //   name: '',
+    //   address: '',
+    //   city: '',
+    //   state: '',
+    //   zip: '',
+    //   country: '',
+    //   lat: 0,
+    //   lng: 0,
+    //  },
+    ], {});
+  },
+
+  down: (queryInterface, Sequelize) => {
+    const Op = Sequelize.Op;
+    return queryInterface.bulkDelete('Venues', {}, {});
+  }
+};

@@ -18,10 +18,12 @@
   "proxy": "http://localhost:5000",
   "dependencies": {
     "aws-sdk": "^2.1046.0",
+    "date-fns": "^2.27.0",
+    "git-filter-repo": "^0.0.30",
+    "install": "^0.13.0",
     "multer": "^1.4.4",
     "sequelize-cli": "^6.3.0"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yosefalan/dancenomad.git"

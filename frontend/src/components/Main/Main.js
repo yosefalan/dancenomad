@@ -1,7 +1,7 @@
 import React from "react"
 import Navigation from '../Navigation/Navigation'
 import styles from "./Main.module.css"
-
+import Feed from '../Feed/Feed'
 
 function Main() {
   return (
@@ -12,6 +12,7 @@ function Main() {
         className={styles.banner}
         src ={'images/main.png'}></img>
       </div>
+      <Feed />
     </>
   )
 

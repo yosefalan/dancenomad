@@ -29,6 +29,31 @@
   height: 40px;
 }
 
+.navBarRight {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.userLinks {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.userText {
+  display: flex;
+  align-items: center;
+  width: 130px;
+  color: #39364F;
+}
+
+.buttonContainer:hover
+.dropdownContent {
+  display: flex;
+  flex-direction: column;
+}
+
 .linksContainer {
   height: 100%;
   display: flex;

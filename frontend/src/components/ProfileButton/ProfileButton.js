@@ -37,7 +37,8 @@ function ProfileButton({ user }) {
   return (
     <div className={styles.userLinks}>
       <div className={styles.buttonContainer}
-      onClick={openMenu}>
+      // onClick={openMenu}>
+      >
         <div className={styles.profileImageContainer}>
         {user
         ? user.url
@@ -57,7 +58,7 @@ function ProfileButton({ user }) {
           </div>
       </div>
       <p className={styles.userText}>{user?.username}</p>
-      {/* <img src="/images/caret.svg" className={styles.caret}></img> */}
+      <div className={styles.caret_container}><img src="/images/caret.png" className={styles.caret}></img></div>
     </div>
   );
 }

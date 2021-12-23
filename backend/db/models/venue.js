@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     lng: DataTypes.DECIMAL,
   }, {});
   Venue.associate = function(models) {
-    Venue.belongsTo(models.Event, { foreignKey: 'eventId' });
+    Venue.belongsTo(models.Event, { foreignKey: 'id' });
+    // Venue.hasOne(models.Venue_type, { foreignKey: 'id' });
     Venue.belongsToMany(models.Venue_type, {
       through: 'Venue_venue_type',
       as: 'venue_type',

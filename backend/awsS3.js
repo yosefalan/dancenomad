@@ -1,6 +1,6 @@
 const AWS = require("aws-sdk");
 // name of your bucket here
-const NAME_OF_BUCKET = "darebnb";
+const NAME_OF_BUCKET = "dancenomad";
 
 const multer = require("multer");
 

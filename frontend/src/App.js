@@ -8,16 +8,37 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import LoginPage from "./components/LoginPage/LoginPage";
 import SignupPage from "./components/SignupPage/SignupPage";
 import Main from "./components/Main/Main";
+import EventPage from "./components/EventPage/EventPage"
+import CreateEvent from "./components/CreateEvent/CreateEvent";
 
 function App() {
   const sessionUser = useSelector(state => state.session.user);
-  // const dispatch = useDispatch();
-  // const [isLoaded, setIsLoaded] = useState(false);
-  // useEffect(() => {
-  //   dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-  // }, [dispatch]);
-if(!sessionUser)
+  console.log("SESSION USER:", sessionUser)
+  const dispatch = useDispatch();
+  const [isLoaded, setIsLoaded] = useState(false);
+  useEffect(() => {
+    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+  }, [dispatch]);
+
+  if(sessionUser)
   return (
+    <>
+      <Switch />
+      <Route exact path='/'>
+        <Main />
+      </Route>
+
+      <Route exact path='/events/:id'>
+        <EventPage />
+      </Route>
+
+      <Route path='/events/manage/create'>
+        <CreateEvent />
+      </Route>
+    </>
+  )
+
+  else return (
     <>
       <Switch />
 
@@ -36,16 +57,6 @@ if(!sessionUser)
       {/* <Route exact path='/'>
         <NotFoundPage />
       </Route> */}
-    </>
-  )
-  return (
-
-    <>
-      <Switch />
-
-      <Route exact path='/'>
-        <Main />
-      </Route>
     </>
 
   )
