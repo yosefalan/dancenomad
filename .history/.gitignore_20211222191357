@@ -1,5 +1,5 @@
-testenv
+
 node_modules
-.env
+
 build
 .DS_Store
