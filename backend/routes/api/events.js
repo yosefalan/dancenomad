@@ -242,18 +242,12 @@ router.delete(
   "/:id",
   asyncHandler(async (req, res) => {
     console.log("********DESTROY EVENT API ROUTE")
-    const event = await Event.findByPk(+req.params.id,
-      {
-      include: [
-        { model: User },
-        { model: Genre, as: "event_genre" },
-        { model: Type, as: "event_type" },
-        { model: Venue,
-          include: [{ model: Venue_type, as: "venue_type" }]
-        },
-      ],
-    });
-    event.destroy()
+    event_id = +req.params.id
+    await Event.destroy( {where: {id: event_id}});
+    await Event_genre.destroy( {where: {eventId: event_id}});
+    await Event_type.destroy({where: {eventId: event_id}})
+    await Venue.destroy({where: {eventId: event_id}})
+    // await Event.destroy({where: {venueId: venue.id}})
   })
 );
 
