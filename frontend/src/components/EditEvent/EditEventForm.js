@@ -16,15 +16,15 @@ function EditEventForm ({ event }) {
     dispatch(getEvent(id));
   }, [dispatch]);
 
-  const e_genres = [event?.event_genre?.map(g => g.genre)]
-  const e_types = [event?.event_type?.map(t => t.type)]
+  // const e_genres = [event?.event_genre?.map(g => g.genre)]
+  // const e_types = [event?.event_type?.map(t => t.type)]
 
   const [name, setName] = useState(event?.name);
   const [description, setDescription] = useState(event?.description);
   const [start_date, setStart_date] = useState(event?.start_date);
   const [end_date, setEnd_date] = useState(event?.end_date);
   const [venue, setVenue] = useState(event?.Venues[0]?.name);
-  // const [venue_types, setVenue_types] = useState([])
+  const [venue_types, setVenue_types] = useState([])
   const [address, setAddress] = useState(event?.Venues[0]?.address);
   const [city, setCity] = useState(event?.Venues[0]?.city);
   const [state, setState] = useState(event?.Venues[0]?.state);
@@ -54,8 +54,8 @@ function EditEventForm ({ event }) {
   const updateLng = (e) => setLng(e?.target?.value);
   const updateImage = (e) => setImage(e?.target?.value);
   const updateVideo= (e) => setVideo(e?.target?.value);
-  const updateGenres = (e) => setGenres(e?.target?.value);
-  const updateTypes = (e) => setTypes(e?.target?.value);
+  // const updateGenres = (e) => setGenres(e?.target?.value);
+  // const updateTypes = (e) => setTypes(e?.target?.value);
 
 
   const handleEventSubmit = async (e) => {
@@ -78,7 +78,6 @@ function EditEventForm ({ event }) {
         setErrors(newErrors);
       }
     });
-    // console.log("HANDLE SUBMIT")
     if(new_event) history.push(`/events/${new_event.id}`)
     }
 
@@ -88,7 +87,7 @@ function EditEventForm ({ event }) {
       let newErrors = [];
       const new_event = await dispatch(editVenue({
         venue,
-        // venue_types,
+        venue_types,
         address,
         city,
         state: state?.value,
@@ -477,7 +476,6 @@ function EditEventForm ({ event }) {
     <div className={styles.form_container}>
       <h1>Edit your event</h1>
       <form
-      // onSubmit={handleSubmit}
       className={styles.form}>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
@@ -541,13 +539,13 @@ function EditEventForm ({ event }) {
           value={venue}
           onChange={updateVenue}
         />
-       {/* <Select
+       <Select
           isMulti
           defaultValue={venue_types}
-          onChange={updateVenue_types}
+          onChange={setVenue_types}
           options={venue_type_options}
           placeholder="Venue type (Selcect all that apply)"
-        /> */}
+        />
         <input
           type="text"
           className="field"

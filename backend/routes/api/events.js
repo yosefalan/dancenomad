@@ -189,7 +189,7 @@ router.put(
     const event_id = +req.params.id
     const {
       venue,
-      // venue_types,
+      venue_types,
       address,
       city,
       state,
@@ -199,9 +199,9 @@ router.put(
       lng,
     } = req.body;
 
-    const venues = await Venue.update({
+    const v = await Venue.update({
       name: venue,
-      // venue_types,
+      venue_types,
       address,
       city,
       state,
@@ -211,34 +211,29 @@ router.put(
       lng,
     },
     {
+      returning: true,
+      plain: true,
       where: {
         eventId: event_id
       }
-    
     })
-    // await event.update({
-    //   name,
-    //   description,
-    //   start_date,
-    //   end_date,
-    // });
+   
+    const v_id = v[1].dataValues.id
+    await Venue_venue_type.destroy({
+      where: {
+        venueId: v_id
+      }
+    });
 
+    venue_types.map((venue_type) => {
 
-    // await Event_genre.destroy({
-    //   where: {
-    //     eventId: event_id
-    //   }
-    // });
+      Venue_venue_type.create({
+        venueId: v_id,
+        venue_typeId: +venue_type.value,
+      });
+    });
 
-    // genres.map((genre) => {
-
-    //   Event_genre.create({
-    //     eventId: event_id,
-    //     genreId: +genre.value,
-    //   });
-    // });
-
-    return res.json(venue);
+    return res.json(v);
   })
 );
 
