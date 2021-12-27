@@ -133,6 +133,19 @@ export const editEvent = (data, id) => async dispatch => {
   }
 }
 
+export const editVenue = (data, id) => async dispatch => {
+  console.log("THUNK DATA!", data)
+  const response = await csrfFetch(`/api/events/${id}/venue`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  })
+  if(response.ok) {
+    const venue = await response.json();
+    dispatch(updateEvent(venue))
+    return venue
+  }
+}
 
 const initialState = {};
 

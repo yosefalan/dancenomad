@@ -31,8 +31,6 @@ router.get(
 router.get(
   "/:id(\\d+)",
   asyncHandler(async (req, res) => {
-    console.log("REQ PARAMS ID", req.params.id);
-
     const event = await Event.findByPk(+req.params.id,
 
       {
@@ -46,7 +44,6 @@ router.get(
         },
       ],
     });
-    console.log("EVENT", event)
     return res.json(event);
   })
 );
@@ -54,7 +51,6 @@ router.get(
 router.post(
   "/",
   multipleMulterUpload("files"),
-
   // validateSignup,
   asyncHandler(async (req, res) => {
     const {
@@ -155,7 +151,6 @@ router.put(
       end_date,
     });
 
-
     await Event_genre.destroy({
       where: {
         eventId: event_id
@@ -188,13 +183,63 @@ router.put(
   })
 );
 
-// router.put(
-//   '/:id/venue',
-//   asyncHandler(async(req, res) => {
-//     const event = await Event.findByPk(+req.params.id);
-//     await event.update(req.body);
-//     return res.json(event);
-//   })
-// );
+router.put(
+  '/:id/venue',
+  asyncHandler(async(req, res) => {
+    const event_id = +req.params.id
+    const {
+      venue,
+      // venue_types,
+      address,
+      city,
+      state,
+      zip,
+      country,
+      lat,
+      lng,
+    } = req.body;
+
+    const venues = await Venue.update({
+      name: venue,
+      // venue_types,
+      address,
+      city,
+      state,
+      zip,
+      country,
+      lat,
+      lng,
+    },
+    {
+      where: {
+        eventId: event_id
+      }
+    
+    })
+    // await event.update({
+    //   name,
+    //   description,
+    //   start_date,
+    //   end_date,
+    // });
+
+
+    // await Event_genre.destroy({
+    //   where: {
+    //     eventId: event_id
+    //   }
+    // });
+
+    // genres.map((genre) => {
+
+    //   Event_genre.create({
+    //     eventId: event_id,
+    //     genreId: +genre.value,
+    //   });
+    // });
+
+    return res.json(venue);
+  })
+);
 
 module.exports = router;

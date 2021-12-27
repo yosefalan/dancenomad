@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useParams, useHistory } from "react-router-dom";
-import { editEvent, getEvent } from '../../store/events'
+import { editEvent, getEvent, editVenue } from '../../store/events'
 import Select from 'react-select'
 import styles from './EditEvent.module.css'
 
@@ -58,7 +58,7 @@ function EditEventForm ({ event }) {
   const updateTypes = (e) => setTypes(e?.target?.value);
 
 
-  const handleSubmit = async (e) => {
+  const handleEventSubmit = async (e) => {
     e.preventDefault();
     let newErrors = [];
     const new_event = await dispatch(editEvent({
@@ -67,37 +67,10 @@ function EditEventForm ({ event }) {
       description,
       start_date,
       end_date,
-      // venue,
-      // // venue_types,
-      // address,
-      // city,
-      // state: state.value,
-      // zip,
-      // country: country.value,
-      // lat,
-      // lng,
       genres,
       types,
-      // image,
-      // video,
+
     }, id))
-    // .then(() => {
-      //   setName("");
-      //   setDescription("");
-      //   setStart_date(null);
-      //   setEnd_date(null);
-      //   setVenue("");
-      //   // setVenue_types(null);
-      //   setCity("");
-      //   setState("")
-      //   setCountry("");
-      //   setLat(null);
-      //   setLng(null);
-      //   setGenres(null);
-    //   setTypes(null);
-    //   setImage(null);
-    //   setVideo(null);
-    // })
     .catch(async (res) => {
       const data = await res.json();
       if (data && data.errors) {
@@ -108,6 +81,31 @@ function EditEventForm ({ event }) {
     // console.log("HANDLE SUBMIT")
     if(new_event) history.push(`/events/${new_event.id}`)
     }
+
+
+    const handleVenueSubmit = async (e) => {
+      e.preventDefault();
+      let newErrors = [];
+      const new_event = await dispatch(editVenue({
+        venue,
+        // venue_types,
+        address,
+        city,
+        state: state?.value,
+        zip,
+        country: country?.value,
+        lat,
+        lng,
+      }, id))
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          newErrors = data.errors;
+          setErrors(newErrors);
+        }
+      });
+      if(new_event) history.push(`/events/${new_event.id}`)
+      }
 
     const updateImageFile = (e) => {
       const file = e.target.files[0]
@@ -479,7 +477,7 @@ function EditEventForm ({ event }) {
     <div className={styles.form_container}>
       <h1>Edit your event</h1>
       <form
-      onSubmit={handleSubmit}
+      // onSubmit={handleSubmit}
       className={styles.form}>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
@@ -529,6 +527,12 @@ function EditEventForm ({ event }) {
           options={type_options}
           placeholder="Event Type (Selcect all that apply)"
           />
+
+        <button
+          onClick={handleEventSubmit}
+          type="submit" id="submitButton"
+          className="spotSubmitButton"
+          >Update Event Info</button>
         <input
           type="text"
           className="field"
@@ -596,6 +600,11 @@ function EditEventForm ({ event }) {
           value={lng}
           onChange={updateLng}
         />
+        <button
+          onClick={handleVenueSubmit}
+          type="submit" id="submitButton"
+          className="spotSubmitButton"
+          >Update Venue Info</button>
         <div className={styles.buttons_container}>
 
           <label className="uploadLabel">
@@ -612,9 +621,6 @@ function EditEventForm ({ event }) {
           onChange={updateVideoFile} />
           </label>
 
-          <button type="submit" id="submitButton"
-          className="spotSubmitButton"
-          >Submit</button>
         </div>
       </form>
     </div>
