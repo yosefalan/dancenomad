@@ -16,6 +16,7 @@ const {
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { singlePublicFileUpload, singleMulterUpload, multipleMulterUpload, multiplePublicFileUpload } = require("../../awsS3");
+const { EventBridge } = require("aws-sdk");
 
 const router = express.Router();
 
@@ -137,8 +138,8 @@ router.post(
 router.put(
   '/:id',
   asyncHandler(async(req, res) => {
-    const eventId = +req.params.id
-    const event = await Event.findByPk(eventId);
+    const event_id = +req.params.id
+    const event = await Event.findByPk(event_id);
     const {
       name,
       description,
@@ -153,29 +154,36 @@ router.put(
       start_date,
       end_date,
     });
-    const e_g = Event_genre.findAll({
+
+
+    await Event_genre.destroy({
       where: {
-        eventId: eventId
+        eventId: event_id
       }
     });
-    console.log("%%%%% GENRES %%%%%%%%%%", e_g)
-    // const g = JSON.parse(genres)
-    // genres.map((genre) => {
 
-    //   e_g.update({
-    //     eventId,
-    //     genreId: +genre.value,
-    //   });
-    // });
+    genres.map((genre) => {
 
-    // const t = JSON.parse(types)
-    // t.map((type) => {
+      Event_genre.create({
+        eventId: event_id,
+        genreId: +genre.value,
+      });
+    });
 
-    //   Event_type.update({
-    //     eventId,
-    //     typeId: +type.value,
-    //   });
-    // });
+    await Event_type.destroy({
+      where: {
+        eventId: event_id
+      }
+    });
+
+    types.map((type) => {
+
+      Event_type.create({
+        eventId: event_id,
+        typeId: +type.value,
+      });
+    });
+
     return res.json(event);
   })
 );
