@@ -11,6 +11,7 @@ const {
   Venue,
   Venue_type,
   Venue_venue_type,
+  Sequelize,
 } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
@@ -31,15 +32,24 @@ router.get(
   asyncHandler(async (req, res) => {
     console.log("REQ PARAMS ID", req.params.id);
 
-    const event = await Event.findByPk(+req.params.id, {
+    const event = await Event.findByPk(+req.params.id,
+
+      {
       include: [
         { model: User },
         { model: Genre, as: "event_genre" },
         { model: Type, as: "event_type" },
 
-        { model: Venue, include: [{ model: Venue_type, as: "venue_type" }] },
+        { model: Venue,
+          // required: true,
+          // duplicating: false,
+          // where:
+          // { eventId: Sequelize.col('event.id')},
+          // include: [{ model: Venue_type, as: "venue_type" }]
+        },
       ],
     });
+    console.log("EVENT", event)
     return res.json(event);
   })
 );

@@ -10,9 +10,13 @@ import SignupPage from "./components/SignupPage/SignupPage";
 import Main from "./components/Main/Main";
 import EventPage from "./components/EventPage/EventPage"
 import CreateEvent from "./components/CreateEvent/CreateEvent";
+import EditEvent from "./components/EditEvent/EditEvent";
+
+
 
 function App() {
   const sessionUser = useSelector(state => state.session.user);
+  const event = useSelector(state => Object.values(state?.events))[0];
   console.log("SESSION USER:", sessionUser)
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -34,6 +38,10 @@ function App() {
 
       <Route path='/events/manage/create'>
         <CreateEvent />
+      </Route>
+
+      <Route path='/events/manage/edit/:id'>
+        <EditEvent event={event} />
       </Route>
     </>
   )

@@ -120,6 +120,20 @@ export const newEvent = (event) => async (dispatch) => {
   };
 }
 
+export const editEvent = (data, id) => async dispatch => {
+  const response = await csrfFetch(`/api/events/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  })
+  if(response.ok) {
+    const event = await response.json();
+    dispatch(updateEvent(event))
+    return event
+  }
+}
+
+
 const initialState = {};
 
 const eventsReducer = (state = initialState, action) => {
