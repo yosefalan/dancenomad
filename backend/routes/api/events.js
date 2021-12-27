@@ -11,10 +11,12 @@ const {
   Venue,
   Venue_type,
   Venue_venue_type,
+  Sequelize,
 } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { singlePublicFileUpload, singleMulterUpload, multipleMulterUpload, multiplePublicFileUpload } = require("../../awsS3");
+const { EventBridge } = require("aws-sdk");
 
 const router = express.Router();
 
@@ -29,15 +31,17 @@ router.get(
 router.get(
   "/:id(\\d+)",
   asyncHandler(async (req, res) => {
-    console.log("REQ PARAMS ID", req.params.id);
+    const event = await Event.findByPk(+req.params.id,
 
-    const event = await Event.findByPk(+req.params.id, {
+      {
       include: [
         { model: User },
         { model: Genre, as: "event_genre" },
         { model: Type, as: "event_type" },
 
-        { model: Venue, include: [{ model: Venue_type, as: "venue_type" }] },
+        { model: Venue,
+          include: [{ model: Venue_type, as: "venue_type" }]
+        },
       ],
     });
     return res.json(event);
@@ -47,7 +51,6 @@ router.get(
 router.post(
   "/",
   multipleMulterUpload("files"),
-
   // validateSignup,
   asyncHandler(async (req, res) => {
     const {
@@ -71,10 +74,18 @@ router.post(
       // files
     } = req.body;
     const url = await multiplePublicFileUpload(req.files);
-    console.log("++++++++++++++++++++++++++ URL:", start_date, end_date)
     const image_url = url[0]
     const video_url = url[1]
-    console.log("&&&&&&&&&", image_url, video_url)
+    const event = await Event.create({
+      hostId,
+      name,
+      description,
+      start_date,
+      end_date,
+      image_url,
+      video_url
+    });
+    const eventId = event.id;
     const v = await Venue.create({
       name: venue,
       address,
@@ -84,19 +95,9 @@ router.post(
       country,
       lat,
       lng,
+      eventId: eventId
     });
     const venueId = v.id;
-    const event = await Event.create({
-      hostId,
-      venueId: venueId,
-      name,
-      description,
-      start_date,
-      end_date,
-      image_url,
-      video_url
-    });
-    const eventId = event.id;
     const g = JSON.parse(genres)
     g.map((genre) => {
 
@@ -127,6 +128,125 @@ router.post(
     return res.json({
       event
     });
+  })
+);
+
+router.put(
+  '/:id',
+  asyncHandler(async(req, res) => {
+    const event_id = +req.params.id
+    const event = await Event.findByPk(event_id);
+    const {
+      name,
+      description,
+      start_date,
+      end_date,
+      genres,
+      types,
+    } = req.body;
+    await event.update({
+      name,
+      description,
+      start_date,
+      end_date,
+    });
+
+    await Event_genre.destroy({
+      where: {
+        eventId: event_id
+      }
+    });
+
+    genres.map((genre) => {
+
+      Event_genre.create({
+        eventId: event_id,
+        genreId: +genre.value,
+      });
+    });
+
+    await Event_type.destroy({
+      where: {
+        eventId: event_id
+      }
+    });
+
+    types.map((type) => {
+
+      Event_type.create({
+        eventId: event_id,
+        typeId: +type.value,
+      });
+    });
+
+    return res.json(event);
+  })
+);
+
+router.put(
+  '/:id/venue',
+  asyncHandler(async(req, res) => {
+    const event_id = +req.params.id
+    const {
+      venue,
+      venue_types,
+      address,
+      city,
+      state,
+      zip,
+      country,
+      lat,
+      lng,
+    } = req.body;
+
+    const v = await Venue.update({
+      name: venue,
+      venue_types,
+      address,
+      city,
+      state,
+      zip,
+      country,
+      lat,
+      lng,
+    },
+    {
+      returning: true,
+      plain: true,
+      where: {
+        eventId: event_id
+      }
+    })
+
+    const v_id = v[1].dataValues.id
+    await Venue_venue_type.destroy({
+      where: {
+        venueId: v_id
+      }
+    });
+
+    venue_types.map((venue_type) => {
+
+      Venue_venue_type.create({
+        venueId: v_id,
+        venue_typeId: +venue_type.value,
+      });
+    });
+
+    return res.json(v);
+  })
+);
+
+router.delete(
+  "/:id",
+  asyncHandler(async (req, res) => {
+    console.log("********DESTROY EVENT API ROUTE")
+    event_id = +req.params.id
+    await Event.destroy( {where: {id: event_id}});
+    await Event_genre.destroy( {where: {eventId: event_id}});
+    await Event_type.destroy({where: {eventId: event_id}})
+    await Venue.destroy({where: {eventId: event_id}})
+    // await Event.destroy({where: {venueId: venue.id}})
   })
 );
 

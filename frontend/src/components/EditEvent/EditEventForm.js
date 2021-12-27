@@ -1,84 +1,110 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { newEvent } from '../../store/events'
+import { Redirect, useParams, useHistory } from "react-router-dom";
+import { editEvent, getEvent, editVenue } from '../../store/events'
 import Select from 'react-select'
-import styles from './CreateEvent.module.css'
+import styles from './EditEvent.module.css'
 
-function CreateEventForm () {
+function EditEventForm ({ event }) {
+  const id  = useParams().id;
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session?.user);
   const hostId = sessionUser?.id
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [start_date, setStart_date] = useState(null);
-  const [end_date, setEnd_date] = useState(null);
-  const [venue, setVenue] = useState("");
-  const [venue_types, setVenue_types] = useState([]);
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zip, setZip] = useState("");
-  const [country, setCountry] = useState("");
-  const [lat, setLat] = useState(null);
-  const [lng, setLng] = useState(null);
-  const [image, setImage] = useState(null);
+
+  useEffect(() => {
+    dispatch(getEvent(id));
+  }, [dispatch]);
+
+  // const e_genres = [event?.event_genre?.map(g => g.genre)]
+  // const e_types = [event?.event_type?.map(t => t.type)]
+
+  const [name, setName] = useState(event?.name);
+  const [description, setDescription] = useState(event?.description);
+  const [start_date, setStart_date] = useState(event?.start_date);
+  const [end_date, setEnd_date] = useState(event?.end_date);
+  const [venue, setVenue] = useState(event?.Venues[0]?.name);
+  const [venue_types, setVenue_types] = useState([])
+  const [address, setAddress] = useState(event?.Venues[0]?.address);
+  const [city, setCity] = useState(event?.Venues[0]?.city);
+  const [state, setState] = useState(event?.Venues[0]?.state);
+  const [zip, setZip] = useState(event?.Venues[0]?.zip);
+  const [country, setCountry] = useState(event?.Venues[0]?.country);
+  const [lat, setLat] = useState(event?.Venues[0]?.lat);
+  const [lng, setLng] = useState(event?.Venues[0]?.lng);
+  const [image, setImage] = useState([]);
   const [video, setVideo] = useState([]);
   const [genres, setGenres] = useState([]);
   const [types, setTypes] = useState([]);
   const [errors, setErrors] = useState([]);
 
-  const handleSubmit = async (e) => {
-    console.log("HANDLE SUBMIT")
+
+  const updateName = (e) => setName(e?.target?.value);
+  const updateDescription = (e) => setDescription(e?.target?.value);
+  const updateStart_date = (e) => setStart_date(e?.target?.value);
+  const updateEnd_date = (e) => setEnd_date(e?.target?.value);
+  const updateVenue = (e) => setVenue(e?.target?.value);
+  // const updateVenue_types = (e) => setVenue_types(e?.target?.value);
+  const updateAddress = (e) => setAddress(e?.target?.value);
+  const updateCity = (e) => setCity(e?.target?.value);
+  const updateState = (e) => setState(e?.target?.value);
+  const updateZip = (e) => setZip(e?.target?.value);
+  const updateCountry = (e) => setCountry(e?.target?.value);
+  const updateLat = (e) => setLat(e?.target?.value);
+  const updateLng = (e) => setLng(e?.target?.value);
+  const updateImage = (e) => setImage(e?.target?.value);
+  const updateVideo= (e) => setVideo(e?.target?.value);
+  // const updateGenres = (e) => setGenres(e?.target?.value);
+  // const updateTypes = (e) => setTypes(e?.target?.value);
+
+
+  const handleEventSubmit = async (e) => {
     e.preventDefault();
     let newErrors = [];
-    const new_event = await dispatch(newEvent({
+    const new_event = await dispatch(editEvent({
       hostId,
       name,
       description,
       start_date,
       end_date,
-      venue,
-      venue_types,
-      address,
-      city,
-      state: state.value,
-      zip,
-      country: country.value,
-      lat,
-      lng,
       genres,
       types,
-      image,
-      video,
-    }))
-    .then(() => {
-      setName("");
-      setDescription("");
-      setStart_date(null);
-      setEnd_date(null);
-      setVenue("");
-      setVenue_types(null);
-      setCity("");
-      setState("")
-      setCountry("");
-      setLat(null);
-      setLng(null);
-      setGenres(null);
-      setTypes([]);
-      setImage([]);
-      setVideo([]);
-    })
+
+    }, id))
     .catch(async (res) => {
       const data = await res.json();
       if (data && data.errors) {
         newErrors = data.errors;
         setErrors(newErrors);
       }
+    });
+    if(new_event) history.push(`/events/${new_event.id}`)
+    }
+
+
+    const handleVenueSubmit = async (e) => {
+      e.preventDefault();
+      let newErrors = [];
+      const new_event = await dispatch(editVenue({
+        venue,
+        venue_types,
+        address,
+        city,
+        state: state?.value,
+        zip,
+        country: country?.value,
+        lat,
+        lng,
+      }, id))
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          newErrors = data.errors;
+          setErrors(newErrors);
+        }
       });
       if(new_event) history.push(`/events/${new_event.id}`)
-    }
+      }
 
     const updateImageFile = (e) => {
       const file = e.target.files[0]
@@ -448,9 +474,8 @@ function CreateEventForm () {
 
   return (
     <div className={styles.form_container}>
-      <h1>Let's create your event</h1>
+      <h1>Edit your event</h1>
       <form
-      onSubmit={handleSubmit}
       className={styles.form}>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
@@ -460,15 +485,15 @@ function CreateEventForm () {
           className="field"
           placeholder="Event Name"
           autocomplete="new-password"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          defaultValue={name}
+          onChange={updateName}
         />
         <textarea
           className="field"
           placeholder="Description"
           autocomplete="new-password"
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={updateDescription}
         />
         <input
           type="date"
@@ -476,7 +501,7 @@ function CreateEventForm () {
           placeholder="Start Date"
           autocomplete="new-password"
           value={start_date}
-          onChange={(e) => setStart_date(e.target.value)}
+          onChange={updateStart_date}
         />
         <input
           type="date"
@@ -484,15 +509,35 @@ function CreateEventForm () {
           placeholder="End Date"
           autocomplete="new-password"
           value={end_date}
-          onChange={(e) => setEnd_date(e.target.value)}
+          onChange={updateEnd_date}
         />
+        <Select
+          isMulti
+          defaultValue={genres}
+          onChange={setGenres}
+          options={genre_options}
+          placeholder="Genres (Selcect all that apply)"
+        />
+        <Select
+          isMulti
+          defaultValue={types}
+          onChange={setTypes}
+          options={type_options}
+          placeholder="Event Type (Selcect all that apply)"
+          />
+
+        <button
+          onClick={handleEventSubmit}
+          type="submit" id="submitButton"
+          className="spotSubmitButton"
+          >Update Event Info</button>
         <input
           type="text"
           className="field"
           placeholder="Venue Name"
           autocomplete="new-password"
           value={venue}
-          onChange={(e) => setVenue(e.target.value)}
+          onChange={updateVenue}
         />
        <Select
           isMulti
@@ -507,7 +552,7 @@ function CreateEventForm () {
           placeholder="Address"
           autocomplete="new-password"
           value={address}
-          onChange={(e) => setAddress(e.target.value)}
+          onChange={updateAddress}
         />
         <input
           type="text"
@@ -515,11 +560,11 @@ function CreateEventForm () {
           placeholder="City"
           autocomplete="new-password"
           value={city}
-          onChange={(e) => setCity(e.target.value)}
+          onChange={updateCity}
         />
          <Select
           defaultValue={state}
-          onChange={setState}
+          onChange={updateState}
           options={state_options}
           placeholder="State (US Only)"
         />
@@ -529,11 +574,11 @@ function CreateEventForm () {
           placeholder="Zip Code"
           autocomplete="new-password"
           value={zip}
-          onChange={(e) => setZip(e.target.value)}
+          onChange={updateZip}
         />
         <Select
           defaultValue={country}
-          onChange={setCountry}
+          onChange={updateCountry}
           options={country_options}
           placeholder="Select Country"
         />
@@ -543,7 +588,7 @@ function CreateEventForm () {
           placeholder="Lattitude"
           autocomplete="new-password"
           value={lat}
-          onChange={(e) => setLat(e.target.value)}
+          onChange={updateLat}
         />
         <input
           type="number"
@@ -551,45 +596,33 @@ function CreateEventForm () {
           placeholder="Longitude"
           autocomplete="new-password"
           value={lng}
-          onChange={(e) => setLng(e.target.value)}
+          onChange={updateLng}
         />
-        <Select
-          isMulti
-          defaultValue={genres}
-          onChange={setGenres}
-          options={genre_options}
-          placeholder="Genres (Selcect all that apply)"
-        />
-        <Select
-         isMulti
-         defaultValue={types}
-         onChange={setTypes}
-         options={type_options}
-         placeholder="Event Type (Selcect all that apply)"
-         />
+        <button
+          onClick={handleVenueSubmit}
+          type="submit" id="submitButton"
+          className="spotSubmitButton"
+          >Update Venue Info</button>
         <div className={styles.buttons_container}>
 
-          <label className="uploadLabel">
+          {/* <label className="uploadLabel">
           Image Upload
           <input
           type="file"
           onChange={updateImageFile} />
-          </label>
+          </label> */}
 
-          <label className="uploadLabel">
+          {/* <label className="uploadLabel">
           Video Upload
           <input
           type="file"
           onChange={updateVideoFile} />
-          </label>
+          </label> */}
 
-          <button type="submit" id="submitButton"
-          className="spotSubmitButton"
-          >Submit</button>
         </div>
       </form>
     </div>
   )
 }
 
-export default CreateEventForm
+export default EditEventForm

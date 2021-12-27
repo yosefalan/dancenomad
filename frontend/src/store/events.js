@@ -115,10 +115,48 @@ export const newEvent = (event) => async (dispatch) => {
 
   if(res.ok) {
     const event = await res.json();
-    console.log("$$$$$$ RES OK $$$$$", event)
     dispatch(createEvent(event));
   };
 }
+
+export const editEvent = (data, id) => async dispatch => {
+  console.log("THUNK DATA!", data)
+  const response = await csrfFetch(`/api/events/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  })
+  if(response.ok) {
+    const event = await response.json();
+    dispatch(updateEvent(event))
+    return event
+  }
+}
+
+export const editVenue = (data, id) => async dispatch => {
+  console.log("THUNK DATA!", data)
+  const response = await csrfFetch(`/api/events/${id}/venue`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  })
+  if(response.ok) {
+    const venue = await response.json();
+    dispatch(updateEvent(venue))
+    return venue
+  }
+}
+
+export const destroyEvent = id => async dispatch => {
+  console.log("DESTROY EVENT THUNK")
+  const response = await csrfFetch(`/api/events/${id}`, {
+    method: 'DELETE',
+  });
+  if (response.ok) {
+    dispatch(deleteEvent(id));
+  }
+};
+
 
 const initialState = {};
 
