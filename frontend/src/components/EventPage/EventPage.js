@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { getEvent } from "../../store/events";
 import { format } from 'date-fns'
+import Register from '../Register/Register'
 import moment from 'moment'
 import styles from './EventPage.module.css'
 
@@ -26,6 +27,7 @@ function EventPage () {
   return (
     <>
       <h1>Event Page</h1>
+      <Register />
       <img src={event?.image_url}></img>
       <p>{event?.name}</p>
       <p>{event?.description}</p>
