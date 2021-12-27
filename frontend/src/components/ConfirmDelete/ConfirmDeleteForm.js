@@ -9,11 +9,11 @@ function ConfirmDelete({ id, setShowModal }){
   const dispatch = useDispatch();
   const history = useHistory();
 
-  setShowModal(true)
+  // setShowModal(true)
 
   const handleDelete = (id) => {
     dispatch(destroyEvent(id))
-    // history.push('/')
+    history.push('/')
   }
 
   return (

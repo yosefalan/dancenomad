@@ -7,25 +7,29 @@ import ConfirmDeleteForm from "./ConfirmDeleteForm";
 import './ConfirmDelete.css'
 
 const ConfirmDelete = ({ id }) => {
-  // const { id } = useParams();
-  const dispatch = useDispatch();
-  const history = useHistory();
+  // const dispatch = useDispatch();
+  // const history = useHistory();
   const [showModal, setShowModal] = useState(false);
   console.log("MODAL:", showModal)
 
-  const handleDelete = (id) => {
-    dispatch(destroyEvent(id))
-    history.push('/')
-  }
+  // const handleDelete = (id) => {
+  //   dispatch(destroyEvent(id))
+  //   history.push('/')
+  // }
 
 
   return (
     <>
-    <button  onClick={() => handleDelete(id)}
+    <button onClick={() => setShowModal(true)}
     className="eventButtonContainer"
     id>Permanently Delete Event</button>
-  </>
-  )
+    {showModal && (
+      <Modal onClose={() => setShowModal(false)}>
+        <ConfirmDeleteForm id={id} />
+      </Modal>
+    )}
+    </>
+    )
 
 }
 

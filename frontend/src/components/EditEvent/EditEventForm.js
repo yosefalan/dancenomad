@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useParams, useHistory } from "react-router-dom";
 import { editEvent, getEvent, editVenue } from '../../store/events'
-import ConfirmDelete from "../ConfirmDelete/ConfirmDelete";
 import Select from 'react-select'
 import styles from './EditEvent.module.css'
 
@@ -605,7 +604,7 @@ function EditEventForm ({ event }) {
           className="spotSubmitButton"
           >Update Venue Info</button>
         <div className={styles.buttons_container}>
-        <ConfirmDelete id={id} />
+
           {/* <label className="uploadLabel">
           Image Upload
           <input
