@@ -17,7 +17,6 @@ import EditEvent from "./components/EditEvent/EditEvent";
 function App() {
   const sessionUser = useSelector(state => state.session.user);
   const event = useSelector(state => Object.values(state?.events))[0];
-  console.log("SESSION USER:", sessionUser)
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {

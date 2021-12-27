@@ -217,7 +217,7 @@ router.put(
         eventId: event_id
       }
     })
-   
+
     const v_id = v[1].dataValues.id
     await Venue_venue_type.destroy({
       where: {
@@ -234,6 +234,26 @@ router.put(
     });
 
     return res.json(v);
+  })
+);
+
+
+router.delete(
+  "/:id",
+  asyncHandler(async (req, res) => {
+    console.log("********DESTROY EVENT API ROUTE")
+    const event = await Event.findByPk(+req.params.id,
+      {
+      include: [
+        { model: User },
+        { model: Genre, as: "event_genre" },
+        { model: Type, as: "event_type" },
+        { model: Venue,
+          include: [{ model: Venue_type, as: "venue_type" }]
+        },
+      ],
+    });
+    event.destroy()
   })
 );
 

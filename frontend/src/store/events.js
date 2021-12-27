@@ -147,6 +147,17 @@ export const editVenue = (data, id) => async dispatch => {
   }
 }
 
+export const destroyEvent = id => async dispatch => {
+  console.log("DESTROY EVENT THUNK")
+  const response = await csrfFetch(`/api/events/${id}`, {
+    method: 'DELETE',
+  });
+  if (response.ok) {
+    dispatch(deleteEvent(id));
+  }
+};
+
+
 const initialState = {};
 
 const eventsReducer = (state = initialState, action) => {
