@@ -12,74 +12,53 @@ function EditEventForm ({ event }) {
   const sessionUser = useSelector((state) => state.session?.user);
   const hostId = sessionUser?.id
 
-
-  // const event = useSelector(state => Object.values(state?.events))[0];
-
   useEffect(() => {
     dispatch(getEvent(id));
-      // setName();
-      // setDescription();
-      // setStart_date();
-      // setEnd_date();
-      // setVenue();
-      // // setVenue_types();
-      // setCity();
-      // setState()
-      // setCountry();
-      // setLat();
-      // setLng();
-      // setGenres();
-      // setTypes();
-      // setImage();
-      // setVideo();
   }, [dispatch]);
 
   const e_genres = [event?.event_genre?.map(g => g.genre)]
   const e_types = [event?.event_type?.map(t => t.type)]
 
-  console.log("EVENT:", event?.name)
-
   const [name, setName] = useState(event?.name);
   const [description, setDescription] = useState(event?.description);
   const [start_date, setStart_date] = useState(event?.start_date);
   const [end_date, setEnd_date] = useState(event?.end_date);
-  const [venue, setVenue] = useState(event?.Venue?.name);
+  const [venue, setVenue] = useState(event?.Venues[0]?.name);
   // const [venue_types, setVenue_types] = useState([])
-  const [address, setAddress] = useState(event?.Venue?.address);
-  const [city, setCity] = useState(event?.Venue?.city);
-  const [state, setState] = useState(event?.Venue?.state);
-  const [zip, setZip] = useState(event?.Venue?.zip);
-  const [country, setCountry] = useState(event?.Venue?.country);
-  const [lat, setLat] = useState(event?.Venue?.lat);
-  const [lng, setLng] = useState(event?.Venue?.lng);
-  const [image, setImage] = useState(event?.image_url);
-  const [video, setVideo] = useState(event?.video_url);
-  const [genres, setGenres] = useState(event?.event_genre);
-  const [types, setTypes] = useState(event?.event_type);
+  const [address, setAddress] = useState(event?.Venues[0]?.address);
+  const [city, setCity] = useState(event?.Venues[0]?.city);
+  const [state, setState] = useState(event?.Venues[0]?.state);
+  const [zip, setZip] = useState(event?.Venues[0]?.zip);
+  const [country, setCountry] = useState(event?.Venues[0]?.country);
+  const [lat, setLat] = useState(event?.Venues[0]?.lat);
+  const [lng, setLng] = useState(event?.Venues[0]?.lng);
+  const [image, setImage] = useState([]);
+  const [video, setVideo] = useState([]);
+  const [genres, setGenres] = useState([]);
+  const [types, setTypes] = useState([]);
   const [errors, setErrors] = useState([]);
 
 
-  const updateName = (e) => setName(e.target.value);
-  const updateDescription = (e) => setDescription(e.target.value);
-  const updateStart_date = (e) => setStart_date(e.target.value);
-  const updateEnd_date = (e) => setEnd_date(e.target.value);
-  const updateVenue = (e) => setVenue(e.target.value);
-  // const updateVenue_types = (e) => setVenue_types(e.target.value);
-  const updateAddress = (e) => setAddress(e.target.value);
-  const updateCity = (e) => setCity(e.target.value);
-  const updateState = (e) => setState(e.target.value);
-  const updateZip = (e) => setZip(e.target.value);
-  const updateCountry = (e) => setCountry(e.target.value);
-  const updateLat = (e) => setLat(e.target.value);
-  const updateLng = (e) => setLng(e.target.value);
-  const updateImage = (e) => setImage(e.target.value);
-  const updateVideo= (e) => setVideo(e.target.value);
-  const updateGenres = (e) => setGenres(e.target.value);
-  const updateTypes = (e) => setTypes(e.target.value);
+  const updateName = (e) => setName(e?.target?.value);
+  const updateDescription = (e) => setDescription(e?.target?.value);
+  const updateStart_date = (e) => setStart_date(e?.target?.value);
+  const updateEnd_date = (e) => setEnd_date(e?.target?.value);
+  const updateVenue = (e) => setVenue(e?.target?.value);
+  // const updateVenue_types = (e) => setVenue_types(e?.target?.value);
+  const updateAddress = (e) => setAddress(e?.target?.value);
+  const updateCity = (e) => setCity(e?.target?.value);
+  const updateState = (e) => setState(e?.target?.value);
+  const updateZip = (e) => setZip(e?.target?.value);
+  const updateCountry = (e) => setCountry(e?.target?.value);
+  const updateLat = (e) => setLat(e?.target?.value);
+  const updateLng = (e) => setLng(e?.target?.value);
+  const updateImage = (e) => setImage(e?.target?.value);
+  const updateVideo= (e) => setVideo(e?.target?.value);
+  const updateGenres = (e) => setGenres(e?.target?.value);
+  const updateTypes = (e) => setTypes(e?.target?.value);
 
 
   const handleSubmit = async (e) => {
-    console.log("HANDLE SUBMIT")
     e.preventDefault();
     let newErrors = [];
     const new_event = await dispatch(editEvent({
@@ -88,33 +67,33 @@ function EditEventForm ({ event }) {
       description,
       start_date,
       end_date,
-      venue,
-      // venue_types,
-      address,
-      city,
-      state: state.value,
-      zip,
-      country: country.value,
-      lat,
-      lng,
+      // venue,
+      // // venue_types,
+      // address,
+      // city,
+      // state: state.value,
+      // zip,
+      // country: country.value,
+      // lat,
+      // lng,
       genres,
       types,
-      image,
-      video,
-    }))
+      // image,
+      // video,
+    }, id))
     // .then(() => {
-    //   setName("");
-    //   setDescription("");
-    //   setStart_date(null);
-    //   setEnd_date(null);
-    //   setVenue("");
-    //   // setVenue_types(null);
-    //   setCity("");
-    //   setState("")
-    //   setCountry("");
-    //   setLat(null);
-    //   setLng(null);
-    //   setGenres(null);
+      //   setName("");
+      //   setDescription("");
+      //   setStart_date(null);
+      //   setEnd_date(null);
+      //   setVenue("");
+      //   // setVenue_types(null);
+      //   setCity("");
+      //   setState("")
+      //   setCountry("");
+      //   setLat(null);
+      //   setLng(null);
+      //   setGenres(null);
     //   setTypes(null);
     //   setImage(null);
     //   setVideo(null);
@@ -125,8 +104,9 @@ function EditEventForm ({ event }) {
         newErrors = data.errors;
         setErrors(newErrors);
       }
-      });
-      if(new_event) history.push(`/events/${new_event.id}`)
+    });
+    // console.log("HANDLE SUBMIT")
+    if(new_event) history.push(`/events/${new_event.id}`)
     }
 
     const updateImageFile = (e) => {
@@ -535,6 +515,20 @@ function EditEventForm ({ event }) {
           value={end_date}
           onChange={updateEnd_date}
         />
+        <Select
+          isMulti
+          defaultValue={genres}
+          onChange={setGenres}
+          options={genre_options}
+          placeholder="Genres (Selcect all that apply)"
+        />
+        <Select
+          isMulti
+          defaultValue={types}
+          onChange={setTypes}
+          options={type_options}
+          placeholder="Event Type (Selcect all that apply)"
+          />
         <input
           type="text"
           className="field"
@@ -602,20 +596,6 @@ function EditEventForm ({ event }) {
           value={lng}
           onChange={updateLng}
         />
-        <Select
-          isMulti
-          defaultValue={genres}
-          onChange={updateGenres}
-          options={genre_options}
-          placeholder="Genres (Selcect all that apply)"
-        />
-        <Select
-         isMulti
-         defaultValue={types}
-         onChange={updateTypes}
-         options={type_options}
-         placeholder="Event Type (Selcect all that apply)"
-         />
         <div className={styles.buttons_container}>
 
           <label className="uploadLabel">

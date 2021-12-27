@@ -115,12 +115,12 @@ export const newEvent = (event) => async (dispatch) => {
 
   if(res.ok) {
     const event = await res.json();
-    console.log("$$$$$$ RES OK $$$$$", event)
     dispatch(createEvent(event));
   };
 }
 
 export const editEvent = (data, id) => async dispatch => {
+  console.log("THUNK DATA!", data)
   const response = await csrfFetch(`/api/events/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json'},

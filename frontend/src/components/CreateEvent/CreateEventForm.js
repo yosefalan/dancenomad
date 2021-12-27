@@ -66,9 +66,9 @@ function CreateEventForm () {
       setLat(null);
       setLng(null);
       setGenres(null);
-      setTypes(null);
-      setImage(null);
-      setVideo(null);
+      setTypes([]);
+      setImage([]);
+      setVideo([]);
     })
     .catch(async (res) => {
       const data = await res.json();

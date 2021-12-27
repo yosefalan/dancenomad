@@ -41,11 +41,7 @@ router.get(
         { model: Type, as: "event_type" },
 
         { model: Venue,
-          // required: true,
-          // duplicating: false,
-          // where:
-          // { eventId: Sequelize.col('event.id')},
-          // include: [{ model: Venue_type, as: "venue_type" }]
+          include: [{ model: Venue_type, as: "venue_type" }]
         },
       ],
     });
@@ -81,10 +77,18 @@ router.post(
       // files
     } = req.body;
     const url = await multiplePublicFileUpload(req.files);
-    console.log("++++++++++++++++++++++++++ URL:", start_date, end_date)
     const image_url = url[0]
     const video_url = url[1]
-    console.log("&&&&&&&&&", image_url, video_url)
+    const event = await Event.create({
+      hostId,
+      name,
+      description,
+      start_date,
+      end_date,
+      image_url,
+      video_url
+    });
+    const eventId = event.id;
     const v = await Venue.create({
       name: venue,
       address,
@@ -94,19 +98,9 @@ router.post(
       country,
       lat,
       lng,
+      eventId: eventId
     });
     const venueId = v.id;
-    const event = await Event.create({
-      hostId,
-      venueId: venueId,
-      name,
-      description,
-      start_date,
-      end_date,
-      image_url,
-      video_url
-    });
-    const eventId = event.id;
     const g = JSON.parse(genres)
     g.map((genre) => {
 
@@ -139,5 +133,60 @@ router.post(
     });
   })
 );
+
+router.put(
+  '/:id',
+  asyncHandler(async(req, res) => {
+    const eventId = +req.params.id
+    const event = await Event.findByPk(eventId);
+    const {
+      name,
+      description,
+      start_date,
+      end_date,
+      genres,
+      types,
+    } = req.body;
+    await event.update({
+      name,
+      description,
+      start_date,
+      end_date,
+    });
+    const e_g = Event_genre.findAll({
+      where: {
+        eventId: eventId
+      }
+    });
+    console.log("%%%%% GENRES %%%%%%%%%%", e_g)
+    // const g = JSON.parse(genres)
+    // genres.map((genre) => {
+
+    //   e_g.update({
+    //     eventId,
+    //     genreId: +genre.value,
+    //   });
+    // });
+
+    // const t = JSON.parse(types)
+    // t.map((type) => {
+
+    //   Event_type.update({
+    //     eventId,
+    //     typeId: +type.value,
+    //   });
+    // });
+    return res.json(event);
+  })
+);
+
+// router.put(
+//   '/:id/venue',
+//   asyncHandler(async(req, res) => {
+//     const event = await Event.findByPk(+req.params.id);
+//     await event.update(req.body);
+//     return res.json(event);
+//   })
+// );
 
 module.exports = router;
