@@ -12,10 +12,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      venueId: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
       name: {
         allowNull: false,
         type: Sequelize.STRING(255)
@@ -31,9 +27,6 @@ module.exports = {
       end_date: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      capacity: {
-        type: Sequelize.INTEGER
       },
       image_url: {
         type: Sequelize.STRING

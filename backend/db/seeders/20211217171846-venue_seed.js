@@ -4,6 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Venues', [
      {
+      eventId: 1,
       name: 'Glen Echo Spanish Ballroom',
       address: '7300 Macarthur Blvd, 18910, United States,',
       city: 'Bethesda',
@@ -14,6 +15,7 @@ module.exports = {
       lng: -77.13902804,
      },
      {
+      eventId: 2,
       name: 'Crystal Gateway Marriott',
       address: '1700 Richmond Hwy',
       city: 'Arlington',
@@ -24,6 +26,7 @@ module.exports = {
       lng: -77.05253425,
      },
      {
+      eventId: 3,
       name: 'Salsa Con Todo Studio ',
       address: '211 N 36th St, ',
       city: 'Seattle',
@@ -34,6 +37,7 @@ module.exports = {
       lng: -122.3560322,
      },
      {
+      eventId: 4,
       name: 'Hilton Palm Beach Airport',
       address: '2875 NE 191st St',
       city: 'Miami ',
@@ -44,6 +48,7 @@ module.exports = {
       lng: -80.14341516,
      },
      {
+      eventId: 5,
       name: 'Sheraton New York Times Square',
       address: '811 7th Avenue ',
       city: 'New York ',
@@ -54,6 +59,7 @@ module.exports = {
       lng: -73.98162146,
      },
      {
+      eventId: 6,
       name: 'The Westin Baltimore Washington Airport - BWI',
       address: '1110 Old Elkridge Landing Rd',
       city: 'Baltimore ',
@@ -64,6 +70,7 @@ module.exports = {
       lng: -76.69302545,
      },
      {
+      eventId: 7,
       name: 'New York Marriot Marquis',
       address: '1535 Broadway, 45th St',
       city: 'New York ',
@@ -74,6 +81,7 @@ module.exports = {
       lng: -73.98572146,
      },
      {
+      eventId: 8,
       name: 'Playa del Carmen ',
       address: '',
       city: 'Playa del Carmen ',
@@ -84,6 +92,7 @@ module.exports = {
       lng: -87.0627707,
      },
      {
+      eventId: 9,
       name: 'Renaissance Hotel',
       address: '999 9th St NW',
       city: 'Washington ',
@@ -94,6 +103,7 @@ module.exports = {
       lng: -77.0234,
      },
      {
+      eventId: 10,
       name: 'Hilton Baltimore',
       address: '401 W Pratt St',
       city: 'Baltimore ',
