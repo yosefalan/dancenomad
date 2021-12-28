@@ -5,7 +5,7 @@ import RegistrationForm from "./RegistrationForm";
 import styles from './Register.module.css'
 
 
-function Register () {
+function Register ({ event }) {
 
   const [showModal, setShowModal] = useState(false);
 
@@ -18,7 +18,7 @@ function Register () {
       >Register</button>
          {showModal && (
       <Modal onClose={() => setShowModal(false)}>
-        <RegistrationForm />
+        <RegistrationForm event={event}/>
       </Modal>
     )}
     </>

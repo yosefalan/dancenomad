@@ -6,26 +6,38 @@ module.exports = {
       {
         eventId: 2,
         userId: 18,
+        firstName: 'Demo',
+        lastName: 'Lition'
       },
       {
         eventId: 9,
-        userId: 18
+        userId: 18,
+        firstName: 'Demo',
+        lastName: 'Lition'
       },
       {
         eventId: 8,
-        userId: 18
+        userId: 18,
+        firstName: 'Demo',
+        lastName: 'Lition'
       },
       {
         eventId: 3,
-        userId: 18
+        userId: 18,
+        firstName: 'Demo',
+        lastName: 'Lition'
       },
       {
         eventId: 10,
-        userId: 18
+        userId: 18,
+        firstName: 'Demo',
+        lastName: 'Lition'
       },
       {
         eventId: 0,
-        userId: 18
+        userId: 18,
+        firstName: 'Demo',
+        lastName: 'Lition'
       },
     ], {});
   },

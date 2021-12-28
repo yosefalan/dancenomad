@@ -21,13 +21,12 @@ function EventPage () {
   const types = [event?.event_type?.map(t => t.type)]
   const start_date = moment(event?.start_date).format('MMMM Do')
   const end_date = moment(event?.end_date).format('MMMM Do yyyy')
-  console.log("**************", event)
 
 
   return (
     <>
       <h1>Event Page</h1>
-      <Register />
+      <Register event={event}/>
       <img src={event?.image_url}></img>
       <p>{event?.name}</p>
       <p>{event?.description}</p>

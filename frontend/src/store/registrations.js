@@ -1,10 +1,10 @@
 import { csrfFetch } from './csrf';
 
-const READ_REGS = 'registration/readRegs';
-const READ_REG = 'registration/readReg';
-const CREATE_REG = 'registration/creatReg';
-const UPDATE_REG = 'registration/updateReg';
-const DELETE_REG = 'registration/deleteReg';
+const READ_REGS = 'registrations/readRegs';
+const READ_REG = 'registrations/readReg';
+const CREATE_REG = 'registrations/creatReg';
+const UPDATE_REG = 'registrations/updateReg';
+const DELETE_REG = 'registrations/deleteReg';
 
 const readRegs = (regs) => {
   return {
@@ -40,9 +40,8 @@ const deleteReg = () => {
   };
 };
 
-export const getRegs = () => async (dispatch) => {
-
-  const res = await csrfFetch('/api/regs/');
+export const getRegs = (userId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/users/${userId}/registrations/`);
   if(res.ok) {
     const regs = await res.json();
     dispatch(readRegs(regs));
@@ -50,7 +49,7 @@ export const getRegs = () => async (dispatch) => {
 }
 
 export const getReg = (id) => async (dispatch) => {
-  const res = await csrfFetch(`/api/regs/${id}`);
+  const res = await csrfFetch(`/api/registrations/${id}`);
   if(res.ok) {
     const reg = await res.json();
     dispatch(readReg(reg));
@@ -58,12 +57,16 @@ export const getReg = (id) => async (dispatch) => {
 }
 
 
-export const newReg = (event) => async (dispatch) => {
-  console.log("THUNK")
-  const res = await csrfFetch(`/api/regs/`);
+export const newReg = (data) => async (dispatch) => {
+  const res = await csrfFetch('/api/registrations/', {
+    method: "POST",
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  });
   if(res.ok) {
     const reg = await res.json();
     dispatch(createReg(reg));
+    return reg
   };
 }
 
