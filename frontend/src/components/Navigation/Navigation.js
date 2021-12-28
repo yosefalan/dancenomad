@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getManagedEvents } from '../../store/events';
 import ProfileButton from '../ProfileButton/ProfileButton';
 import styles from './Navigation.module.css';
 
@@ -12,7 +13,7 @@ function Navigation({ isLoaded }){
     <div className={styles.mainNavContainer}>
       <div className={styles.centerNavContainer}>
         <div className={styles.homeLogo}>
-          <NavLink exact to="/"><img className={styles.navLogo} src={'images/logo.png'}></img></NavLink>
+          <NavLink exact to="/"><img className={styles.navLogo} src={'/images/logo.png'}></img></NavLink>
         </div>
         {sessionUser ?
         <div className={styles.navBarRight}>

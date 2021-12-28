@@ -41,10 +41,12 @@ const deleteReg = () => {
 };
 
 export const getRegs = (userId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/users/${userId}/registrations/`);
+  const res = await csrfFetch(`/api/registrations/users/${userId}/`);
   if(res.ok) {
     const regs = await res.json();
+    console.log("GET REGS THUNK", regs)
     dispatch(readRegs(regs));
+
   };
 }
 
@@ -113,6 +115,11 @@ const initialState = {};
 
 const regsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case READ_REGS: {
+      console.log("REDUCAHHH", action.payload)
+      return action.payload
+    }
+
     default:
     return state;
   }

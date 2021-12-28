@@ -2,6 +2,7 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const {
+  Event,
   Registration,
   Sequelize,
 } = require("../../db/models");
@@ -19,5 +20,21 @@ router.post(
   })
 );
 
+router.get(
+  "/users/:id(\\d+)",
+  asyncHandler(async function (req, res) {
+    const user_id = +req.params.id;
+    const regs = await Registration.findAll({
+      where: {
+        userId: user_id,
+      },
+      include: [
+        { model: Event }
+      ],
+    });
+    console.log("$$$$$$$$$$$$$$ REGS", regs)
+    return res.json( regs );
+  })
+);
 
 module.exports = router;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Link, NavLink } from 'react-router-dom'
 import * as sessionActions from "../../store/session";
 import styles from './ProfileButton.module.css'
 
@@ -49,9 +50,22 @@ function ProfileButton({ user }) {
         </div>
           <div className={styles.dropdownContent}>
             {user ?
-              <a onClick={logout} href="/">
+            <>
+              <Link
+              className="pb_links"
+              onClick={logout} to={'/'}>
               Log Out
-              </a> :
+              </Link>
+              <Link
+              className="pb_links"
+              to={`/registrations/users/${user.id}`}>
+              Registrations</Link>
+              <Link
+              className="pb_links"
+              to={'/events/manage/all'}>
+              Manage Events</Link>
+            </>
+              :
               <div className={styles.modalLinks}>
               </div>
               }

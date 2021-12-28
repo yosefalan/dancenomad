@@ -1,0 +1,62 @@
+* {
+  color: #39364F;
+}
+
+.my_regs_main {
+  display: flex;
+  flex-direction: column;
+  width:100vw;
+  align-items: center;
+}
+
+.reg_card {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  height: 200px;
+  margin-bottom: 30px;
+  padding-left: 10px;
+  border-radius: 15px 15px 15px 15px;
+
+}
+
+.reg_card:hover {
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.reg_card_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 70%
+}
+
+.reg_card_info > p {
+ margin: 5px;
+}
+
+#reg_name {
+  font-size: 30px;
+  text-decoration: none;
+  color: #39364F;
+}
+
+#reg_date,
+#reg_quantity {
+  font-size: 20px;
+  text-decoration: none;
+  color: #39364F;
+}
+
+.reg_card_img {
+  width: 30%;
+  object-fit: contain;
+  justify-self: flex-end;
+  border-radius: 0px 15px 15px 0px;
+  padding: 15px;
+}
+
+.reg_img {
+  height: 100%;
+  width: 100%;
+  border-radius: 0px 15px 15px 0px;
+}

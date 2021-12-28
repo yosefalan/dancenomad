@@ -4,6 +4,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { getEvent } from "../../store/events";
 import { format } from 'date-fns'
 import Register from '../Register/Register'
+import Navigation from '../Navigation/Navigation'
 import moment from 'moment'
 import styles from './EventPage.module.css'
 
@@ -25,6 +26,7 @@ function EventPage () {
 
   return (
     <>
+      <Navigation />
       <h1>Event Page</h1>
       <Register event={event}/>
       <img src={event?.image_url}></img>
