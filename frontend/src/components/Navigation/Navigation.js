@@ -12,7 +12,7 @@ function Navigation({ isLoaded }){
     <div className={styles.mainNavContainer}>
       <div className={styles.centerNavContainer}>
         <div className={styles.homeLogo}>
-          <NavLink exact to="/"><img className={styles.navLogo} src={'images/logo.png'}></img></NavLink>
+          <NavLink exact to="/"><img className={styles.navLogo} src={'/images/logo.png'}></img></NavLink>
         </div>
         {sessionUser ?
         <div className={styles.navBarRight}>

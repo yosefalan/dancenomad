@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     video_url: DataTypes.STRING,
   }, {});
   Event.associate = function(models) {
+    Event.hasOne(models.Registration, { foreignKey: 'eventId' });
     Event.belongsTo(models.User, { foreignKey: 'hostId' });
     Event.hasMany(models.Venue, { foreignKey: 'eventId' });
     // Event.belongsToMany(models.User, {

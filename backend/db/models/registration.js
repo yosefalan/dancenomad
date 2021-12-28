@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   Registration.associate = function (models) {
+    Registration.belongsTo(models.Event, { foreignKey: 'eventId' })
     Registration.hasMany(models.User, { foreignKey: "id" });
   };
   return Registration;

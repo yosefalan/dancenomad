@@ -54,16 +54,5 @@ router.post(
   })
 );
 
-router.get(
-  "/",
-  asyncHandler(async function (req, res) {
-    const user_id = +req.params.id;
-    const regs = await Registration.findAll({
-      where: {
-        userId: user_id,
-      },
-    });
-  })
-);
 
 module.exports = router;

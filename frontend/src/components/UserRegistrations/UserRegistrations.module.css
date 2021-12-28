@@ -1,0 +1,22 @@
+.my_regs_main {
+  display: flex;
+  flex-direction: column;
+  width:100vw;
+  justify-content: center;
+}
+
+.reg_card {
+  display: flex;
+  flex-direction: row;
+  width: 200px;
+  height: 10%;
+}
+
+.reg_card_info {
+  display: flex;
+  flex-direction: column;
+}
+
+.reg_card_img {
+  object-fit: cover;
+}
