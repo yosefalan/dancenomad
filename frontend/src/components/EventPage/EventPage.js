@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { getEvent } from "../../store/events";
 import { format } from 'date-fns'
+import Register from '../Register/Register'
 import moment from 'moment'
 import styles from './EventPage.module.css'
 
@@ -20,12 +21,12 @@ function EventPage () {
   const types = [event?.event_type?.map(t => t.type)]
   const start_date = moment(event?.start_date).format('MMMM Do')
   const end_date = moment(event?.end_date).format('MMMM Do yyyy')
-  console.log("**************", event)
 
 
   return (
     <>
       <h1>Event Page</h1>
+      <Register event={event}/>
       <img src={event?.image_url}></img>
       <p>{event?.name}</p>
       <p>{event?.description}</p>

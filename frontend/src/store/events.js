@@ -59,7 +59,6 @@ export const getEvent = (id) => async (dispatch) => {
 
 
 export const newEvent = (event) => async (dispatch) => {
-  console.log("THUNK")
   const {
     hostId,
     name,

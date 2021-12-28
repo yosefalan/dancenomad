@@ -16,6 +16,19 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
+      quantity: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        defaultValue: 1
+      },
+      firstName: {
+        type: Sequelize.STRING(255),
+        allowNull: false,
+      },
+      lastName: {
+        type: Sequelize.STRING(255),
+        allowNull: false,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

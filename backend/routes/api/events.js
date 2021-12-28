@@ -132,7 +132,7 @@ router.post(
 );
 
 router.put(
-  '/:id',
+  '/:id(\\d+)',
   asyncHandler(async(req, res) => {
     const event_id = +req.params.id
     const event = await Event.findByPk(event_id);
@@ -184,7 +184,7 @@ router.put(
 );
 
 router.put(
-  '/:id/venue',
+  '/:id(\\d+)/venue',
   asyncHandler(async(req, res) => {
     const event_id = +req.params.id
     const {
@@ -238,7 +238,7 @@ router.put(
 );
 
 router.delete(
-  "/:id",
+  "/:id(\\d+)",
   asyncHandler(async (req, res) => {
     console.log("********DESTROY EVENT API ROUTE")
     event_id = +req.params.id

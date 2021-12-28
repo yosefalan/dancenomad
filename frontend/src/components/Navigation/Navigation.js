@@ -6,7 +6,7 @@ import styles from './Navigation.module.css';
 
 
 function Navigation({ isLoaded }){
-  const sessionUser = useSelector(state => state.session.user);
+  const sessionUser = useSelector(state => state.session?.user);
 
   return (
     <div className={styles.mainNavContainer}>
