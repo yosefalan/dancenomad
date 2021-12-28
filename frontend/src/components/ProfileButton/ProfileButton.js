@@ -60,6 +60,10 @@ function ProfileButton({ user }) {
               className="pb_links"
               to={`/registrations/users/${user.id}`}>
               Registrations</Link>
+              <Link
+              className="pb_links"
+              to={'/events/manage/all'}>
+              Manage Events</Link>
             </>
               :
               <div className={styles.modalLinks}>

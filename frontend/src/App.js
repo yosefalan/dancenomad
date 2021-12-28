@@ -12,6 +12,9 @@ import EventPage from "./components/EventPage/EventPage"
 import CreateEvent from "./components/CreateEvent/CreateEvent";
 import EditEvent from "./components/EditEvent/EditEvent";
 import UserRegistrations from "./components/UserRegistrations/UserRegistrations";
+import ManagedEvents from "./components/ManagedEvents./ManagedEvents";
+
+
 
 function App() {
   const sessionUser = useSelector(state => state.session.user);
@@ -42,9 +45,14 @@ function App() {
         <EditEvent event={event} />
       </Route>
 
+      <Route path='/events/manage/all'>
+        <ManagedEvents user={sessionUser}/>
+      </Route>
+
       <Route path='/registrations/users/:id'>
         <UserRegistrations user={sessionUser}/>
       </Route>
+
     </>
   )
 
