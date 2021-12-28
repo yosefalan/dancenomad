@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getManagedEvents } from '../../store/events';
 import ProfileButton from '../ProfileButton/ProfileButton';
 import styles from './Navigation.module.css';
 
@@ -8,6 +9,14 @@ import styles from './Navigation.module.css';
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session?.user);
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getManagedEvents(sessionUser?.id));
+  }, [dispatch]);
+
+  const events = useSelector(state => Object.values(state?.events));
+
+  console.log("EEEEEEEEEVENTS:", events)
   return (
     <div className={styles.mainNavContainer}>
       <div className={styles.centerNavContainer}>

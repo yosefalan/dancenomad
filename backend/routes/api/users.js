@@ -1,7 +1,7 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { User, Registration } = require("../../db/models");
+const { User, Registration, Genre, Type, Venue, Venue_type } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { singlePublicFileUpload, singleMulterUpload } = require("../../awsS3");
@@ -54,5 +54,26 @@ router.post(
   })
 );
 
+router.get(
+  "/:id/events/manage/all",
+  asyncHandler(async (req, res) => {
+    user_id = +req.params.id
+    const event = await Event.findAll({
+      where: {
+        hoestId: user_id
+      },
+      include: [
+        { model: User },
+        { model: Genre, as: "event_genre" },
+        { model: Type, as: "event_type" },
+        { model: Registration },
+        { model: Venue,
+          include: [{ model: Venue_type, as: "venue_type" }]
+        },
+      ],
+    });
+    return res.json(event);
+  })
+);
 
 module.exports = router;

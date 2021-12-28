@@ -49,6 +49,15 @@ export const getEvents = () => async (dispatch) => {
   };
 }
 
+export const getManagedEvents = (userId) => async (dispatch) => {
+  console.log("YOOOOOOOOOOOOOOOOOOOOOO")
+  const res = await csrfFetch(`/api/${userId}:id/events/manage/all`);
+  if(res.ok) {
+    const events = await res.json();
+    dispatch(readEvents(events));
+  };
+}
+
 export const getEvent = (id) => async (dispatch) => {
   const res = await csrfFetch(`/api/events/${id}`);
   if(res.ok) {
@@ -119,7 +128,6 @@ export const newEvent = (event) => async (dispatch) => {
 }
 
 export const editEvent = (data, id) => async dispatch => {
-  console.log("THUNK DATA!", data)
   const response = await csrfFetch(`/api/events/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json'},
@@ -133,7 +141,6 @@ export const editEvent = (data, id) => async dispatch => {
 }
 
 export const editVenue = (data, id) => async dispatch => {
-  console.log("THUNK DATA!", data)
   const response = await csrfFetch(`/api/events/${id}/venue`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json'},
@@ -147,7 +154,6 @@ export const editVenue = (data, id) => async dispatch => {
 }
 
 export const destroyEvent = id => async dispatch => {
-  console.log("DESTROY EVENT THUNK")
   const response = await csrfFetch(`/api/events/${id}`, {
     method: 'DELETE',
   });
