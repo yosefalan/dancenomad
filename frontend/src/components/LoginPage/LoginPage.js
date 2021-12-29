@@ -6,8 +6,10 @@ function LoginPage () {
   return (
     <div className={styles.loginMain}>
       <div className={styles.loginLeft}>
+        {/* <div className={styles.form_logo_container}><img
+        className={styles.form_logo}
+        src={'/images/logo.png'}></img></div> */}
         <LoginForm />
-        <NavLink exact to="/signup">Sign Up</NavLink>
       </div>
       <div className={styles.loginRight}>
         <img src={'images/ab.png'}

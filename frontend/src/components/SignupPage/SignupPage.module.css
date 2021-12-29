@@ -5,12 +5,18 @@
 }
 
 .loginLeft {
-  width: 50vw;
+  width: 40vw;
   height: 100vh;
 }
 
+
+.form_logo {
+  width:100%;
+ }
+
 .formContainer {
   height: 100%;
+  width:100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,17 +30,19 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 360px;
-  /* justify-content: space-evenly; */
+  width: 75%;
+  object-fit: contain;
 }
 
 .loginField {
   background-color: #C1C8E4 !important;
   height: 30px;
-  width: 100%;
+  width: 97%;
   margin: 10px 0px;
   padding: 1px;
   border: 1px solid #C1C8E4;
+  border: 1px solid #8860D0;
+  padding-left: 10px;
 }
 
 .loginField:focus {
@@ -54,10 +62,12 @@
 }
 
 .loginRight {
+  width: 60vw;
   overflow: hidden;
 }
 
 .loginImg {
+  margin-left: -100px;
   height: 100vh;
 
 }

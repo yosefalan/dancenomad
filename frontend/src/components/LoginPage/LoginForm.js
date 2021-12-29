@@ -33,6 +33,9 @@ function LoginForm() {
   return (
     <div className={styles.formContainer}>
       <form onSubmit={handleSubmit} className={styles.form}>
+      <img
+      className={styles.form_logo}
+      src={'/images/logo.png'}></img>
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>

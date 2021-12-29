@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { signup, demoLogin } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory, Link } from "react-router-dom";
-import styles from './SignupPage.module.css'
+import styles from "./SignupPage.module.css"
 
 function SignupForm() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -53,19 +53,24 @@ function SignupForm() {
   return (
     <div className={styles.formContainer}>
       <form onSubmit={handleSubmit} className={styles.form}>
+      <img
+      className={styles.form_logo}
+      src={'/images/logo.png'}></img>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
           <input
             type="text"
-            className={styles.loginfield}
+            autocomplete="new-password"
+            className={styles.loginField}
             placeholder="Email Address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             />
           <input
             type="text"
-            className={styles.loginfield}
+            autocomplete="new-password"
+            className={styles.loginField}
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -79,17 +84,18 @@ function SignupForm() {
             required
             /> */}
           <input type="file" onChange={updateFile} />
-          <input
+          <input autocomplete="new-password"
             type="password"
-            className={styles.loginfield}
+            className={styles.loginField}
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
 
             />
           <input
+           autocomplete="new-password"
             type="password"
-            className={styles.loginfield}
+            className={styles.loginField}
             placeholder="Confirm Password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
