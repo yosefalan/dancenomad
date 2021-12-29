@@ -51,7 +51,7 @@ function SignupForm() {
         </ul>
           <input
             type="text"
-            className={styles.field}
+            className={styles.loginfield}
             placeholder="Email Address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -59,7 +59,7 @@ function SignupForm() {
             />
           <input
             type="text"
-            className={styles.field}
+            className={styles.loginfield}
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -76,7 +76,7 @@ function SignupForm() {
           <input type="file" onChange={updateFile} />
           <input
             type="password"
-            className={styles.field}
+            className={styles.loginfield}
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -84,13 +84,15 @@ function SignupForm() {
             />
           <input
             type="password"
-            className={styles.field}
+            className={styles.loginfield}
             placeholder="Confirm Password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
             />
-        <button type="submit" id="signupSubmitButton">Create Account</button>
+        <button
+        className={styles.loginSubmitButton}
+        type="submit" id="signupSubmitButton">Create Account</button>
       </form>
       {/* <div>
         {user && (
