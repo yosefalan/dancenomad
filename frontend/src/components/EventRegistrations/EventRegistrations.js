@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, NavLink } from 'react-router-dom';
 import { getEventRegs } from '../../store/registrations';
 import { getEvent } from "../../store/events";
+import Navigation from '../Navigation/Navigation';
 import EditRegistration from '../EditRegistration/EditRegistration';
 import ConfirmDeleteReg from '../ConfirmDeleteReg/ConfirmDeleteReg';
 import styles from './EventRegistrations.module.css'
@@ -21,11 +22,11 @@ function EventRegistrations ({ event }) {
 
   const regs = useSelector(state => Object.values(state?.regs));
 
-
-
   return (
     <div className={styles.event_regs_main}>
-      <h1>Event Registrations</h1>
+      <Navigation />
+      <h1>Registrations for:</h1>
+      <h2>{event?.name}</h2>
       {regs?.map((reg)=> {
         return (
           <div>
@@ -42,8 +43,6 @@ function EventRegistrations ({ event }) {
         )
       })}
     </div>
-
-
   )
 }
 

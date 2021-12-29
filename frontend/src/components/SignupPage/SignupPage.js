@@ -6,10 +6,17 @@ import styles from './SignupPage.module.css'
 
 function SignupPage () {
   return (
-    <>
-      <SignupForm />
-      <NavLink exact to="/login">Log In</NavLink>
-    </>
+    <div className={styles.loginMain}>
+      <div className={styles.loginLeft}>
+        <SignupForm />
+        <NavLink exact to="/signup">Sign Up</NavLink>
+      </div>
+      <div className={styles.loginRight}>
+        <img src={'images/su.jpg'}
+        className={styles.loginImg}
+        ></img>
+      </div>
+    </div>
   )
 }
 

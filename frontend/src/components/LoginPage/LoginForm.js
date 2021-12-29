@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import styles from './LoginPage.module.css'
@@ -48,6 +48,8 @@ function LoginForm() {
           />
 
         <button type="submit" className={styles.loginSubmitButton}>Log In</button>
+        <button className={styles.loginSubmitButton}>Demo User</button>
+        <Link to={'/signup'}>Sign up for Dance Nomad</Link>
       </form>
     </div>
   );

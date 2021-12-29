@@ -1,35 +1,21 @@
-/*
-#signupButton {
-  background-color: black;
-  border-color: #FFFFFF;
-  border-width: 1px;
-  color: #FFFFFF;
-  justify-self: flex-end;
-  border-radius: 2px;
-  box-sizing: content-box;
-  margin-left: 510px;
-  margin-top: 10px;
+.loginMain {
+  display:flex;
+  flex-direction: row;
+  overflow: hidden;
 }
 
-#loginButton {
-  background-color: black;
-  border-color: #FFFFFF;
-  border-width: 1px;
-  color: #FFFFFF;
-  justify-self: flex-end;
-  border-radius: 2px;
-  box-sizing: content-box;
-  margin-left: 510px;
-  margin-top: 10px;
-} */
+.loginLeft {
+  width: 50vw;
+  height: 100vh;
+}
 
 .formContainer {
-  height: 500px;
-  width: 400px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .form {
@@ -38,24 +24,40 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 80%;
+  width: 360px;
   /* justify-content: space-evenly; */
 }
 
-.field {
+.loginField {
+  background-color: #C1C8E4 !important;
   height: 30px;
   width: 100%;
-  margin: 10px 0px 10px 0px
+  margin: 10px 0px;
+  padding: 1px;
+  border: 1px solid #C1C8E4;
 }
 
-/* #loginSubmitButton,
-#signupSubmitButton {
-  color: #FFFFFF;
-  background-color: #FF5500;
-  box-sizing: content-box;
-  border: none;
-  padding: 3px;
+.loginField:focus {
+  background-color: #C1C8E4 !important;
+  border: 1px solid #8860D0;
+}
+
+.loginField:active {
+  background-color: #C1C8E4 !important;
+  border: 1px solid #8860D0;
+}
+
+.loginSubmitButton {
   height: 30px;
   width: 100%;
-  margin: 10px 0px 10px 0px
-} */
+  margin: 10px 0px
+}
+
+.loginRight {
+  overflow: hidden;
+}
+
+.loginImg {
+  height: 100vh;
+
+}
