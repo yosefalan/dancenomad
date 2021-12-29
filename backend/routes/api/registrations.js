@@ -32,7 +32,6 @@ router.get(
         { model: Event }
       ],
     });
-    console.log("$$$$$$$$$$$$$$ REGS", regs)
     return res.json( regs );
   })
 );

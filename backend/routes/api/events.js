@@ -240,7 +240,6 @@ router.put(
 router.delete(
   "/:id(\\d+)",
   asyncHandler(async (req, res) => {
-    console.log("********DESTROY EVENT API ROUTE")
     event_id = +req.params.id
     await Event.destroy( {where: {id: event_id}});
     await Event_genre.destroy( {where: {eventId: event_id}});
