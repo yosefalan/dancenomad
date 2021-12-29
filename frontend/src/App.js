@@ -47,11 +47,11 @@ function App() {
         </Route>
 
         <Route path="/events/manage/all">
-          <ManagedEvents user={sessionUser} />
+          <ManagedEvents user={sessionUser}  />
         </Route>
 
         <Route path="/events/manage/:id/registrations">
-          <EventRegistrations user={sessionUser} />
+          <EventRegistrations user={sessionUser} event={event} />
         </Route>
 
         <Route path="/registrations/users/:id">

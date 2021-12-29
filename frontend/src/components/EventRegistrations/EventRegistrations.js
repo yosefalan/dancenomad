@@ -2,13 +2,18 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, NavLink } from 'react-router-dom';
 import { getEventRegs } from '../../store/registrations';
+import { getEvent } from "../../store/events";
 import EditRegistration from '../EditRegistration/EditRegistration';
-
+import ConfirmDeleteReg from '../ConfirmDeleteReg/ConfirmDeleteReg';
 import styles from './EventRegistrations.module.css'
 
-function EventRegistrations () {
+function EventRegistrations ({ event }) {
   const { id } = useParams();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getEvent(id));
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getEventRegs(id));
@@ -16,26 +21,22 @@ function EventRegistrations () {
 
   const regs = useSelector(state => Object.values(state?.regs));
 
-  // const handleUpdate = () => {
 
-  // }
 
-  // const handleDelete = () => {
-
-  // }
-
-  console.log("EVENT REGS", regs)
   return (
-    <div>
+    <div className={styles.event_regs_main}>
       <h1>Event Registrations</h1>
-      {regs[0]?.map((reg)=> {
+      {regs?.map((reg)=> {
         return (
           <div>
-            <div><p>Name: {reg.lastName}, {reg.firstName}</p></div>
-            <div><p> Qty: {reg.quantity}</p></div>
+            <div><p>Name: {reg?.lastName}, {reg?.firstName}</p>
+            <p>Username: {reg?.User?.username} </p>
+            <p>Email: {reg?.User?.email}</p>
+            </div>
+            <div><p> Qty: {reg?.quantity}</p></div>
             <div>
-              <EditRegistration />
-              <button>Delete Registration</button>
+              <EditRegistration reg={reg}/>
+              <ConfirmDeleteReg reg={reg}/>
             </div>
           </div>
         )

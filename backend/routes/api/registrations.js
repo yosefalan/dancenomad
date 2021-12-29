@@ -48,14 +48,30 @@ router.get(
       },
       include: [
         { model: Event },
-      //   { model: User,
-      //     where: {
-      //       id: Sequelize.col('registrations.userId')
-      //   }
-      // }
+        { model: User }
       ],
     });
     return res.json( regs );
+  })
+);
+
+router.put(
+  '/:id',
+  asyncHandler(async(req, res) => {
+
+    const reg = await Registration.findByPk(+req.params.id);
+    await reg.update(req.body);
+    return res.json(reg);
+  })
+);
+
+router.delete(
+  '/:id',
+  asyncHandler(async(req, res) => {
+    const id = +req.params.id
+    const reg = await Registration.findByPk(id);
+    reg.destroy()
+    return res.json({ reg })
   })
 );
 

@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
   {
     defaultScope: {
       attributes: {
-        exclude: ['hashedPassword', 'email', 'createdAt', 'updatedAt'],
+        exclude: ['hashedPassword', 'createdAt', 'updatedAt'],
       },
     },
     scopes: {
@@ -59,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
     //   foreignKey: 'userId',
     //   otherKey: 'eventId'
     // });
-    User.belongsTo(models.Registration, { foreignKey: 'id' });
+    User.hasOne(models.Registration, { foreignKey: 'userId' });
     User.hasMany(models.Event, { foreignKey: 'hostId' });
   };
 

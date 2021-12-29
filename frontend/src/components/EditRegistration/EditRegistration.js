@@ -6,7 +6,7 @@ import styles from './EditRegistration.module.css'
 
 
 
-function EditRegistration ({ event }) {
+function EditRegistration ({ event, reg }) {
 
   const [showModal, setShowModal] = useState(false);
 
@@ -19,7 +19,9 @@ function EditRegistration ({ event }) {
       >Edit Registration</button>
          {showModal && (
       <Modal onClose={() => setShowModal(false)}>
-        <EditRegistrationForm event={event}/>
+        <EditRegistrationForm
+        hideForm={() => setShowModal(false)}
+        event={event} reg={reg}/>
       </Modal>
     )}
     </>
