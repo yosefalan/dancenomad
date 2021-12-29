@@ -13,7 +13,8 @@ module.exports = {
         eventId: 9,
         userId: 18,
         firstName: 'Demo',
-        lastName: 'Lition'
+        lastName: 'Lition',
+        quantity: 2
       },
       {
         eventId: 8,
@@ -25,7 +26,8 @@ module.exports = {
         eventId: 3,
         userId: 18,
         firstName: 'Demo',
-        lastName: 'Lition'
+        lastName: 'Lition',
+        quantity: 4
       },
       {
         eventId: 10,
@@ -34,7 +36,7 @@ module.exports = {
         lastName: 'Lition'
       },
       {
-        eventId: 0,
+        eventId: 5,
         userId: 18,
         firstName: 'Demo',
         lastName: 'Lition'
