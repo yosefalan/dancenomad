@@ -15,12 +15,13 @@
   margin-top: 25px;
 }
 
-.event_tile {
+.event_card {
   max-width: 285px;
   height: 285px;
   border-radius: 15px;
   overflow: hidden;
  }
+ 
 .event_img_container {
   height: 125px;
   overflow: hidden;

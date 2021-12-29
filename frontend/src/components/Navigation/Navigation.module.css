@@ -29,6 +29,10 @@
   height: 40px;
 }
 
+.navLogo:hover {
+  height: 40.5px;
+}
+
 .navBarRight {
   display: flex;
   flex-direction: row;

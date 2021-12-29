@@ -1,19 +1,25 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, useHistory } from "react-router-dom";
 import { getEvents } from "../../store/events";
 import styles from './Feed.module.css'
 
 function Feed () {
 
   const dispatch = useDispatch();
-
+  const history = useHistory();
+  const [linkId, setLinkId] = useState();
 
   useEffect(() => {
     dispatch(getEvents());
   }, [dispatch]);
 
   const events = useSelector(state => Object.values(state?.events));
+
+  const handleLink = (e) => {
+        e.preventDefault();
+        history.push(`/events/${linkId}`)
+  }
 
   return (
 
@@ -22,7 +28,9 @@ function Feed () {
           {events?.map(event => {
               return (
                 <div>
-                  <div className={styles.event_tile}>
+                  <div
+                  onClick={(e) => setLinkId(event.id)}
+                   className={styles.event_card}>
                     <div className={styles.event_img_container}><img className={styles.event_img} src={event?.image_url}></img></div>
                     <NavLink className={styles.event_name_link} to={`/events/${event?.id}`}>{event?.name}</NavLink>
                   </div>

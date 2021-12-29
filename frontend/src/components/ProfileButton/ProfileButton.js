@@ -74,7 +74,10 @@ function ProfileButton({ user }) {
           </div>
       </div>
       <p className={styles.userText}>{user?.username}</p>
-      <div className={styles.caret_container}><img src="/images/caret.png" className={styles.caret}></img></div>
+
+      <div className={styles.caret_container}>
+      <img src="/images/caret.png" className={styles.caret}></img>
+      </div>
     </div>
   );
 }
