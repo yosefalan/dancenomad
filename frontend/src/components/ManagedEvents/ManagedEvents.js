@@ -15,13 +15,11 @@ function ManagedEvents ({ user }) {
   //   dispatch(getManagedEvents(user?.id));
   // }, [dispatch]);
 
-
   useEffect(() => {
     dispatch(getEvents());
   }, [dispatch]);
 
   const events = useSelector(state => Object.values(state?.events));
-
 
   return (
     <div>
@@ -32,8 +30,15 @@ function ManagedEvents ({ user }) {
       {events?.map((e) => {
         return (
           e?.hostId === user?.id ?
-          <p>{e.name}</p> :
-          null
+          <div>
+            <div><p>{e?.name}</p></div>
+            <div>
+              <NavLink to={`/events/${e?.id}`}>Event Page</NavLink>
+              <NavLink to={`/events/manage/${e.id}/registrations`}>Registrations</NavLink>
+            </div>
+            <div></div>
+          </div>
+          : null
         )
       })}
     </div>
