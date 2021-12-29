@@ -4,6 +4,7 @@ const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const {
   Event,
   Registration,
+  User,
   Sequelize,
 } = require("../../db/models");
 const { check } = require("express-validator");
@@ -30,6 +31,28 @@ router.get(
       },
       include: [
         { model: Event }
+      ],
+    });
+    return res.json( regs );
+  })
+);
+
+
+router.get(
+  "/events/:id",
+  asyncHandler(async function (req, res) {
+    const event_id = +req.params.id;
+    const regs = await Registration.findAll({
+      where: {
+        eventId: event_id,
+      },
+      include: [
+        { model: Event },
+      //   { model: User,
+      //     where: {
+      //       id: Sequelize.col('registrations.userId')
+      //   }
+      // }
       ],
     });
     return res.json( regs );

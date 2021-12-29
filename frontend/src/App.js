@@ -8,76 +8,79 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import LoginPage from "./components/LoginPage/LoginPage";
 import SignupPage from "./components/SignupPage/SignupPage";
 import Main from "./components/Main/Main";
-import EventPage from "./components/EventPage/EventPage"
+import EventPage from "./components/EventPage/EventPage";
 import CreateEvent from "./components/CreateEvent/CreateEvent";
 import EditEvent from "./components/EditEvent/EditEvent";
 import UserRegistrations from "./components/UserRegistrations/UserRegistrations";
-import ManagedEvents from "./components/ManagedEvents./ManagedEvents";
-
-
+import ManagedEvents from "./components/ManagedEvents/ManagedEvents";
+import EventRegistrations from "./components/EventRegistrations/EventRegistrations";
 
 function App() {
-  const sessionUser = useSelector(state => state.session.user);
-  const event = useSelector(state => Object.values(state?.events))[0];
+  const sessionUser = useSelector((state) => state.session.user);
+  const event = useSelector((state) => Object.values(state?.events))[0];
   const dispatch = useDispatch();
-  const [isLoaded, setIsLoaded] = useState(false);
+  // const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    dispatch(sessionActions.restoreUser())
+    // .then(() => setIsLoaded(true));
   }, [dispatch]);
 
-  if(sessionUser)
-  return (
-    <>
-      <Switch />
-      <Route exact path='/'>
-        <Main />
-      </Route>
+  if (sessionUser)
+    return (
+      <>
+        <Switch />
+        <Route exact path="/">
+          <Main />
+        </Route>
 
-      <Route exact path='/events/:id'>
-        <EventPage />
-      </Route>
+        <Route exact path="/events/:id">
+          <EventPage />
+        </Route>
 
-      <Route path='/events/manage/create'>
-        <CreateEvent />
-      </Route>
+        <Route path="/events/manage/create">
+          <CreateEvent />
+        </Route>
 
-      <Route path='/events/manage/edit/:id'>
-        <EditEvent event={event} />
-      </Route>
+        <Route path="/events/manage/edit/:id">
+          <EditEvent event={event} />
+        </Route>
 
-      <Route path='/events/manage/all'>
-        <ManagedEvents user={sessionUser}/>
-      </Route>
+        <Route path="/events/manage/all">
+          <ManagedEvents user={sessionUser} />
+        </Route>
 
-      <Route path='/registrations/users/:id'>
-        <UserRegistrations user={sessionUser}/>
-      </Route>
+        <Route path="/events/manage/:id/registrations">
+          <EventRegistrations user={sessionUser} />
+        </Route>
 
-    </>
-  )
+        <Route path="/registrations/users/:id">
+          <UserRegistrations user={sessionUser} />
+        </Route>
+      </>
+    );
+  else
+    return (
+      <>
+        <Switch />
 
-  else return (
-    <>
-      <Switch />
+        <Route exact path="/">
+          <LandingPage />
+        </Route>
 
-      <Route exact path='/'>
-        <LandingPage />
-      </Route>
+        <Route exact path="/login">
+          <LoginPage />
+        </Route>
 
-      <Route exact path='/login'>
-        <LoginPage />
-      </Route>
+        <Route exact path="/signup">
+          <SignupPage />
+        </Route>
 
-      <Route exact path='/signup'>
-        <SignupPage />
-      </Route>
-
-      {/* <Route exact path='/'>
+        {/* <Route exact path='/'>
         <NotFoundPage />
       </Route> */}
-    </>
-
-  )
+      </>
+    );
 }
 
 export default App;
