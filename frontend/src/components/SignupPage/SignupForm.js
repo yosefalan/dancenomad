@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { signup } from "../../store/session";
+import { signup, demoLogin } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { Redirect, useHistory, Link } from "react-router-dom";
 import styles from './SignupPage.module.css'
 
 function SignupForm() {
@@ -43,6 +43,13 @@ function SignupForm() {
     if (file) setImage(file);
   };
 
+  const handleDemoLogin= (e) => {
+    e.preventDefault();
+    history.push('/')
+    return dispatch(demoLogin())
+  }
+
+
   return (
     <div className={styles.formContainer}>
       <form onSubmit={handleSubmit} className={styles.form}>
@@ -55,7 +62,6 @@ function SignupForm() {
             placeholder="Email Address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
             />
           <input
             type="text"
@@ -63,7 +69,6 @@ function SignupForm() {
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            required
             />
              {/* <input
             type="text"
@@ -80,7 +85,7 @@ function SignupForm() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
+
             />
           <input
             type="password"
@@ -88,11 +93,14 @@ function SignupForm() {
             placeholder="Confirm Password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            required
             />
         <button
         className={styles.loginSubmitButton}
         type="submit" id="signupSubmitButton">Create Account</button>
+        <button
+        onClick={handleDemoLogin}
+        className={styles.loginSubmitButton}>Demo User</button>
+        <Link to={'/login'}>Already a Dance Nomad?  Log in</Link>
       </form>
       {/* <div>
         {user && (

@@ -24,6 +24,12 @@ function LoginForm() {
     );
   };
 
+  const handleDemoLogin= (e) => {
+    e.preventDefault();
+    history.push('/')
+    return dispatch(sessionActions.demoLogin())
+  }
+
   return (
     <div className={styles.formContainer}>
       <form onSubmit={handleSubmit} className={styles.form}>
@@ -48,7 +54,9 @@ function LoginForm() {
           />
 
         <button type="submit" className={styles.loginSubmitButton}>Log In</button>
-        <button className={styles.loginSubmitButton}>Demo User</button>
+        <button
+        onClick={handleDemoLogin}
+        className={styles.loginSubmitButton}>Demo User</button>
         <Link to={'/signup'}>Sign up for Dance Nomad</Link>
       </form>
     </div>
