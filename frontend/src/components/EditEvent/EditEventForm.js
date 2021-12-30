@@ -474,7 +474,7 @@ function EditEventForm ({ event }) {
 
   return (
     <div className={styles.form_container}>
-      <h1>Edit your event</h1>
+      <h1>Edit your event...</h1>
       <form
       className={styles.form}>
         <ul>
