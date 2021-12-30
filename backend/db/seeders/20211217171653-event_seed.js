@@ -52,7 +52,7 @@ module.exports = {
       image_url: 'https://dancenomad.s3.us-east-2.amazonaws.com/event_pics/6.jpg'
      },
      {
-      hostId: 7,
+      hostId: 18,
       name: 'New York International Salsa Congress',
       description: 'The 20th edition of New York International Salsa Congress is featuring 4 days & 5 nights of live bands, concerts, performance showcases, instructional workshops, and non-stop social dancing',
       start_date: new Date(2022, 8, 1),
@@ -68,7 +68,7 @@ module.exports = {
       image_url: 'https://dancenomad.s3.us-east-2.amazonaws.com/event_pics/8.jpg'
      },
      {
-      hostId: 9,
+      hostId: 18,
       name: 'DCBX Ultimate Tropical New Year\'s Eve Festival ',
       description: 'The 9th edition of DCBX Ultimate Tropical New Year\'s Eve Festival offers workshops, shows, parties & socials with national & international instructors, performers & dj\'s.',
       start_date: new Date(2021, 11, 31),
@@ -76,7 +76,7 @@ module.exports = {
       image_url: 'https://dancenomad.s3.us-east-2.amazonaws.com/event_pics/9.png'
      },
      {
-      hostId: 10,
+      hostId: 18,
       name: 'Baltimore Salsa Bachata Congress',
       description: 'The 10th edition of Baltimore Salsa Bachata Congress offers 4 days / 3 nights of over 40 dance workshops from beginners to advance levels with the world instructors on Salsa, Bachata, Kizomba, Cha Cha Cha and more.',
       start_date: new Date(2022, 3, 14),
