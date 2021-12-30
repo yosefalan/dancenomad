@@ -16,7 +16,7 @@ function SignupForm() {
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
 
-  if (sessionUser) return <Redirect to="/" />;
+  if (sessionUser) return <Redirect to="/main" />;
 
   const handleSubmit = (e) => {
     e.preventDefault();

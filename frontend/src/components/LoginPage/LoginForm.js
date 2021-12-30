@@ -1,34 +1,43 @@
 import React, { useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory, Link, Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from './LoginPage.module.css'
 
-function LoginForm() {
+function LoginForm({ }) {
+  const sessionUser = useSelector(state => state?.session?.user);
   const history = useHistory();
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
-    return dispatch(sessionActions.login({ credential, password }))
-    .then(history.push("/"))
+    await dispatch(sessionActions.login({ credential, password }))
     .catch(
       async (res) => {
         const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
-      }
-    );
-  };
+        if (data && data.errors) {
+          setErrors(data.errors)
+        }
+      })
+    };
+
+    if (sessionUser) {
+      return <Redirect to="/" />;
+    }
+
+  console.log("SESSION USER:", sessionUser)
 
   const handleDemoLogin= (e) => {
     e.preventDefault();
     history.push('/')
     return dispatch(sessionActions.demoLogin())
   }
+
 
   return (
     <div className={styles.formContainer}>

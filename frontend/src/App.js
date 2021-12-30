@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
 import SignupForm from "./components/SignupPage/SignupForm";
 import * as sessionActions from "./store/session";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Navigation from "./components/Navigation/Navigation";
 import LandingPage from "./components/LandingPage/LandingPage";
 import LoginPage from "./components/LoginPage/LoginPage";
@@ -19,67 +20,51 @@ function App() {
   const sessionUser = useSelector((state) => state.session.user);
   const event = useSelector((state) => Object.values(state?.events))[0];
   const dispatch = useDispatch();
-  // const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser())
-    // .then(() => setIsLoaded(true));
+    .then(() => setIsLoaded(true));
   }, [dispatch]);
 
-  if (sessionUser)
-    return (
-      <>
-        <Switch />
-        <Route exact path="/">
-          <Main />
-        </Route>
-
-        <Route exact path="/events/:id">
-          <EventPage />
-        </Route>
-
-        <Route path="/events/manage/create">
-          <CreateEvent />
-        </Route>
-
-        <Route path="/events/manage/edit/:id">
-          <EditEvent event={event} />
-        </Route>
-
-        <Route path="/events/manage/all">
-          <ManagedEvents user={sessionUser}  />
-        </Route>
-
-        <Route path="/events/manage/:id/registrations">
-          <EventRegistrations user={sessionUser} event={event} />
-        </Route>
-
-        <Route path="/registrations/users/:id">
-          <UserRegistrations user={sessionUser} />
-        </Route>
-      </>
-    );
-  else
-    return (
-      <>
-        <Switch />
-
+  return (
+    <BrowserRouter>
+      <Switch>
         <Route exact path="/">
           <LandingPage />
         </Route>
-
         <Route exact path="/login">
-          <LoginPage />
+          <LoginPage sessionUser={sessionUser} />
         </Route>
-
         <Route exact path="/signup">
           <SignupPage />
         </Route>
 
-        {/* <Route exact path='/'>
-        <NotFoundPage />
-      </Route> */}
-      </>
+        <ProtectedRoute exact path="/main">
+          <Main />
+        </ProtectedRoute>
+        <ProtectedRoute exact path="/events/:id">
+          <EventPage />
+        </ProtectedRoute>
+        <ProtectedRoute path="/events/manage/create">
+          <CreateEvent />
+        </ProtectedRoute>
+        <ProtectedRoute path="/events/manage/edit/:id">
+          <EditEvent event={event} />
+        </ProtectedRoute>
+        <ProtectedRoute path="/events/manage/all">
+          <ManagedEvents user={sessionUser}  />
+        </ProtectedRoute>
+        <ProtectedRoute path="/events/manage/:id/registrations">
+          <EventRegistrations user={sessionUser} event={event} />
+        </ProtectedRoute>
+        <ProtectedRoute path="/registrations/users/:id">
+          <UserRegistrations user={sessionUser} />
+        </ProtectedRoute>
+
+      </Switch>
+    </BrowserRouter>
+
     );
 }
 
