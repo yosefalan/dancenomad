@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useParams, useHistory } from "react-router-dom";
 import { editEvent, getEvent, editVenue } from '../../store/events'
 import Select from 'react-select'
+import moment from 'moment'
 import styles from './EditEvent.module.css'
 
 function EditEventForm ({ event }) {
@@ -34,8 +35,8 @@ function EditEventForm ({ event }) {
   const [lng, setLng] = useState(event?.Venues[0]?.lng);
   const [image, setImage] = useState([]);
   const [video, setVideo] = useState([]);
-  const [genres, setGenres] = useState([]);
-  const [types, setTypes] = useState([]);
+  const [genres, setGenres] = useState(event?.event_genre);
+  const [types, setTypes] = useState(event?.event_type);
   const [errors, setErrors] = useState([]);
 
 
@@ -54,8 +55,8 @@ function EditEventForm ({ event }) {
   const updateLng = (e) => setLng(e?.target?.value);
   const updateImage = (e) => setImage(e?.target?.value);
   const updateVideo= (e) => setVideo(e?.target?.value);
-  // const updateGenres = (e) => setGenres(e?.target?.value);
-  // const updateTypes = (e) => setTypes(e?.target?.value);
+  const updateGenres = (e) => setGenres(e?.target?.value);
+  const updateTypes = (e) => setTypes(e?.target?.value);
 
 
   const handleEventSubmit = async (e) => {
@@ -115,6 +116,9 @@ function EditEventForm ({ event }) {
       const file = e.target.files[0];
       if (file) setVideo(file);
     };
+
+    const sd = moment(start_date).format('ddd MMMM Do')
+    const ed = moment(end_date).format('ddd MMMM Do yyyy')
 
     const genre_options = [
       { value: "1", label: 'Acro' },
@@ -470,159 +474,190 @@ function EditEventForm ({ event }) {
       { value: "Zambia", label: 'Zambia' },
       { value: "Zimbabwe", label: 'Zimbabwe' }
     ]
+    console.log("GENRES:", genres[1].genre)
 
 
-  return (
-    <div className={styles.form_container}>
-      <h1>Edit your event...</h1>
-      <form
-      className={styles.form}>
-        <ul>
-          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-        </ul>
-        <input
-          type="text"
-          className="field"
-          placeholder="Event Name"
-          autocomplete="new-password"
-          defaultValue={name}
-          onChange={updateName}
-        />
-        <textarea
-          className="field"
-          placeholder="Description"
-          autocomplete="new-password"
-          value={description}
-          onChange={updateDescription}
-        />
-        <input
-          type="date"
-          className="field"
-          placeholder="Start Date"
-          autocomplete="new-password"
-          value={start_date}
-          onChange={updateStart_date}
-        />
-        <input
-          type="date"
-          className="field"
-          placeholder="End Date"
-          autocomplete="new-password"
-          value={end_date}
-          onChange={updateEnd_date}
-        />
-        <Select
-          isMulti
-          defaultValue={genres}
-          onChange={setGenres}
-          options={genre_options}
-          placeholder="Genres (Selcect all that apply)"
-        />
-        <Select
-          isMulti
-          defaultValue={types}
-          onChange={setTypes}
-          options={type_options}
-          placeholder="Event Type (Selcect all that apply)"
-          />
+    return (
+      <div className={styles.form_container}>
+        <h1>Edit your event details...</h1>
+        {/* {genres.map((g) => {
+          <p>{g.genre}</p>
+            {console.log("GGGGGGGG:", g.genre)}
+          })} */}
+        <form
+        className={styles.form}>
+          <ul>
+            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+          </ul>
+          <div className={styles.top}>
+            <div className={styles.top_left}>
+              <h2>General Event Info</h2>
+              <input
+                type="text"
+                className={styles.create_event_form_field}
+                placeholder="Event Name"
+                autocomplete="new-password"
+                value={name}
+                onChange={updateName}
+                />
+              <textarea
+                className={styles.create_event_form_field}
+                placeholder="Description"
+                autocomplete="new-password"
+                value={description}
+                onChange={updateDescription}
+                />
+                <p>   {sd} - {ed}</p>
+              <input
+                type="date"
+                className={styles.create_event_form_field}
+                placeholder={start_date}
+                autocomplete="new-password"
+                value={start_date}
+                onChange={updateStart_date}
+                />
+              <input
+                type="date"
+                className={styles.create_event_form_field}
+                placeholder="End Date"
+                autocomplete="new-password"
+                value={end_date}
+                onChange={updateEnd_date}
+                />
 
-        <button
-          onClick={handleEventSubmit}
-          type="submit" id="submitButton"
-          className="spotSubmitButton"
-          >Update Event Info</button>
-        <input
-          type="text"
-          className="field"
-          placeholder="Venue Name"
-          autocomplete="new-password"
-          value={venue}
-          onChange={updateVenue}
-        />
-       <Select
-          isMulti
-          defaultValue={venue_types}
-          onChange={setVenue_types}
-          options={venue_type_options}
-          placeholder="Venue type (Selcect all that apply)"
-        />
-        <input
-          type="text"
-          className="field"
-          placeholder="Address"
-          autocomplete="new-password"
-          value={address}
-          onChange={updateAddress}
-        />
-        <input
-          type="text"
-          className="field"
-          placeholder="City"
-          autocomplete="new-password"
-          value={city}
-          onChange={updateCity}
-        />
-         <Select
-          defaultValue={state}
-          onChange={updateState}
-          options={state_options}
-          placeholder="State (US Only)"
-        />
-        <input
-          type="text"
-          className="field"
-          placeholder="Zip Code"
-          autocomplete="new-password"
-          value={zip}
-          onChange={updateZip}
-        />
-        <Select
-          defaultValue={country}
-          onChange={updateCountry}
-          options={country_options}
-          placeholder="Select Country"
-        />
-        <input
-          type="number"
-          className="field"
-          placeholder="Lattitude"
-          autocomplete="new-password"
-          value={lat}
-          onChange={updateLat}
-        />
-        <input
-          type="number"
-          className="field"
-          placeholder="Longitude"
-          autocomplete="new-password"
-          value={lng}
-          onChange={updateLng}
-        />
-        <button
-          onClick={handleVenueSubmit}
-          type="submit" id="submitButton"
-          className="spotSubmitButton"
-          >Update Venue Info</button>
-        <div className={styles.buttons_container}>
+              <div className={styles.select_fields}>
+                <Select
+                className={styles.create_event_select_field}
+                isMulti
+                onChange={setGenres}
+                options={genre_options}
+                placeholder="Genres"
+                />
+                <Select
+                className={styles.create_event_select_field}
+                isMulti
+                onChange={setTypes}
+                options={type_options}
+                placeholder="Event Types"
+                />
+              </div>
+              <button
+              onClick={handleEventSubmit}
+              type="submit" id="submitButton"
+              className={styles.event_submit_button}
+              >Update Event Info</button>
+            </div>
 
-          {/* <label className="uploadLabel">
-          Image Upload
-          <input
-          type="file"
-          onChange={updateImageFile} />
-          </label> */}
 
-          {/* <label className="uploadLabel">
-          Video Upload
-          <input
-          type="file"
-          onChange={updateVideoFile} />
-          </label> */}
+            <div className={styles.top_right}>
 
-        </div>
-      </form>
-    </div>
-  )
-}
+              <h2>Location Info</h2>
+              <input
+              type="text"
+              className={styles.create_event_form_field}
+              placeholder="Venue Name"
+              autocomplete="new-password"
+              value={venue}
+              onChange={setVenue_types}
+              />
+              <Select
+              className={styles.create_event_form_field_s}
+              isMulti
+              defaultValue={venue_types}
+              onChange={setVenue_types}
+              options={venue_type_options}
+              placeholder="Venue type (Selcect all that apply)"
+              />
+              <input
+              type="text"
+              className={styles.create_event_form_field_a}
+              placeholder="Address"
+              autocomplete="new-password"
+              value={address}
+              onChange={updateAddress}
+              />
+              <input
+              type="text"
+              className={styles.create_event_form_field}
+              placeholder="City"
+              autocomplete="new-password"
+              value={city}
+              onChange={updateCity}
+              />
+              <div className={styles.select_fields}>
+                <Select
+                  className={styles.create_event_select_field}
+                  defaultValue={state}
+                  onChange={updateState}
+                  options={state_options}
+                  placeholder="State (US Only)"
+                  />
+                <input
+                  type="text"
+                  className={styles.create_event_select_field_z}
+                  placeholder="Zip Code (US Only)"
+                  autocomplete="new-password"
+                  value={zip}
+                  onChange={updateZip}
+                  />
+            </div>
+            <Select
+              className={styles.create_event_form_field_s}
+              defaultValue={country}
+              onChange={setCountry}
+              options={country_options}
+              placeholder="Select Country"
+              />
+            <div className={styles.select_fields}>
+              <input
+                type="number"
+                className={styles.create_event_form_field_l}
+                placeholder="Lattitude"
+                autocomplete="new-password"
+                value={lat}
+                onChange={updateLat}
+                />
+              <input
+                type="number"
+                className={styles.create_event_form_field_l}
+                placeholder="Longitude"
+                autocomplete="new-password"
+                value={lng}
+                onChange={updateLng}
+                />
+              </div>
+              <button
+              onClick={handleVenueSubmit}
+              type="submit" id="submitButton"
+              className={styles.event_submit_button}
+              >Update Venue Info</button>
+          <div className={styles.buttons_container}>
+            </div>
+          </div>
 
-export default EditEventForm
+          {/* <div className={styles.buttons_container}>
+
+            <label className="uploadLabel">
+            Image
+            <input
+            type="file"
+            onChange={updateImageFile} />
+            </label>
+
+            <label className="uploadLabel">
+            Video
+            <input
+            type="file"
+            onChange={updateVideoFile} />
+            </label>
+
+            <button type="submit" id="submitButton"
+            className={styles.event_submit_button}
+            >Submit</button> */}
+          </div>
+        </form>
+      </div>
+    )
+  }
+
+  export default EditEventForm

@@ -464,14 +464,14 @@ function CreateEventForm () {
               placeholder="Event Name"
               autocomplete="new-password"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={updateName}
               />
             <textarea
               className={styles.create_event_form_field}
               placeholder="Description"
               autocomplete="new-password"
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={updateDescription}
               />
             <input
               type="date"
@@ -479,7 +479,7 @@ function CreateEventForm () {
               placeholder="Start Date"
               autocomplete="new-password"
               value={start_date}
-              onChange={(e) => setStart_date(e.target.value)}
+              onChange={updateStart_date}
               />
             <input
               type="date"
@@ -487,7 +487,7 @@ function CreateEventForm () {
               placeholder="End Date"
               autocomplete="new-password"
               value={end_date}
-              onChange={(e) => setEnd_date(e.target.value)}
+              onChange={updateEnd_date}
               />
             <div className={styles.select_fields}>
               <Select
@@ -498,7 +498,6 @@ function CreateEventForm () {
               options={genre_options}
               placeholder="Genres"
               />
-
               <Select
               className={styles.create_event_select_field}
               isMulti
@@ -507,9 +506,15 @@ function CreateEventForm () {
               options={type_options}
               placeholder="Event Types"
               />
-
             </div>
+            <button
+            onClick={handleEventSubmit}
+            type="submit" id="submitButton"
+            className="spotSubmitButton"
+            >Update Event Info</button>
           </div>
+
+
           <div className={styles.top_right}>
 
             <h2>Location Info</h2>
@@ -519,7 +524,7 @@ function CreateEventForm () {
             placeholder="Venue Name"
             autocomplete="new-password"
             value={venue}
-            onChange={(e) => setVenue(e.target.value)}
+            onChange={setVenue_types}
             />
             <Select
             className={styles.create_event_form_field_s}
@@ -535,7 +540,7 @@ function CreateEventForm () {
             placeholder="Address"
             autocomplete="new-password"
             value={address}
-            onChange={(e) => setAddress(e.target.value)}
+            onChange={updateAddress}
             />
             <input
             type="text"
@@ -543,13 +548,13 @@ function CreateEventForm () {
             placeholder="City"
             autocomplete="new-password"
             value={city}
-            onChange={(e) => setCity(e.target.value)}
+            onChange={updateCity}
             />
             <div className={styles.select_fields}>
               <Select
                 className={styles.create_event_select_field}
                 defaultValue={state}
-                onChange={setState}
+                onChange={updateState}
                 options={state_options}
                 placeholder="State (US Only)"
                 />
@@ -559,7 +564,7 @@ function CreateEventForm () {
                 placeholder="Zip Code (US Only)"
                 autocomplete="new-password"
                 value={zip}
-                onChange={(e) => setZip(e.target.value)}
+                onChange={updateZip}
                 />
           </div>
           <Select
@@ -576,7 +581,7 @@ function CreateEventForm () {
               placeholder="Lattitude"
               autocomplete="new-password"
               value={lat}
-              onChange={(e) => setLat(e.target.value)}
+              onChange={updateLat}
               />
             <input
               type="number"
@@ -584,13 +589,19 @@ function CreateEventForm () {
               placeholder="Longitude"
               autocomplete="new-password"
               value={lng}
-              onChange={(e) => setLng(e.target.value)}
+              onChange={updateLng}
               />
             </div>
+            <button
+            onClick={handleVenueSubmit}
+            type="submit" id="submitButton"
+            className="spotSubmitButton"
+            >Update Venue Info</button>
+        <div className={styles.buttons_container}>
           </div>
         </div>
 
-        <div className={styles.buttons_container}>
+        {/* <div className={styles.buttons_container}>
 
           <label className="uploadLabel">
           Image
@@ -608,11 +619,11 @@ function CreateEventForm () {
 
           <button type="submit" id="submitButton"
           className={styles.event_submit_button}
-          >Submit</button>
-        </div>
+          >Submit</button> */}
+        {/* </div> */}
       </form>
     </div>
   )
 }
 
-export default CreateEventForm
+export default EditEventForm
