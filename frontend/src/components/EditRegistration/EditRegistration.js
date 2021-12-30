@@ -15,6 +15,7 @@ function EditRegistration ({ event, reg }) {
   return (
     <>
       <button
+      className={styles.my_events_buttons}
       onClick={() => setShowModal(true)}
       >Edit Registration</button>
          {showModal && (

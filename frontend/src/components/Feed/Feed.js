@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { getEvents } from "../../store/events";
+import moment from 'moment'
 import styles from './Feed.module.css'
 
 function Feed () {
@@ -21,6 +22,12 @@ function Feed () {
         history.push(`/events/${linkId}`)
   }
 
+  // const start_date = moment(regs?.Event?.start_date).format('ddd MMMM Do')
+  // const end_date = moment(regs?.Event?.end_date).format('ddd MMMM Do yyyy')
+
+  // console.log("EVENTS", events[0]?.event_genre[0]?.genre)
+  // console.log("EVENTS", events[0]?.event_type[0]?.type)
+
   return (
 
     <div className={styles.feed_main_container}>
@@ -31,8 +38,39 @@ function Feed () {
                   <div
                   onClick={(e) => setLinkId(event.id)}
                    className={styles.event_card}>
-                    <div className={styles.event_img_container}><img className={styles.event_img} src={event?.image_url}></img></div>
+                    <div className={styles.event_img_container}>
+                      <NavLink
+                    to={`/events/${event?.id}`}>
+                        <img className={styles.event_img} src={event?.image_url}></img>
+                        </NavLink></div>
                     <NavLink className={styles.event_name_link} to={`/events/${event?.id}`}>{event?.name}</NavLink>
+                    <NavLink
+                    className={styles.event_date_link}
+                    to={`/events/${event?.id}`}>
+                    {moment(event?.end_date).format('ddd MMM D')} - {moment(event?.end_date).format('ddd MMM D yyyy')}
+                    </NavLink>
+                    <NavLink
+                    className={styles.event_loc_link}
+                    to={`/events/${event?.id}`}>
+                    {event?.Venues[0]?.city},
+                    {event?.Venues[0]?.state ?
+                    " " :
+                    null
+                    }
+                    {event?.Venues[0]?.state ?
+                    event?.Venues[0]?.state :
+                    event?.Venues[0]?.country
+                    }
+                    </NavLink>
+                    {/* <NavLink
+                    className={styles.event_loc_link}
+                    to={`/events/${event?.id}`}>
+                      <ul>
+                        Event type: {event.event_type.map ((t) => {
+                        <li>{t.type}</li>
+                        })}
+                      </ul>
+                    </NavLink> */}
                   </div>
                 </div>
             )})}

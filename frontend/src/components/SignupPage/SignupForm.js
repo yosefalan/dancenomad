@@ -75,14 +75,6 @@ function SignupForm() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             />
-             {/* <input
-            type="text"
-            className={styles.field}
-            placeholder="Image URL"
-            value={url}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            /> */}
           <input type="file" onChange={updateFile} />
           <input autocomplete="new-password"
             type="password"
@@ -90,7 +82,6 @@ function SignupForm() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-
             />
           <input
            autocomplete="new-password"
@@ -108,18 +99,6 @@ function SignupForm() {
         className={styles.loginSubmitButton}>Demo User</button>
         <Link to={'/login'}>Already a Dance Nomad?  Log in</Link>
       </form>
-      {/* <div>
-        {user && (
-          <div>
-            <h1>{user.username}</h1>
-            <img
-              style={{ width: "150px" }}
-              src={user.profile.url}
-              alt="profile"
-            />
-          </div>
-        )}
-      </div> */}
     </div>
   );
 }

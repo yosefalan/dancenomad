@@ -10,8 +10,8 @@ function EditEvent ({ event }) {
   return (
     <>
       <h1>Edit Event</h1>
-      <EditEventForm event={event} />
       <ConfirmDelete id={id} />
+      <EditEventForm event={event} />
     </>
 
   )

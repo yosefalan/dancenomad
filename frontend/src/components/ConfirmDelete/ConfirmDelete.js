@@ -7,16 +7,8 @@ import ConfirmDeleteForm from "./ConfirmDeleteForm";
 import './ConfirmDelete.css'
 
 const ConfirmDelete = ({ id }) => {
-  // const dispatch = useDispatch();
-  // const history = useHistory();
+
   const [showModal, setShowModal] = useState(false);
-  console.log("MODAL:", showModal)
-
-  // const handleDelete = (id) => {
-  //   dispatch(destroyEvent(id))
-  //   history.push('/')
-  // }
-
 
   return (
     <>
@@ -35,8 +27,3 @@ const ConfirmDelete = ({ id }) => {
 
 export default ConfirmDelete;
 
-// {showModal && (
-//   <Modal onClose={() => setShowModal(false)}>
-//     <ConfirmDeleteForm id={id} />
-//   </Modal>
-// )}
