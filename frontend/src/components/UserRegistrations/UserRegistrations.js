@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { getRegs } from '../../store/registrations';
 import Navigation from '../Navigation/Navigation'
 import moment from 'moment'
-
 import styles from './UserRegistrations.module.css'
 
 function UserRegistrations ({ user }) {

@@ -4,6 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import{ editReg } from '../../store/registrations'
 import moment from 'moment'
 import Select from 'react-select'
+import styles from './EditRegistration.module.css'
 
 function EditRegistrationForm({ event, reg, hideForm }){
   // const { id } = useParams();
@@ -47,17 +48,17 @@ function EditRegistrationForm({ event, reg, hideForm }){
   //   { value: "9", label: '9' },
   //   { value: "10", label: '10' },
   // ]
-
+  console.log("EVENT NAME", event)
   return (
     <div>
       <form
-        onSubmit={handleEditReg}
-      >
+        className={styles.edit_reg_form}
+        onSubmit={handleEditReg}>
         <h2>{event?.name}</h2>
-        <h2>{start_date} - {end_date}</h2>
+        {/* <h2>{start_date} - {end_date}</h2> */}
         <input
             type="text"
-            className="field"
+            className={styles.edit_reg_form_field}
             placeholder="First Name"
             autocomplete="new-password"
             value={firstName}
@@ -65,7 +66,7 @@ function EditRegistrationForm({ event, reg, hideForm }){
             />
             <input
             type="text"
-            className="field"
+            className={styles.edit_reg_form_field}
             placeholder="Last Name"
             autocomplete="new-password"
             value={lastName}
@@ -73,7 +74,7 @@ function EditRegistrationForm({ event, reg, hideForm }){
             />
             <input
             type="text"
-            className="number"
+            className={styles.edit_reg_form_field}
             placeholder="Quantity"
             autocomplete="new-password"
             value={quantity}
@@ -86,6 +87,7 @@ function EditRegistrationForm({ event, reg, hideForm }){
             placeholder="Quantity"
             /> */}
         <button
+          className={styles.my_events_buttons}
           type="submit"
         >Update</button>
       </form>

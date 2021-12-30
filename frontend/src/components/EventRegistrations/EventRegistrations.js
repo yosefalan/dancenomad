@@ -20,6 +20,8 @@ function EventRegistrations ({ event }) {
     dispatch(getEventRegs(id));
   }, [dispatch]);
 
+
+
   const regs = useSelector(state => Object.values(state?.regs));
 
   return (
@@ -36,7 +38,7 @@ function EventRegistrations ({ event }) {
             </div>
             <div><p> Qty: {reg?.quantity}</p></div>
             <div>
-              <EditRegistration reg={reg}/>
+              <EditRegistration reg={reg} event={event}/>
               <ConfirmDeleteReg reg={reg}/>
             </div>
           </div>

@@ -15,6 +15,7 @@ import EditEvent from "./components/EditEvent/EditEvent";
 import UserRegistrations from "./components/UserRegistrations/UserRegistrations";
 import ManagedEvents from "./components/ManagedEvents/ManagedEvents";
 import EventRegistrations from "./components/EventRegistrations/EventRegistrations";
+import EventCreate from "./components/EventCreate/EventCreate";
 
 function App() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -61,6 +62,10 @@ function App() {
         <ProtectedRoute path="/registrations/users/:id">
           <UserRegistrations user={sessionUser} />
         </ProtectedRoute>
+
+        <Route path="/event-create">
+          <EventCreate />
+        </Route>
 
       </Switch>
     </BrowserRouter>

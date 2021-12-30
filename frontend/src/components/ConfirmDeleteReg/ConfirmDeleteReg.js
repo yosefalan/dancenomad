@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Modal } from '../../context/Modal';
 import ConfirmDeleteRegForm from "./ConfirmDeleteRegForm";
-
-import styles from './ConfirmDeleteReg.module.css'
-
+import styles from '../EditRegistration/EditRegistration.module.css'
 const ConfirmDeleteReg = ({ reg }) => {
 
   const [showModal, setShowModal] = useState(false);
 
   return (
     <>
-    <button onClick={() => setShowModal(true)}
-    className="eventButtonContainer"
-    id>Delete Registration</button>
-    {showModal && (
+      <button
+      className={styles.my_events_buttons}
+      onClick={() => setShowModal(true)}
+      >Delete Registration</button>
+         {showModal && (
       <Modal onClose={() => setShowModal(false)}>
         <ConfirmDeleteRegForm
         hideForm={() => setShowModal(false)}
-        reg={reg} />
+        />
       </Modal>
     )}
     </>
@@ -26,9 +25,3 @@ const ConfirmDeleteReg = ({ reg }) => {
 }
 
 export default ConfirmDeleteReg;
-
-// {showModal && (
-//   <Modal onClose={() => setShowModal(false)}>
-//     <ConfirmDeleteForm id={id} />
-//   </Modal>
-// )}

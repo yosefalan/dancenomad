@@ -1,7 +1,6 @@
 import { removeReg } from '../../store/registrations';
 import { useDispatch } from 'react-redux';
-
-import styles from './ConfirmDeleteReg.module.css'
+import styles from '../EditRegistration/EditRegistration.module.css'
 
 function ConfirmDeleteRegForm ({ reg, hideForm}) {
 
@@ -16,8 +15,8 @@ function ConfirmDeleteRegForm ({ reg, hideForm}) {
     <div className="confirmDeleteContainer">
       <h2>Are you sure you want to permanently delete this registration?</h2>
       <button
+      className={styles.my_events_buttons}
       onClick={() => handleDelete(reg.id)}
-      className="confirmDeleteButton"
       >Delete</button>
     </div>
   );

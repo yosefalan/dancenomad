@@ -23,7 +23,17 @@ const router = express.Router();
 router.get(
   "/",
   asyncHandler(async (req, res) => {
-    const events = await Event.findAll();
+    const events = await Event.findAll({
+      include: [
+        { model: User },
+        { model: Genre, as: "event_genre" },
+        { model: Type, as: "event_type" },
+
+        { model: Venue,
+          include: [{ model: Venue_type, as: "venue_type" }]
+        },
+      ],
+    });
     return res.json(events);
   })
 );
