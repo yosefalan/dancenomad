@@ -1,0 +1,14 @@
+
+.reg_button {
+  background-color: #C1C8E4;
+  width: 75%;
+  margin: 10px;
+  cursor: pointer;
+  border: none;
+  padding: 5px;
+}
+
+.reg_button:hover {
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  /* border: 1px solid #39364f; */
+}

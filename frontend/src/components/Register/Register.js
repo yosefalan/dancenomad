@@ -14,6 +14,7 @@ function Register ({ event }) {
   return (
     <>
       <button
+      className={styles.reg_button}
       onClick={() => setShowModal(true)}
       >Register</button>
          {showModal && (

@@ -19,7 +19,7 @@ function ManagedEvents ({ user }) {
   let myEvents = 0
   events.map((e) => {
     if (e.hostId === user.id) myEvents +=1
-    console.log("MINE", myEvents)
+    console.log("MINE", myEvents, "EVENTS:", events)
   })
 
   return (
