@@ -80,6 +80,8 @@ function CreateEventForm () {
       if(new_event) history.push(`/events/${new_event.id}`)
     }
 
+    console.log("IMAGE:", image)
+    
     const updateImageFile = (e) => {
       const file = e.target.files[0]
       if (file) setImage(file);

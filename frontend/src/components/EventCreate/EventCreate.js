@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { newEvent } from '../../store/events'
 import Select from 'react-select'
+import { useDropzone } from 'react-dropzone'
 // import styles from './CreateEvent.module.css'
 import styles from "./EventCreate.module.css";
 
@@ -28,51 +29,94 @@ export default function EventCreate() {
   const [video, setVideo] = useState([]);
   const [genres, setGenres] = useState([]);
   const [types, setTypes] = useState([]);
+  // const [preview, setPreview] = useState();
+  const [page, setPage] = useState(1);
   const [errors, setErrors] = useState([]);
+
+
+    const {
+      acceptedFiles,
+      fileRejections,
+      getRootProps,
+      getInputProps
+    } = useDropzone({
+      accept: 'image/jpg, image/jpeg, image/png',
+      maxFiles: 1,
+      maxSize: 10000000,
+      onDrop: acceptedFiles => {
+        setImage(acceptedFiles.map(file => Object.assign(file, {
+          preview: URL.createObjectURL(file)
+        })))
+      }
+    });
+
+    const acceptedFileItems = acceptedFiles.map(file => (
+      <li key={file.path}>
+        {file.path} - {(file.size / 1024 / 1024).toFixed(2)} MB
+      </li>
+    ));
+
+    const fileRejectionItems = fileRejections.map(({ file, errors }) => (
+      <li key={file.path}>
+        {file.path} - {file.size} bytes
+        <ul>
+          {errors.map(e => (
+            <li key={e.code}>{e.message}</li>
+          ))}
+        </ul>
+      </li>
+    ));
+
+    console.log("FILE REJECTIONS:", fileRejectionItems)
+    const thumb = image?.map(file => (
+          <img src={file.preview}
+          style={{width: '200px' }}/>
+    ));
 
   function nextPage() {
     // if (page === 4) return;
-   const errors = []
-    if (page === 1){
-      if (!name.length) errors.push("Event name is required")
-      if (name.length > 255) errors.push("Event name must be 255 characters or less")
-      if (!description.length) errors.push("Event description is required")
-      if (name.length < 6) errors.push("Event name must be at least 6 characters")
-      if (description.length < 6) errors.push("Event description must be at least 6 characters")
-      if (description > 2200) errors.push("Event name must be at least 6 characters")
-      if (!genres.length) errors.push("Please select at least one genre")
-      if (!types.length) errors.push("Please select at least one event type")
-      if (start_date > end_date) errors.push("Start date must be before end date")
+  //  const errors = []
+    // if (page === 1){
+    //   if (!name.length) errors.push("Event name is required")
+    //   if (name.length < 6) errors.push("Event name must be at least 6 characters")
+    //   if (name.length > 255) errors.push("Event name must be 255 characters or less")
+    //   if (!description.length) errors.push("Event description is required")
+    //   if (description.length < 6) errors.push("Event description must be at least 6 characters")
+    //   if (description > 2200) errors.push("Event name must be at least 6 characters")
+    //   if (!genres.length) errors.push("Please select at least one genre")
+    //   if (!types.length) errors.push("Please select at least one event type")
+    //   if (start_date > end_date) errors.push("Start date must be before end date")
+    // }
+    // if (page === 2){
+    //   if (!venue.length) errors.push("Venue name is required")
+    //   if (venue.length < 6) errors.push("Event name must be at least 6 characters")
+    //   if (venue.length > 255) errors.push("Venue name must be 255 characters or less")
+    //   if (!venue_types.length) errors.push("Please select at least one venue type")
+    //   if (!address.length) errors.push("Event description is required")
+    //   if (address.length < 6) errors.push("Address must be at least 6 characters")
+    //   if (name.length > 255) errors.push("Event name must be 255 characters or less")
+      // if (!country.length) errors.push("Please select a country")
+    // }
+        //
+      if (page === 3){
+
     }
     setErrors(errors)
+    if(fileRejectionItems.length) setImage([])
     if(!errors.length) setPage((page) => page +1);
   }
 
-  // useEffect(() => {
-  //   const errors = []
-  //   if (page === 1){
-  //     if (!name.length) errors.push("Event name is required")
-  //     if (name.length > 255) errors.push("Event name must be 255 characters or less")
-  //     if (!description.length) errors.push("Event description is required")
-  //     if (name.length < 6) errors.push("Event name must be at least 6 characters")
-  //     if (description.length < 6) errors.push("Event description must be at least 6 characters")
-  //     if (description > 2200) errors.push("Event name must be at least 6 characters")
-  //     if (!genres.length) errors.push("Please select at least one genre")
-  //     if (!types.length) errors.push("Please select at least one event type")
-  //     if (start_date > end_date) errors.push("Start date must be before end date")
-  //   }
+
+  function prevPage() {
+    if(fileRejectionItems.length) setImage([])
+    if(!errors.length) setPage((page) => page -1);
+  }
 
 
-  // //   if (!name.length) errors.push("Name field is required")
-  // //   if (name.length > 30) errors.push("Name must be 30 characters or less")
-  // //   if (age < 0 || age > 30) errors.push ("Age field must be between 0 and 30")
-  //   setErrors(errors)
-  // }, [name, description, genres, types])
-
+  console.log("IMAGE:", image)
 
 
   const handleSubmit = async (e) => {
-    console.log("HANDLE SUBMIT")
     e.preventDefault();
     let newErrors = [];
     const new_event = await dispatch(newEvent({
@@ -122,15 +166,15 @@ export default function EventCreate() {
       if(new_event) history.push(`/events/${new_event.id}`)
     }
 
-    const updateImageFile = (e) => {
-      const file = e.target.files[0]
-      if (file) setImage(file);
-    };
+    // const updateImageFile = (e) => {
+    //   const file = e.target.files[0]
+    //   if (file) setImage(file);
+    // };
 
-    const updateVideoFile = (e) => {
-      const file = e.target.files[0];
-      if (file) setVideo(file);
-    };
+    // const updateVideoFile = (e) => {
+    //   const file = e.target.files[0];
+    //   if (file) setVideo(file);
+    // };
 
     const genre_options = [
       { value: "1", label: 'Acro' },
@@ -489,19 +533,8 @@ export default function EventCreate() {
 
     /******************************************* */
 
-    const [page, setPage] = useState(1);
-    const [data, setData] = useState({
-      general: {},
-      location: {},
-      file: {}
-    })
 
 
-  function updateData(type, newData) {
-    setData(data => {
-      return {...data, [type]: newData}
-    })
-  }
   return (
     <div className={styles.event_create_main}>
 
@@ -513,7 +546,8 @@ export default function EventCreate() {
           <ul>
             {errors.map((error, idx) => <li key={idx}>{error}</li>)}
           </ul>
-            {/* {page === 1 && <EventCreate1 data={data.general} update={updateData} />} */}
+
+         {/**************************************************/}
             {page === 1 ? (
               <div className={styles.top_left}>
                 <h2>General Event Info</h2>
@@ -566,136 +600,125 @@ export default function EventCreate() {
                   options={type_options}
                   placeholder="Event Types"
                   />
-
-                {/* <button onClick={() => update("user", newData)}>Submit</button> */}
                   </div>
               </div>
-
-
-
             ) : null}
+              {/**************************************************/}
+            {page === 2 ? (
+              <div className={styles.top_right}>
 
+              <h2>Location Info</h2>
+              <input
+              type="text"
+              className={styles.create_event_form_field}
+              placeholder="Venue Name"
+              autocomplete="new-password"
+              value={venue}
+              onChange={(e) => setVenue(e.target.value)}
+              />
+              <Select
+              className={styles.create_event_form_field_s}
+              isMulti
+              defaultValue={venue_types}
+              onChange={setVenue_types}
+              options={venue_type_options}
+              placeholder="Venue type (Selcect all that apply)"
+              />
+              <input
+              type="text"
+              className={styles.create_event_form_field_a}
+              placeholder="Address"
+              autocomplete="new-password"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              />
+              <input
+              type="text"
+              className={styles.create_event_form_field}
+              placeholder="City"
+              autocomplete="new-password"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              />
+              <div className={styles.select_fields}>
+                <Select
+                  className={styles.create_event_select_field}
+                  defaultValue={state}
+                  onChange={setState}
+                  options={state_options}
+                  placeholder="State (US Only)"
+                  />
+                <input
+                  type="text"
+                  className={styles.create_event_select_field_z}
+                  placeholder="Zip Code (US Only)"
+                  autocomplete="new-password"
+                  value={zip}
+                  onChange={(e) => setZip(e.target.value)}
+                  />
+            </div>
+            <Select
+              className={styles.create_event_form_field_s}
+              defaultValue={country}
+              onChange={setCountry}
+              options={country_options}
+              placeholder="Select Country"
+              />
+            <div className={styles.select_fields}>
+              <input
+                type="number"
+                className={styles.create_event_form_field_l}
+                placeholder="Lattitude"
+                autocomplete="new-password"
+                value={lat}
+                onChange={(e) => setLat(e.target.value)}
+                />
+              <input
+                type="number"
+                className={styles.create_event_form_field_l}
+                placeholder="Longitude"
+                autocomplete="new-password"
+                value={lng}
+                onChange={(e) => setLng(e.target.value)}
+                />
+              </div>
+            </div>
+            ) : null}
+  {/**************************************************/}
+            {page === 3 ? (
+              // <h1>Upload a photo for your event...</h1>
+              <div className={styles.dnd_container}>
+                {image && !fileRejectionItems.length ? (
+                <div className={styles.img_preview}>
+                  <p>Image Preview</p>
+                  {thumb}
+                  </div>
+                ) : null}
+                {image && fileRejectionItems.length ? (
+                <div>
+                  <h4>File Rejected:</h4>
+                  <ul>{fileRejectionItems}</ul>
+                </div>
+                ) : null}
 
+              <div {...getRootProps({ className: 'dropzone' })}>
+                <input {...getInputProps()} />
+                <p>Drag 'n' drop an image files here, or click to select file</p>
+                <p>(Only .jpg .jpeg and .png images are allowed)</p>
+              </div>
+              </div>
+             ) : null}
 
-
-
-
-
-
-
-
-
-
-            {page === 2 && <EventCreate2 data={data.location} update={updateData} />}
-            {page === 3 && <EventCreate3 data={data.file} update={updateData} />}
-            {page === 4 && <EventCreate4 />}
+  {/**************************************************/}
             {page !== 4 &&<button
-            onClick={() => nextPage(page + 1)}>
+            onClick={() => nextPage()}>
             Next</button>}
             {page !== 1 &&<button
-            onClick={() => setPage(page - 1)}>
+            onClick={() => prevPage(page - 1)}>
               Prev</button>}
             {page === 4 && <button type="submit">Create Event</button>}
         </form>
       </div>
     </div>
   );
-}
-
-
-function EventCreate1({ data, update}) {
-  const newData = {};
-
-  return (
-          // <div className={styles.top_left}>
-          //   <h2>General Event Info</h2>
-          //   <input
-          //     type="text"
-          //     className={styles.create_event_form_field}
-          //     placeholder="Event Name"
-          //     autocomplete="new-password"
-          //     value={name}
-          //     onChange={(e) => setName(e.target.value)}
-          //     />
-          //   <textarea
-          //     className={styles.create_event_form_field}
-          //     placeholder="Description"
-          //     autocomplete="new-password"
-          //     value={description}
-          //     onChange={(e) => setDescription(e.target.value)}
-          //     />
-          //   <input
-          //     type="date"
-          //     className={styles.create_event_form_field}
-          //     placeholder="Start Date"
-          //     autocomplete="new-password"
-          //     value={start_date}
-          //     onChange={(e) => setStart_date(e.target.value)}
-          //     />
-          //   <input
-          //     type="date"
-          //     className={styles.create_event_form_field}
-          //     placeholder="End Date"
-          //     autocomplete="new-password"
-          //     value={end_date}
-          //     onChange={(e) => setEnd_date(e.target.value)}
-          //     />
-          //   <div className={styles.select_fields}>
-          //     <Select
-          //     className={styles.create_event_select_field}
-          //     isMulti
-          //     defaultValue={genres}
-          //     onChange={setGenres}
-          //     options={genre_options}
-          //     placeholder="Genres"
-          //     />
-
-          //     <Select
-          //     className={styles.create_event_select_field}
-          //     isMulti
-          //     defaultValue={types}
-          //     onChange={setTypes}
-          //     options={type_options}
-          //     placeholder="Event Types"
-          //     />
-
-            <button onClick={() => update("user", newData)}>Submit</button>
-        //   </div>
-        // </div>
-
-
-  )
-}
-
-function EventCreate2({ data, update}) {
-  return (
-
-
-
-    <div>Page 2</div>
-
-
-    )
-}
-
-function EventCreate3({ data, update}) {
-  return (
-
-
-
-    <div>Page 3</div>
-
-
-    )
-}
-
-function EventCreate4({ data, update}) {
-  return (
-
-
-
-    <div>Page 4</div>
-
-
-    )
 }
