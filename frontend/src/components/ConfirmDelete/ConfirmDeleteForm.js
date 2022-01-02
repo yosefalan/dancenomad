@@ -2,7 +2,7 @@ import { destroyEvent } from '../../store/events';
 import { useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 // import '../LoginFormModal/form.css';
-import './ConfirmDelete.css'
+import styles from './ConfirmDelete.module.css'
 
 function ConfirmDelete({ id, setShowModal }){
   // const { id } = useParams();

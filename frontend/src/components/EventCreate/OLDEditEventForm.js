@@ -1,180 +1,121 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { newEvent } from '../../store/events'
+import { Redirect, useParams, useHistory } from "react-router-dom";
+import { editEvent, getEvent, editVenue } from '../../store/events'
 import Select from 'react-select'
-import { useDropzone } from 'react-dropzone'
-// import styles from './CreateEvent.module.css'
-import styles from "./EventCreate.module.css";
+import moment from 'moment'
+import styles from './EditEvent.module.css'
 
-export default function EventCreate() {
+function EditEventForm ({ event }) {
+  const id  = useParams().id;
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session?.user);
   const hostId = sessionUser?.id
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [start_date, setStart_date] = useState(null);
-  const [end_date, setEnd_date] = useState(null);
-  const [venue, setVenue] = useState("");
-  const [venue_types, setVenue_types] = useState([]);
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zip, setZip] = useState("");
-  const [country, setCountry] = useState("");
-  const [lat, setLat] = useState(null);
-  const [lng, setLng] = useState(null);
-  const [image, setImage] = useState(null);
+
+  useEffect(() => {
+    dispatch(getEvent(id));
+  }, [dispatch]);
+
+  const [name, setName] = useState(event?.name);
+  const [description, setDescription] = useState(event?.description);
+  const [start_date, setStart_date] = useState(event?.start_date);
+  const [end_date, setEnd_date] = useState(event?.end_date);
+  const [venue, setVenue] = useState(event?.Venues[0]?.name);
+  const [venue_types, setVenue_types] = useState([])
+  const [address, setAddress] = useState(event?.Venues[0]?.address);
+  const [city, setCity] = useState(event?.Venues[0]?.city);
+  const [state, setState] = useState(event?.Venues[0]?.state);
+  const [zip, setZip] = useState(event?.Venues[0]?.zip);
+  const [country, setCountry] = useState(event?.Venues[0]?.country);
+  const [lat, setLat] = useState(event?.Venues[0]?.lat);
+  const [lng, setLng] = useState(event?.Venues[0]?.lng);
+  const [image, setImage] = useState([]);
   const [video, setVideo] = useState([]);
-  const [genres, setGenres] = useState([]);
-  const [types, setTypes] = useState([]);
-  // const [preview, setPreview] = useState();
-  const [page, setPage] = useState(1);
+  const [genres, setGenres] = useState(event?.event_genre);
+  const [types, setTypes] = useState(event?.event_type);
   const [errors, setErrors] = useState([]);
 
 
-    const {
-      acceptedFiles,
-      fileRejections,
-      getRootProps,
-      getInputProps
-    } = useDropzone({
-      accept: 'image/jpg, image/jpeg, image/png',
-      maxFiles: 1,
-      maxSize: 10000000,
-      onDrop: acceptedFiles => {
-        setImage(acceptedFiles.map(file => Object.assign(file, {
-          preview: URL.createObjectURL(file)
-        })))
-      }
-    });
-
-    const acceptedFileItems = acceptedFiles.map(file => (
-      <li key={file.path}>
-        {file.path} - {(file.size / 1024 / 1024).toFixed(2)} MB
-      </li>
-    ));
-
-    const fileRejectionItems = fileRejections.map(({ file, errors }) => (
-      <li key={file.path}>
-        {file.path} - {file.size} bytes
-        <ul>
-          {errors.map(e => (
-            <li key={e.code}>{e.message}</li>
-          ))}
-        </ul>
-      </li>
-    ));
-
-    console.log("FILE REJECTIONS:", fileRejectionItems)
-    const thumb = image?.map(file => (
-          <img src={file.preview}
-          style={{width: '200px' }}/>
-    ));
-
-  function nextPage() {
-    // if (page === 4) return;
-  //  const errors = []
-    // if (page === 1){
-    //   if (!name.length) errors.push("Event name is required")
-    //   if (name.length < 6) errors.push("Event name must be at least 6 characters")
-    //   if (name.length > 255) errors.push("Event name must be 255 characters or less")
-    //   if (!description.length) errors.push("Event description is required")
-    //   if (description.length < 6) errors.push("Event description must be at least 6 characters")
-    //   if (description > 2200) errors.push("Event name must be at least 6 characters")
-    //   if (!genres.length) errors.push("Please select at least one genre")
-    //   if (!types.length) errors.push("Please select at least one event type")
-    //   if (start_date > end_date) errors.push("Start date must be before end date")
-    // }
-    // if (page === 2){
-    //   if (!venue.length) errors.push("Venue name is required")
-    //   if (venue.length < 6) errors.push("Event name must be at least 6 characters")
-    //   if (venue.length > 255) errors.push("Venue name must be 255 characters or less")
-    //   if (!venue_types.length) errors.push("Please select at least one venue type")
-    //   if (!address.length) errors.push("Event description is required")
-    //   if (address.length < 6) errors.push("Address must be at least 6 characters")
-    //   if (name.length > 255) errors.push("Event name must be 255 characters or less")
-      // if (!country.length) errors.push("Please select a country")
-    // }
-        //
-      if (page === 3){
-
-    }
-    setErrors(errors)
-    if(fileRejectionItems.length) setImage([])
-    if(!errors.length) setPage((page) => page +1);
-  }
+  const updateName = (e) => setName(e?.target?.value);
+  const updateDescription = (e) => setDescription(e?.target?.value);
+  const updateStart_date = (e) => setStart_date(e?.target?.value);
+  const updateEnd_date = (e) => setEnd_date(e?.target?.value);
+  const updateVenue = (e) => setVenue(e?.target?.value);
+  // const updateVenue_types = (e) => setVenue_types(e?.target?.value);
+  const updateAddress = (e) => setAddress(e?.target?.value);
+  const updateCity = (e) => setCity(e?.target?.value);
+  const updateState = (e) => setState(e?.target?.value);
+  const updateZip = (e) => setZip(e?.target?.value);
+  const updateCountry = (e) => setCountry(e?.target?.value);
+  const updateLat = (e) => setLat(e?.target?.value);
+  const updateLng = (e) => setLng(e?.target?.value);
+  const updateImage = (e) => setImage(e?.target?.value);
+  const updateVideo= (e) => setVideo(e?.target?.value);
+  const updateGenres = (e) => setGenres(e?.target?.value);
+  const updateTypes = (e) => setTypes(e?.target?.value);
 
 
-  function prevPage() {
-    if(fileRejectionItems.length) setImage([])
-    if(!errors.length) setPage((page) => page -1);
-  }
-
-
-  console.log("IMAGE:", image)
-
-
-  const handleSubmit = async (e) => {
+  const handleEventSubmit = async (e) => {
     e.preventDefault();
     let newErrors = [];
-    const new_event = await dispatch(newEvent({
+    const new_event = await dispatch(editEvent({
       hostId,
       name,
       description,
       start_date,
       end_date,
-      venue,
-      venue_types,
-      address,
-      city,
-      state: state.value,
-      zip,
-      country: country.value,
-      lat,
-      lng,
       genres,
       types,
-      image,
-      video,
-    }))
-    .then(() => {
-      setName("");
-      setDescription("");
-      setStart_date(null);
-      setEnd_date(null);
-      setVenue("");
-      setVenue_types(null);
-      setCity("");
-      setState("")
-      setCountry("");
-      setLat(null);
-      setLng(null);
-      setGenres(null);
-      setTypes([]);
-      setImage([]);
-      setVideo([]);
-    })
+
+    }, id))
     .catch(async (res) => {
       const data = await res.json();
       if (data && data.errors) {
         newErrors = data.errors;
         setErrors(newErrors);
       }
-      });
-      if(new_event) history.push(`/events/${new_event.id}`)
+    });
+    if(new_event) history.push(`/events/${new_event.id}`)
     }
 
-    // const updateImageFile = (e) => {
-    //   const file = e.target.files[0]
-    //   if (file) setImage(file);
-    // };
 
-    // const updateVideoFile = (e) => {
-    //   const file = e.target.files[0];
-    //   if (file) setVideo(file);
-    // };
+    const handleVenueSubmit = async (e) => {
+      e.preventDefault();
+      let newErrors = [];
+      const new_event = await dispatch(editVenue({
+        venue,
+        venue_types,
+        address,
+        city,
+        state: state?.value,
+        zip,
+        country: country?.value,
+        lat,
+        lng,
+      }, id))
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          newErrors = data.errors;
+          setErrors(newErrors);
+        }
+      });
+      if(new_event) history.push(`/events/${new_event.id}`)
+      }
+
+    const updateImageFile = (e) => {
+      const file = e.target.files[0]
+      if (file) setImage(file);
+    };
+
+    const updateVideoFile = (e) => {
+      const file = e.target.files[0];
+      if (file) setVideo(file);
+    };
+
+    const sd = moment(start_date).format('ddd MMMM Do')
+    const ed = moment(end_date).format('ddd MMMM Do yyyy')
 
     const genre_options = [
       { value: "1", label: 'Acro' },
@@ -530,82 +471,82 @@ export default function EventCreate() {
       { value: "Zambia", label: 'Zambia' },
       { value: "Zimbabwe", label: 'Zimbabwe' }
     ]
-
-    /******************************************* */
-
+    console.log("GENRES:", genres[1].genre)
 
 
-  return (
-    <div className={styles.event_create_main}>
-
+    return (
       <div className={styles.form_container}>
-        <h1>Let's create your event...</h1>
+        <h1>Edit your event details...</h1>
+        {/* {genres.map((g) => {
+          <p>{g.genre}</p>
+            {console.log("GGGGGGGG:", g.genre)}
+          })} */}
         <form
-          onSubmit={handleSubmit}
-          className={styles.form}>
+        className={styles.form}>
           <ul>
             {errors.map((error, idx) => <li key={idx}>{error}</li>)}
           </ul>
+          <div className={styles.top}>
+            <div className={styles.top_left}>
+              <h2>General Event Info</h2>
+              <input
+                type="text"
+                className={styles.create_event_form_field}
+                placeholder="Event Name"
+                autocomplete="new-password"
+                value={name}
+                onChange={updateName}
+                />
+              <textarea
+                className={styles.create_event_form_field}
+                placeholder="Description"
+                autocomplete="new-password"
+                value={description}
+                onChange={updateDescription}
+                />
+                <p>   {sd} - {ed}</p>
+              <input
+                type="date"
+                className={styles.create_event_form_field}
+                placeholder={start_date}
+                autocomplete="new-password"
+                value={start_date}
+                onChange={updateStart_date}
+                />
+              <input
+                type="date"
+                className={styles.create_event_form_field}
+                placeholder="End Date"
+                autocomplete="new-password"
+                value={end_date}
+                onChange={updateEnd_date}
+                />
 
-         {/**************************************************/}
-            {page === 1 ? (
-              <div className={styles.top_left}>
-                <h2>General Event Info</h2>
-                <input
-                  type="text"
-                  className={styles.create_event_form_field}
-                  placeholder="Event Name"
-                  autocomplete="new-password"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  />
-                <textarea
-                  className={styles.create_event_form_field}
-                  placeholder="Description"
-                  autocomplete="new-password"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  />
-                <input
-                  type="date"
-                  className={styles.create_event_form_field}
-                  placeholder="Start Date"
-                  autocomplete="new-password"
-                  value={start_date}
-                  onChange={(e) => setStart_date(e.target.value)}
-                  />
-                <input
-                  type="date"
-                  className={styles.create_event_form_field}
-                  placeholder="End Date"
-                  autocomplete="new-password"
-                  value={end_date}
-                  onChange={(e) => setEnd_date(e.target.value)}
-                  />
-                <div className={styles.select_fields}>
-                  <Select
-                  className={styles.create_event_select_field}
-                  isMulti
-                  defaultValue={genres}
-                  onChange={setGenres}
-                  options={genre_options}
-                  placeholder="Genres"
-                  />
-
-                  <Select
-                  className={styles.create_event_select_field}
-                  isMulti
-                  defaultValue={types}
-                  onChange={setTypes}
-                  options={type_options}
-                  placeholder="Event Types"
-                  />
-                  </div>
+              <div className={styles.select_fields}>
+                <Select
+                className={styles.create_event_select_field}
+                isMulti
+                onChange={setGenres}
+                options={genre_options}
+                placeholder="Genres"
+                />
+                <Select
+                className={styles.create_event_select_field}
+                isMulti
+                onChange={setTypes}
+                options={type_options}
+                placeholder="Event Types"
+                />
               </div>
-            ) : null}
-              {/**************************************************/}
-            {page === 2 ? (
-              <div className={styles.top_right}>
+              <button
+              onClick={handleEventSubmit}
+              type="submit" id="submitButton"
+              className={styles.event_submit_button}
+              >Update Event Info</button>
+            </div>
+
+
+            <div className={styles.top_right}>
 
               <h2>Location Info</h2>
               <input
@@ -614,7 +555,7 @@ export default function EventCreate() {
               placeholder="Venue Name"
               autocomplete="new-password"
               value={venue}
-              onChange={(e) => setVenue(e.target.value)}
+              onChange={setVenue_types}
               />
               <Select
               className={styles.create_event_form_field_s}
@@ -630,7 +571,7 @@ export default function EventCreate() {
               placeholder="Address"
               autocomplete="new-password"
               value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              onChange={updateAddress}
               />
               <input
               type="text"
@@ -638,13 +579,13 @@ export default function EventCreate() {
               placeholder="City"
               autocomplete="new-password"
               value={city}
-              onChange={(e) => setCity(e.target.value)}
+              onChange={updateCity}
               />
               <div className={styles.select_fields}>
                 <Select
                   className={styles.create_event_select_field}
                   defaultValue={state}
-                  onChange={setState}
+                  onChange={updateState}
                   options={state_options}
                   placeholder="State (US Only)"
                   />
@@ -654,7 +595,7 @@ export default function EventCreate() {
                   placeholder="Zip Code (US Only)"
                   autocomplete="new-password"
                   value={zip}
-                  onChange={(e) => setZip(e.target.value)}
+                  onChange={updateZip}
                   />
             </div>
             <Select
@@ -671,7 +612,7 @@ export default function EventCreate() {
                 placeholder="Lattitude"
                 autocomplete="new-password"
                 value={lat}
-                onChange={(e) => setLat(e.target.value)}
+                onChange={updateLat}
                 />
               <input
                 type="number"
@@ -679,46 +620,41 @@ export default function EventCreate() {
                 placeholder="Longitude"
                 autocomplete="new-password"
                 value={lng}
-                onChange={(e) => setLng(e.target.value)}
+                onChange={updateLng}
                 />
               </div>
+              <button
+              onClick={handleVenueSubmit}
+              type="submit" id="submitButton"
+              className={styles.event_submit_button}
+              >Update Venue Info</button>
+          <div className={styles.buttons_container}>
             </div>
-            ) : null}
-  {/**************************************************/}
-            {page === 3 ? (
-              // <h1>Upload a photo for your event...</h1>
-              <div className={styles.dnd_container}>
-                {image && !fileRejectionItems.length ? (
-                <div className={styles.img_preview}>
-                  <p>Image Preview</p>
-                  {thumb}
-                  </div>
-                ) : null}
-                {image && fileRejectionItems.length ? (
-                <div>
-                  <h4>File Rejected:</h4>
-                  <ul>{fileRejectionItems}</ul>
-                </div>
-                ) : null}
+          </div>
 
-              <div {...getRootProps({ className: 'dropzone' })}>
-                <input {...getInputProps()} />
-                <p>Drag 'n' drop an image files here, or click to select file</p>
-                <p>(Only .jpg .jpeg and .png images are allowed)</p>
-              </div>
-              </div>
-             ) : null}
+          {/* <div className={styles.buttons_container}>
 
-  {/**************************************************/}
-            {page !== 4 &&<button
-            onClick={() => nextPage()}>
-            Next</button>}
-            {page !== 1 &&<button
-            onClick={() => prevPage(page - 1)}>
-              Prev</button>}
-            {page === 4 && <button type="submit">Create Event</button>}
+            <label className="uploadLabel">
+            Image
+            <input
+            type="file"
+            onChange={updateImageFile} />
+            </label>
+
+            <label className="uploadLabel">
+            Video
+            <input
+            type="file"
+            onChange={updateVideoFile} />
+            </label>
+
+            <button type="submit" id="submitButton"
+            className={styles.event_submit_button}
+            >Submit</button> */}
+          </div>
         </form>
       </div>
-    </div>
-  );
-}
+    )
+  }
+
+  export default EditEventForm

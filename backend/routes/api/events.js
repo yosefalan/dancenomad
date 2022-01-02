@@ -24,6 +24,7 @@ router.get(
   "/",
   asyncHandler(async (req, res) => {
     const events = await Event.findAll({
+
       include: [
         { model: User },
         { model: Genre, as: "event_genre" },
@@ -41,19 +42,22 @@ router.get(
 router.get(
   "/:id(\\d+)",
   asyncHandler(async (req, res) => {
-    const event = await Event.findByPk(+req.params.id,
-
+   const event_id = +req.params.id
+    const event = await Event.findByPk(event_id,
       {
       include: [
         { model: User },
-        { model: Genre, as: "event_genre" },
+        { model: Genre,
+          as: "event_genre",
+        },
         { model: Type, as: "event_type" },
 
         { model: Venue,
           include: [{ model: Venue_type, as: "venue_type" }]
         },
-      ],
+      ]
     });
+
     return res.json(event);
   })
 );
@@ -76,8 +80,8 @@ router.post(
       state,
       zip,
       country,
-      lat,
-      lng,
+      // lat,
+      // lng,
       genres,
       types,
       // image,
@@ -103,8 +107,8 @@ router.post(
       state,
       zip,
       country,
-      lat,
-      lng,
+      // lat,
+      // lng,
       eventId: eventId
     });
     const venueId = v.id;
@@ -161,6 +165,7 @@ router.put(
       end_date,
     });
 
+    if(genres){
     await Event_genre.destroy({
       where: {
         eventId: event_id
@@ -174,7 +179,9 @@ router.put(
         genreId: +genre.value,
       });
     });
+  }
 
+  if(types){
     await Event_type.destroy({
       where: {
         eventId: event_id
@@ -188,7 +195,7 @@ router.put(
         typeId: +type.value,
       });
     });
-
+  }
     return res.json(event);
   })
 );

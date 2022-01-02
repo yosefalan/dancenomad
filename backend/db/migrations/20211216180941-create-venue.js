@@ -24,7 +24,6 @@ module.exports = {
         type: Sequelize.STRING(255)
       },
       state: {
-
         type: Sequelize.STRING(255)
       },
       zip: {
@@ -34,14 +33,12 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(255)
       },
-      lat: {
-        allowNull: false,
-        type: Sequelize.DECIMAL
-      },
-      lng: {
-        allowNull: false,
-        type: Sequelize.DECIMAL
-      },
+      // lat: {
+      //   type: Sequelize.DECIMAL
+      // },
+      // lng: {
+      //   type: Sequelize.DECIMAL
+      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

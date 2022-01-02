@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     state: DataTypes.STRING(255),
     country: DataTypes.STRING(255),
     zip: DataTypes.STRING(255),
-    lat: DataTypes.DECIMAL,
-    lng: DataTypes.DECIMAL,
+    // lat: DataTypes.DECIMAL,
+    // lng: DataTypes.DECIMAL,
   }, {});
   Venue.associate = function(models) {
     Venue.belongsTo(models.Event, { foreignKey: 'id' });

@@ -13,12 +13,6 @@ module.exports = (sequelize, DataTypes) => {
     Event.hasOne(models.Registration, { foreignKey: 'eventId' });
     Event.belongsTo(models.User, { foreignKey: 'hostId' });
     Event.hasMany(models.Venue, { foreignKey: 'eventId' });
-    // Event.belongsToMany(models.User, {
-    //   through: 'Registration',
-    //   as: 'registration',
-    //   foreignKey: 'eventId',
-    //   otherKey: 'userId'
-    // });
     Event.belongsToMany(models.Type, {
       through: 'Event_type',
       as: 'event_type',

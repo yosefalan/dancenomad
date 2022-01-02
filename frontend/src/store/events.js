@@ -50,7 +50,6 @@ export const getEvents = () => async (dispatch) => {
 }
 
 export const getManagedEvents = (userId) => async (dispatch) => {
-  console.log("YOOOOOOOOOOOOOOOOOOOOOO")
   const res = await csrfFetch(`/api/${userId}:id/events/manage/all`);
   if(res.ok) {
     const events = await res.json();
@@ -124,6 +123,7 @@ export const newEvent = (event) => async (dispatch) => {
   if(res.ok) {
     const event = await res.json();
     dispatch(createEvent(event));
+
   };
 }
 
@@ -175,8 +175,9 @@ const eventsReducer = (state = initialState, action) => {
       return {...allEvents, ...state};
     }
     case READ_EVENT: {
-      const event = action.payload;
-      return {[action.payload.id]: action.payload }
+      const newState =  {[action.payload.id]: action.payload }
+      // return {[action.payload.id]: action.payload }
+      return newState
     }
     case CREATE_EVENT: {
       return { ...state, [action.payload.id]: action.payload }

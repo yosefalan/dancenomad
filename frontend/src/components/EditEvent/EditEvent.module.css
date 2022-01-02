@@ -2,6 +2,19 @@
   color: #39364f;
 
 }
+.my_events_buttons {
+  background-color: #C1C8E4;
+  margin-top: 15px;
+  margin-right: 15px;
+  cursor: pointer;
+  border: none;
+  padding: 5px;
+}
+
+.my_events_buttons:hover {
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border: 1px solid #39364f;
+}
 
 .form_container {
   width: 100vw;
