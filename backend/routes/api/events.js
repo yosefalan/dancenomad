@@ -65,7 +65,6 @@ router.get(
 router.post(
   "/",
   multipleMulterUpload("files"),
-  // validateSignup,
   asyncHandler(async (req, res) => {
     const {
       hostId,
@@ -147,6 +146,7 @@ router.post(
 
 router.put(
   '/:id(\\d+)',
+  multipleMulterUpload("files"),
   asyncHandler(async(req, res) => {
     const event_id = +req.params.id
     const event = await Event.findByPk(event_id);
@@ -155,6 +155,8 @@ router.put(
       description,
       start_date,
       end_date,
+      // image,
+      // video,
       // genres,
       // types,
       venue,
@@ -165,11 +167,16 @@ router.put(
       zip,
       country,
     } = req.body;
+    const url = await multiplePublicFileUpload(req.files);
+    const image_url = url[0]
+    const video_url = url[1]
     await event.update({
       name,
       description,
       start_date,
       end_date,
+      image_url,
+      video_url
     });
     const v = await Venue.update({
       name: venue,

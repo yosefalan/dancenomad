@@ -155,7 +155,7 @@ export default function EditEventForm({ event, hideForm }) {
           genres:
           types,
           image: image[0],
-          video,
+          video
         }
         const updated_event = await dispatch(editEvent(data, id))
         if(updated_event) {
@@ -531,8 +531,7 @@ export default function EditEventForm({ event, hideForm }) {
         //   setSelectedTypes(Array.isArray(e) ? e.map(x => x) : []);
         //   setTypes([...new Set([...types,...selectedTypes])])
         // }
-
-        console.log("G", genres)
+console.log("IMAGES", image, thumb)
         /******************************************* */
 
   return (
@@ -737,12 +736,12 @@ export default function EditEventForm({ event, hideForm }) {
 
 
                 {page === 4 &&
-                thumb.length && !fileRejectionItems.length ? (
+                thumb?.length && !fileRejectionItems.length ? (
                   <div className={styles.img_preview}>
                     {thumb}
                     </div>
                   ) : null}
-                {page === 4 &&
+                {page === 4 && !thumb?.length &&
                 event?.image_url ? (
                   <div className={styles.img_preview}>
                     <img src={event?.image_url}

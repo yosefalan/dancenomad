@@ -16,7 +16,7 @@ import UserRegistrations from "./components/UserRegistrations/UserRegistrations"
 import ManagedEvents from "./components/ManagedEvents/ManagedEvents";
 import EventRegistrations from "./components/EventRegistrations/EventRegistrations";
 import EventCreate from "./components/EventCreate/CreateEventForm new";
-
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -34,12 +34,15 @@ function App() {
       <Switch>
         <Route exact path="/">
           <LandingPage />
+          <Footer />
         </Route>
         <Route exact path="/login">
           <LoginPage sessionUser={sessionUser} />
+          <Footer />
         </Route>
         <Route exact path="/signup">
           <SignupPage />
+          <Footer />
         </Route>
 
         <ProtectedRoute exact path="/main">

@@ -34,6 +34,7 @@ export default function CreateEvent({ hideForm }) {
   const [page, setPage] = useState(1);
   const [errors, setErrors] = useState([]);
 
+  console.log(image)
 
     const {
       acceptedFiles,
@@ -78,35 +79,41 @@ export default function CreateEvent({ hideForm }) {
      const errors = [];
     if (page === 1){
       let today = new Date()
-      if (!name.length) errors.push("Event name is required")
-      if (name.length < 6) errors.push("Event name must be at least 6 characters")
-      if (name.length > 255) errors.push("Event name must be 255 characters or less")
-      if (!description.length) errors.push("Event description is required")
-      if (description.length < 6) errors.push("Event description must be at least 6 characters")
+      if (!name?.length) errors.push("Event name is required")
+      if (name?.length < 6) errors.push("Event name must be at least 6 characters")
+      if (name?.length > 255) errors.push("Event name must be 255 characters or less")
+      if (!description?.length) errors.push("Event description is required")
+      if (description?.length < 6) errors.push("Event description must be at least 6 characters")
       if (description > 2200) errors.push("Event name must be at least 6 characters")
       // if (!genres.length) errors.push("Please select at least one genre")
       // if (!types.length) errors.push("Please select at least one event type")
       if (start_date > end_date) errors.push("Start date must be before end date")
     }
     if (page === 2){
-      if (!venue.length) errors.push("Venue name is required")
-      if (venue.length < 6) errors.push("Event name must be at least 6 characters")
-      if (venue.length > 255) errors.push("Venue name must be 255 characters or less")
+      if (!venue?.length) errors.push("Venue name is required")
+      if (venue?.length < 6) errors.push("Venue name must be at least 6 characters")
+      if (venue?.length > 255) errors.push("Venue name must be 255 characters or less")
       // if (!venue_types.length) errors.push("Please select at least one venue type")
-      if (!address.length) errors.push("Event description is required")
-      if (address.length < 6) errors.push("Address must be at least 6 characters")
-      if (name.length > 255) errors.push("Event name must be 255 characters or less")
-      if (!country.value) errors.push("Please select a country")
+      if (!address?.length) errors.push("Event address is required")
+      if (address?.length < 6) errors.push("Address must be at least 6 characters")
+      if (address?.length > 255) errors.push("Address must be 255 characters or less")
+      if (!city?.length) errors.push("City is required")
+      if (city?.length < 6) errors.push("City must be at least 6 characters")
+      if (city?.length > 255) errors.push("City must be 255 characters or less")
+      if (!country?.value) errors.push("Please select a country")
     }
     setErrors(errors)
     if(fileRejectionItems.length) setImage([])
-    if(!errors.length) setPage((page) => page +1);
+    // setPage((page) => page +1);
+    if(!errors?.length) setPage((page) => page +1);
   }
+
 
 
   function prevPage() {
     if(fileRejectionItems.length) setImage([])
-    if(!errors.length) setPage((page) => page -1);
+    // setPage((page) => page -1)
+    if(!errors?.length) setPage((page) => page -1);
   }
 
   const handleSubmit = async (e) => {
@@ -536,12 +543,16 @@ export default function CreateEvent({ hideForm }) {
             </ul>
           </div>
             ) : null}
-            {page === 3 && thumb.length && !fileRejectionItems.length ? (
+            {page === 3 && thumb?.length && !fileRejectionItems?.length ? (
                 <div className={styles.img_preview}>
                 {thumb}
                 </div>
                 ) : null}
-
+            {page === 3 && !thumb?.length ? (
+            <div className={styles.img_preview}>
+                <h3>Upload a photo for your event...</h3>
+                </div>
+                ) : null}
          {/**************************************************/}
             {page === 1 ? (
               <div className={styles.page_container}>
@@ -684,13 +695,13 @@ export default function CreateEvent({ hideForm }) {
   {/**************************************************/}
             {page === 3 ? (
               <div className={styles.dnd_container}>
-                <h3>Upload a photo for your event...</h3>
+
                 {/* {image && !fileRejectionItems.length ? (
                 <div className={styles.img_preview}>
                   {thumb}
-                  </div> */}
-                {/* ) : null} */}
-                {image && fileRejectionItems.length ? (
+                  </div>
+                ) : null} */}
+                {image && fileRejectionItems?.length ? (
                 <div>
                   <h4>File Rejected:</h4>
                   <ul>{fileRejectionItems}</ul>
@@ -707,7 +718,7 @@ export default function CreateEvent({ hideForm }) {
 
   {/**************************************************/}
   {page === 4 &&
-                thumb.length && !fileRejectionItems.length ? (
+                thumb?.length && !fileRejectionItems?.length ? (
                   <div className={styles.img_preview}>
                     {thumb}
                     </div>
