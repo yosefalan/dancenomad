@@ -27,11 +27,11 @@ function Navigation({ isLoaded }){
           </div>
         </div>
         : <div className={styles.linksContainer}>
-          <div
+          {/* <div
           className={styles.navBarLink}>
           <NavLink exact to="/login/manage"
           className={styles.navBarLinkText}
-          >Create Event</NavLink></div>
+          >Create Event</NavLink></div> */}
           <div
           className={styles.navBarLink}>
           <NavLink exact to="/login"

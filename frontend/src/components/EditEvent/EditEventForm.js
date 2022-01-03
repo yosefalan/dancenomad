@@ -115,10 +115,7 @@ export default function EditEventForm({ event, hideForm }) {
           if (venue.length < 6) errors.push("Event name must be at least 6 characters")
           if (venue.length > 255) errors.push("Venue name must be 255 characters or less")
           // if (!venue_types.length) errors.push("Please select at least one venue type")
-          if (!address.length) errors.push("Event description is required")
-          if (address.length < 6) errors.push("Address must be at least 6 characters")
-          if (name.length > 255) errors.push("Event name must be 255 characters or less")
-          // if (!country.value) errors.push("Please select a country")
+          if (!country) errors.push("Please select a country")
         }
         setErrors(errors)
         if(fileRejectionItems.length) setImage([])

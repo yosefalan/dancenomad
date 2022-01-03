@@ -10,7 +10,7 @@
 
 .reg_button:hover {
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  /* border: 1px solid #39364f; */
+  border: 1px solid #39364f;
 }
 
 .reg_main {

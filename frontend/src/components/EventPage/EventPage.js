@@ -18,8 +18,8 @@ function EventPage () {
   }, [dispatch]);
 
   const event = useSelector(state => Object.values(state?.events))[0];
-  const genres = [event?.event_genre?.map(g => g.genre)]
-  const types = [event?.event_type?.map(t => t.type)]
+  // const genres = [event?.event_genre?.map(g => g.genre)]
+  // const types = [event?.event_type?.map(t => t.type)]
   const start_date = moment(event?.start_date).format('MMMM Do')
   const end_date = moment(event?.end_date).format('MMMM Do yyyy')
 
