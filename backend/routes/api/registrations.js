@@ -59,7 +59,12 @@ router.put(
   '/:id',
   asyncHandler(async(req, res) => {
 
-    const reg = await Registration.findByPk(+req.params.id);
+    const reg = await Registration.findByPk(+req.params.id,
+      {
+        include: [
+          { model: User }
+        ]
+      })
     await reg.update(req.body);
     return res.json(reg);
   })
