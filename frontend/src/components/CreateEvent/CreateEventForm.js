@@ -137,7 +137,6 @@ export default function CreateEvent({ hideForm }) {
       let new_event = await dispatch(newEvent(data))
       const id = new_event?.event?.id
       if(new_event) {
-      console.log("***************", new_event.event.id)
       history.push(`/events/${id}`)
       hideForm()
       }
@@ -684,11 +683,10 @@ export default function CreateEvent({ hideForm }) {
             ) : null}
   {/**************************************************/}
             {page === 3 ? (
-              // <h1>Upload a photo for your event...</h1>
               <div className={styles.dnd_container}>
+                <h3>Upload a photo for your event...</h3>
                 {image && !fileRejectionItems.length ? (
                 <div className={styles.img_preview}>
-
                   {thumb}
                   </div>
                 ) : null}

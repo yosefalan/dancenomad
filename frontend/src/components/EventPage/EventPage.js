@@ -22,7 +22,7 @@ function EventPage () {
   const types = [event?.event_type?.map(t => t.type)]
   const start_date = moment(event?.start_date).format('MMMM Do')
   const end_date = moment(event?.end_date).format('MMMM Do yyyy')
-
+  console.log("EVENT", event)
 
   return (
     <>
@@ -40,7 +40,7 @@ function EventPage () {
         <div className={styles.event_page_top_right}>
           <p>{event?.name}</p>
           <p>{start_date} to {end_date}</p>
-          <p>Event by: {}</p>
+          <p>Event by: {event?.User?.username}</p>
         </div>
       </div>
       <div className={styles.event_page_middle}>
@@ -50,14 +50,14 @@ function EventPage () {
         </div>
       </div>
       <div className={styles.event_page_bottom}>
-        <div className={styles.event_page_bottom_left}>
-          <p>{event?.description}</p>
-          <p>Location: {event?.Venue?.name}</p>
-          <p>{event?.Venue?.address}</p>
-          <p>{event?.Venue?.city}, {event?.Venue?.state}</p>
-          <p>Genres:</p>
-          <p>
-          {event?.event_genre?.map((g) => {
+        <div className={styles.event_page_bottom_inner}>
+          <p className={styles.event_page_d}>{event?.description}</p>
+          <p className={styles.event_page_p}>Location: {event?.Venues[0]?.name}</p>
+          <p className={styles.event_page_p}>{event?.Venues[0]?.address}</p>
+          <p className={styles.event_page_p}>{event?.Venues[0]?.city}, {event?.Venues[0]?.state}</p>
+          {/* <p>Genres:</p> */}
+          {/* <p> */}
+          {/* {event?.event_genre?.map((g) => {
             return(
               <ul>
                 <li>{g.genre}</li>
@@ -73,10 +73,10 @@ function EventPage () {
               </ul>
           )})}
           </p>
-          <p>Event by: {event?.User?.username}</p>
+          <p>Event by: {event?.User?.username}</p> */}
         </div>
-        <div className={styles.event_page_bottom_right}>
-        </div>
+        {/* <div className={styles.event_page_bottom_right}> */}
+        {/* </div> */}
       </div>
     </div>
     </>

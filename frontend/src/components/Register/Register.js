@@ -19,7 +19,7 @@ function Register ({ event }) {
       >Register</button>
          {showModal && (
       <Modal onClose={() => setShowModal(false)}>
-        <RegistrationForm event={event}/>
+        <RegistrationForm event={event} hideForm={() => setShowModal(false)}/>
       </Modal>
     )}
     </>

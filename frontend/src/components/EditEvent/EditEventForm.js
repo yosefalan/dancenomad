@@ -8,7 +8,7 @@ import { useDropzone } from 'react-dropzone'
 import styles from './EditEvent.module.css'
 
 
-export default function EditEventForm({ event }) {
+export default function EditEventForm({ event, hideForm }) {
 
       const id  = event.id
       const dispatch = useDispatch();
@@ -32,17 +32,18 @@ export default function EditEventForm({ event }) {
       // const [lng, setLng] = useState(event?.Venues[0]?.lng);
       const [image, setImage] = useState([]);
       const [video, setVideo] = useState([]);
-      const [genres, setGenres] = useState(event?.genres);
-      const [types, setTypes] = useState([]);
+      const [genres, setGenres] = useState(event?.event_genre);
+      const [types, setTypes] = useState(event?.event_type);
       const [errors, setErrors] = useState([]);
       const [page, setPage] = useState(1);
+
 
       const updateName = (e) => setName(e?.target?.value);
       const updateDescription = (e) => setDescription(e?.target?.value);
       const updateStart_date = (e) => setStart_date(e?.target?.value);
       const updateEnd_date = (e) => setEnd_date(e?.target?.value);
       const updateVenue = (e) => setVenue(e?.target?.value);
-      // const updateVenue_types = (e) => setVenue_types(e?.target?.value);
+      const updateVenue_types = (e) => setVenue_types(e?.target?.value);
       const updateAddress = (e) => setAddress(e?.target?.value);
       const updateCity = (e) => setCity(e?.target?.value);
       const updateState = (e) => setState(e?.target?.value);
@@ -90,9 +91,10 @@ export default function EditEventForm({ event }) {
         ));
 
         const thumb = image?.map(file => (
-              <img src={file.preview}
-              style={{width: '200px' }}/>
-        ));
+          <img src={file.preview}
+          className={styles.thumb}
+          />
+    ));
 
         function nextPage() {
           const errors = [];
@@ -128,10 +130,14 @@ export default function EditEventForm({ event }) {
         if(!errors.length) setPage((page) => page -1);
       }
 
+      // const g = genres.map((g) => {
+      //   if (g.id) g[id] = g[label]
+      // })
+
       const handleSubmit = async (e) => {
         e.preventDefault();
         let newErrors = [];
-        const updated_event = await dispatch(editEvent({
+        const data = {
           hostId,
           name,
           description,
@@ -146,40 +152,20 @@ export default function EditEventForm({ event }) {
           country: country.value,
           // lat,
           // lng,
-          genres,
+          genres:
           types,
           image: image[0],
           video,
-        }, id))
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data && data.errors) {
-            newErrors = data.errors;
-            setErrors(newErrors);
-          }
-          });
-          if(updated_event) history.push(`/events/${updated_event.id}`)
         }
+        const updated_event = await dispatch(editEvent(data, id))
+        if(updated_event) {
+         history.push(`/events/${id}`)
+         hideForm()
+        }
+      }
 
-
-        const sd = moment(start_date).format('ddd MMMM Do')
+        const sd = moment(start_date).format('ddd MMMM Do yyyy')
         const ed = moment(end_date).format('ddd MMMM Do yyyy')
-
-        // console.log("DATA", 'hostId', hostId,
-        // 'name', name,
-        // 'description',description,
-        // 'start_date',start_date,
-        // 'end_date', end_date,
-        // 'venue', venue,
-        // 'venue_types',  venue_types,
-        // 'address', address,
-        // 'city', city,
-        // 'state', state,
-        // 'zip', zip,
-        // 'country', country,
-        // 'genres',  genres,
-        // 'types', types,
-        // 'image', image )
 
         const genre_options = [
           { value: "1", label: 'Acro' },
@@ -536,6 +522,17 @@ export default function EditEventForm({ event }) {
           { value: "Zimbabwe", label: 'Zimbabwe' }
         ]
 
+        // const [selectedTypes, setSelectedTypes] = useState([]);
+
+        // // const handleTypes = (e) => {
+        // //   console.log(e.target.value)
+        // // }
+        // const handleTypes = (e) => {
+        //   setSelectedTypes(Array.isArray(e) ? e.map(x => x) : []);
+        //   setTypes([...new Set([...types,...selectedTypes])])
+        // }
+
+        console.log("G", genres)
         /******************************************* */
 
   return (
@@ -546,13 +543,29 @@ export default function EditEventForm({ event }) {
         <form
           onSubmit={handleSubmit}
           className={styles.form}>
-          <ul>
-            {errors?.map((error, idx) => <li key={idx}>{error}</li>)}
-          </ul>
+          {page === 1 || page === 2 ? (
+          <div className={styles.errors_container}>
+            <ul>
+              {errors?.map((error, idx) => <li key={idx}>{error}</li>)}
+            </ul>
+          </div>
+          ) : null}
+          {page === 3 && thumb.length && !fileRejectionItems.length ? (
+                <div className={styles.img_preview}>
+                {thumb}
+                </div>
+                ) : null}
+          {page === 3 && !thumb.length && event?.image_url ? (
+                  <div className={styles.img_preview}>
+                  <img src={event?.image_url}
+                  className={styles.thumb}>
+                  </img>
+                </div>
+                ) : null}
 
          {/**************************************************/}
             {page === 1 ? (
-              <div className={styles.top_left}>
+              <div className={styles.page_container}>
                 <h2>General Event Info</h2>
                 <input
                   type="text"
@@ -563,61 +576,62 @@ export default function EditEventForm({ event }) {
                   onChange={(e) => setName(e.target.value)}
                   />
                 <textarea
-                  className={styles.create_event_form_field}
+                  className={styles.create_event_form_field_d}
                   placeholder="Description"
                   autocomplete="new-password"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   />
-                <p>Start Date: {sd}</p>
                 <input
-                  type="date"
+                  type="text"
                   className={styles.create_event_form_field}
                   placeholder="Start Date"
+                  onFocus={(e) => e.target.type = 'date'}
                   autocomplete="new-password"
-                  value={start_date}
+                  value={sd}
                   onChange={(e) => setStart_date(e.target.value)}
                   />
-                <p>End Date: {ed}</p>
                 <input
-                  type="date"
+                  type="text"
                   className={styles.create_event_form_field}
                   placeholder="End Date"
+                  onFocus={(e) => e.target.type = 'date'}
                   autocomplete="new-password"
-                  value={end_date}
+                  value={ed}
                   onChange={(e) => setEnd_date(e.target.value)}
                   />
-                <div>
-                <ul>
-                  {event?.event_genre?.map((g) => <li>{g.genre}</li>)}
+                {/* <div className={styles.select_fields_gt}>
+                <ul id="g">
+                  {genres?.map((g) => g.label ? <li>{g.label}</li> : <li>{g.genre}</li>)}
                 </ul>
-                <ul>
-                  {event?.event_type?.map((t) => <li>{t.type}</li>)}
+                <ul id='t'>
+                  {types?.map((t) => t.label ? <li>{t.label}</li> : <li>{t.type}</li>)}
                 </ul>
                 </div>
                 <div className={styles.select_fields}>
                   <Select
                   className={styles.create_event_select_field}
                   isMulti
-                  defaultValue={genres}
+                  value={genres}
                   onChange={setGenres}
                   options={genre_options}
-                  placeholder="Genres"
+                  placeholder={"Genres"}
                   />
                   <Select
                   className={styles.create_event_select_field}
                   isMulti
-                  defaultValue={types}
+                  // value={type_options.filter(obj => selectedTypes.includes(obj.value))}
+                  value={types}
                   onChange={setTypes}
                   options={type_options}
                   placeholder="Event Types"
                   />
-                  </div>
+                  </div> */}
               </div>
             ) : null}
               {/**************************************************/}
             {page === 2 ? (
-              <div className={styles.top_right}>
+              <div className={styles.page_container}>
 
               <h2>Location Info</h2>
               <input
@@ -628,17 +642,17 @@ export default function EditEventForm({ event }) {
               value={venue}
               onChange={(e) => setVenue(e.target.value)}
               />
-              <ul>
-                {event?.Venues[0]?.venue_type?.map((t) => <li>{t.type}</li>)}
-              </ul>
-              <Select
+              {/* <ul>
+                {venue_types?.map((t) => <li>{t.type}</li>)}
+              </ul> */}
+              {/* <Select
               className={styles.create_event_form_field_s}
               isMulti
               defaultValue={venue_types}
               onChange={setVenue_types}
               options={venue_type_options}
               placeholder={"Venue type:"}
-              />
+              /> */}
               <input
               type="text"
               className={styles.create_event_form_field_a}
@@ -702,21 +716,8 @@ export default function EditEventForm({ event }) {
             ) : null}
   {/**************************************************/}
             {page === 3 ? (
-              // <h1>Upload a photo for your event...</h1>
-              <div className={styles.dnd_container}>
-                {thumb.length && !fileRejectionItems.length ? (
-                <div className={styles.img_preview}>
-                  <p>Image Preview</p>
-                  {thumb}
-                  </div>
-                ) : null}
-                {!thumb.length && event?.image_url ? (
-                <div className={styles.img_preview}>
-                  <p>Image Preview</p>
-                  <img src={event?.image_url}
-                  style={{width: '200px' }}></img>
-                </div>
-                ) : null}
+
+                <div className={styles.dnd_container}>
                 {image && fileRejectionItems.length ? (
                 <div>
                   <h4>File Rejected:</h4>
@@ -733,15 +734,80 @@ export default function EditEventForm({ event }) {
              ) : null}
 
   {/**************************************************/}
-            {page !== 4 &&<button
-            onClick={() => nextPage()}
-            type="button">
-            Next</button>}
-            {page !== 1 &&<button
-            onClick={() => prevPage()}
-            type="button">
+
+
+                {page === 4 &&
+                thumb.length && !fileRejectionItems.length ? (
+                  <div className={styles.img_preview}>
+                    {thumb}
+                    </div>
+                  ) : null}
+                {page === 4 &&
+                event?.image_url ? (
+                  <div className={styles.img_preview}>
+                    <img src={event?.image_url}
+                    className={styles.thumb}>
+                    </img>
+                  </div>
+                  ) : null}
+              {page === 4 ? (
+              <div className={styles.summary_page_container}>
+
+                <div className={styles.summary_page_container_left}>
+                  <h3>General Info:</h3>
+                  <p>{name}</p>
+                  <div className={styles.description_scroll}><p>{description}</p></div>
+                  <p>{sd} - {ed}</p>
+                  {/* <div className={styles.genres_types}>
+                    <ul id="g">
+                    {genres?.map((g) => g.label ? <li>{g.label}</li> : <li>{g.genre}</li>)}
+                    </ul>
+                    <ul id='t'>
+                      {types?.map((t) => t.label ? <li>{t.label}</li> : <li>{t.type}</li>)}
+                    </ul>
+                  </div> */}
+                </div>
+
+                <div className={styles.summary_page_container_right}>
+                <h3>Location Info:</h3>
+                  <p>{venue}</p>
+                  {/* <ul>
+                    {venue_types?.map((v) => <li>{v.label}</li>)}
+                  </ul> */}
+                  <p>{address}</p>
+                  <p>{city}</p>
+                  {state ? <p>{state}</p> : null}
+                  <p>{country}</p>
+                  {zip ? <p>{zip}</p> : null}
+
+
+                </div>
+
+
+            </div>
+            ) : null}
+  {/**************************************************/}
+            <div className={styles.form_nav_buttons}>
+
+              {page !== 1 &&<button
+              onClick={() => prevPage()}
+              className={styles.form_nav_button}
+              id="prev"
+              type="button">
               Prev</button>}
-            {page === 4 && <button type="submit">Create Event</button>}
+
+              {page !== 4 &&<button
+              onClick={() => nextPage()}
+              className={styles.form_nav_button}
+              id='next'
+              type="button">
+              Next</button>}
+
+              {page === 4 && <button
+              className={styles.form_nav_button}
+              type="submit">Update Event</button>}
+
+            </div>
         </form>
       </div>
     </div>

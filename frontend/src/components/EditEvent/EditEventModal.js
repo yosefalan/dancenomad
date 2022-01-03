@@ -14,7 +14,7 @@ const EditEvent = ({ event }) => {
     id>Edit Event</button>
     {showModal && (
       <Modal onClose={() => setShowModal(false)}>
-        <EditEventForm event={event} />
+        <EditEventForm event={event} hideForm={() => setShowModal(false)}/>
       </Modal>
     )}
     </>
