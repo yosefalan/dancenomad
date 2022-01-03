@@ -34,9 +34,10 @@ const updateEvent = (event) => {
   };
 };
 
-const deleteEvent = () => {
+const deleteEvent = (id) => {
   return {
     type: DELETE_EVENT,
+    payload: id,
   };
 };
 
@@ -50,7 +51,6 @@ export const getEvents = () => async (dispatch) => {
 }
 
 export const getManagedEvents = (userId) => async (dispatch) => {
-  console.log("YOOOOOOOOOOOOOOOOOOOOOO")
   const res = await csrfFetch(`/api/${userId}:id/events/manage/all`);
   if(res.ok) {
     const events = await res.json();
@@ -124,41 +124,78 @@ export const newEvent = (event) => async (dispatch) => {
   if(res.ok) {
     const event = await res.json();
     dispatch(createEvent(event));
+    console.log("EVENT RES THUNK", event)
+    return event
   };
 }
 
-export const editEvent = (data, id) => async dispatch => {
-  const response = await csrfFetch(`/api/events/${id}`, {
+export const editEvent = (event, id) => async dispatch => {
+  const {
+    hostId,
+    name,
+    description,
+    start_date,
+    end_date,
+    image,
+    video,
+    venue,
+    address,
+    city,
+    state,
+    zip,
+    country,
+   } = event;
+   const formData = new FormData();
+   formData.append("hostId", hostId);
+   formData.append("name", name);
+   formData.append("description", description);
+   formData.append("start_date", start_date);
+   formData.append("end_date", end_date);
+   formData.append("venue", venue);
+   formData.append("address", address);
+   formData.append("city", city);
+   formData.append("state", state);
+   formData.append("zip", zip);
+   formData.append("country", country);
+   if (image) formData.append("files", image);
+   if (video) formData.append("files", video);
+
+  const res = await csrfFetch(`/api/events/${id}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json'},
-    body: JSON.stringify(data)
-  })
-  if(response.ok) {
-    const event = await response.json();
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    body: formData,
+    })
+
+  if(res.ok) {
+    const event = await res.json();
     dispatch(updateEvent(event))
     return event
   }
 }
 
-export const editVenue = (data, id) => async dispatch => {
-  const response = await csrfFetch(`/api/events/${id}/venue`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json'},
-    body: JSON.stringify(data)
-  })
-  if(response.ok) {
-    const venue = await response.json();
-    dispatch(updateEvent(venue))
-    return venue
-  }
-}
+// export const editVenue = (data, id) => async dispatch => {
+//   const response = await csrfFetch(`/api/events/${id}/venue`, {
+//     method: 'PUT',
+//     headers: { 'Content-Type': 'application/json'},
+//     body: JSON.stringify(data)
+//   })
+//   if(response.ok) {
+//     const venue = await response.json();
+//     dispatch(updateEvent(venue))
+//     return venue
+//   }
+// }
 
 export const destroyEvent = id => async dispatch => {
+  console.log("THUNKKKKKKK", id)
   const response = await csrfFetch(`/api/events/${id}`, {
     method: 'DELETE',
   });
   if (response.ok) {
-    dispatch(deleteEvent(id));
+    console.log("THUNKKKKKKK TOOOOOOOO", id)
+    dispatch(deleteEvent(id))
   }
 };
 
@@ -175,11 +212,17 @@ const eventsReducer = (state = initialState, action) => {
       return {...allEvents, ...state};
     }
     case READ_EVENT: {
-      const event = action.payload;
-      return {[action.payload.id]: action.payload }
+      const newState =  {[action.payload.id]: action.payload }
+      return newState
     }
     case CREATE_EVENT: {
-      return { ...state, [action.payload.id]: action.payload }
+      const newState = {...state, [action.payload.id]: action.payload }
+      return newState
+    }
+    case DELETE_EVENT: {
+      const newState = { ...state };
+      delete newState[action.payload];
+      return newState;
     }
       default:
         return state;

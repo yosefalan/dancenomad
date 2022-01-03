@@ -47,7 +47,7 @@
 }
 
 .event_page_top_right {
-  background-color: #EEEDEA;
+  background-color: #C1C8E4;;
   width: 40%;
   padding: 25px;
   /* border-radius: 0px 10px 10px 0px; */
@@ -93,7 +93,17 @@
   background-color: white;
   width: 80%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  padding: 15px;
+  align-items: center;
+}
+
+
+.event_page_bottom_inner {
+  background-color: white;
+  width: 75%;
+  display: flex;
+  flex-direction: column;
 }
 
 .event_page_bottom_left {
@@ -107,3 +117,12 @@
   justify-content: center;
   width: 40%;
 }
+
+.event_page_p {
+ margin: 2px;
+}
+
+
+.event_page_d {
+  margin-bottom: 30px;
+ }

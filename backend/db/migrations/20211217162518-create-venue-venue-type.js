@@ -9,11 +9,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       venueId: {
-        allowNull: false,
+        // allowNull: false,
         type: Sequelize.INTEGER
       },
       venue_typeId: {
-        allowNull: false,
+        // allowNull: false,
         type: Sequelize.INTEGER
       },
       createdAt: {

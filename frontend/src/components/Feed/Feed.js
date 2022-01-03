@@ -22,11 +22,7 @@ function Feed () {
         history.push(`/events/${linkId}`)
   }
 
-  // const start_date = moment(regs?.Event?.start_date).format('ddd MMMM Do')
-  // const end_date = moment(regs?.Event?.end_date).format('ddd MMMM Do yyyy')
 
-  // console.log("EVENTS", events[0]?.event_genre[0]?.genre)
-  // console.log("EVENTS", events[0]?.event_type[0]?.type)
 
   return (
 

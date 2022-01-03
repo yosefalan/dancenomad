@@ -4,20 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from 'react-router-dom';
 import { Modal } from '../../context/Modal';
 import ConfirmDeleteForm from "./ConfirmDeleteForm";
-import './ConfirmDelete.css'
+import styles from './ConfirmDelete.module.css'
 
-const ConfirmDelete = ({ id }) => {
+const ConfirmDelete = ({ id, user }) => {
 
   const [showModal, setShowModal] = useState(false);
+  console.log(id);
 
   return (
     <>
     <button onClick={() => setShowModal(true)}
-    className="eventButtonContainer"
-    id>Permanently Delete Event</button>
+    className={styles.confirm_delete_button}
+    id>Delete Event</button>
     {showModal && (
       <Modal onClose={() => setShowModal(false)}>
-        <ConfirmDeleteForm id={id} />
+        <ConfirmDeleteForm id={id} user={user} hideForm={() => setShowModal(false)}/>
       </Modal>
     )}
     </>
@@ -26,4 +27,3 @@ const ConfirmDelete = ({ id }) => {
 }
 
 export default ConfirmDelete;
-

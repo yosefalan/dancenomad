@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { newEvent } from '../../store/events'
 import Select from 'react-select'
 import { useDropzone } from 'react-dropzone'
-import moment from 'moment'
-import styles from './CreateEvent.module.css'
+// import styles from './CreateEvent.module.css'
+import styles from "./EventCreate.module.css";
 
-
-
-export default function CreateEvent({ hideForm }) {
+export default function EventCreate() {
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session?.user);
@@ -31,10 +29,10 @@ export default function CreateEvent({ hideForm }) {
   const [video, setVideo] = useState([]);
   const [genres, setGenres] = useState([]);
   const [types, setTypes] = useState([]);
+  // const [preview, setPreview] = useState();
   const [page, setPage] = useState(1);
   const [errors, setErrors] = useState([]);
 
-  console.log(image)
 
     const {
       acceptedFiles,
@@ -71,56 +69,52 @@ export default function CreateEvent({ hideForm }) {
 
     const thumb = image?.map(file => (
           <img src={file.preview}
-          className={styles.thumb}
-          />
+          style={{width: '200px' }}/>
     ));
 
   function nextPage() {
      const errors = [];
     if (page === 1){
       let today = new Date()
-      if (!name?.length) errors.push("Event name is required")
-      if (name?.length < 6) errors.push("Event name must be at least 6 characters")
-      if (name?.length > 255) errors.push("Event name must be 255 characters or less")
-      if (!description?.length) errors.push("Event description is required")
-      if (description?.length < 6) errors.push("Event description must be at least 6 characters")
+      if (!name.length) errors.push("Event name is required")
+      if (name.length < 6) errors.push("Event name must be at least 6 characters")
+      if (name.length > 255) errors.push("Event name must be 255 characters or less")
+      if (!description.length) errors.push("Event description is required")
+      if (description.length < 6) errors.push("Event description must be at least 6 characters")
       if (description > 2200) errors.push("Event name must be at least 6 characters")
-      // if (!genres.length) errors.push("Please select at least one genre")
-      // if (!types.length) errors.push("Please select at least one event type")
+      if (!genres.length) errors.push("Please select at least one genre")
+      if (!types.length) errors.push("Please select at least one event type")
       if (start_date > end_date) errors.push("Start date must be before end date")
     }
     if (page === 2){
-      if (!venue?.length) errors.push("Venue name is required")
-      if (venue?.length < 6) errors.push("Venue name must be at least 6 characters")
-      if (venue?.length > 255) errors.push("Venue name must be 255 characters or less")
-      // if (!venue_types.length) errors.push("Please select at least one venue type")
-      if (!address?.length) errors.push("Event address is required")
-      if (address?.length < 6) errors.push("Address must be at least 6 characters")
-      if (address?.length > 255) errors.push("Address must be 255 characters or less")
-      if (!city?.length) errors.push("City is required")
-      if (city?.length < 6) errors.push("City must be at least 6 characters")
-      if (city?.length > 255) errors.push("City must be 255 characters or less")
-      if (!country?.value) errors.push("Please select a country")
+      if (!venue.length) errors.push("Venue name is required")
+      if (venue.length < 6) errors.push("Event name must be at least 6 characters")
+      if (venue.length > 255) errors.push("Venue name must be 255 characters or less")
+      if (!venue_types.length) errors.push("Please select at least one venue type")
+      if (!address.length) errors.push("Event description is required")
+      if (address.length < 6) errors.push("Address must be at least 6 characters")
+      if (name.length > 255) errors.push("Event name must be 255 characters or less")
+      if (!country.value) errors.push("Please select a country")
     }
     setErrors(errors)
     if(fileRejectionItems.length) setImage([])
-    // setPage((page) => page +1);
-    if(!errors?.length) setPage((page) => page +1);
+    if(!errors.length) setPage((page) => page +1);
   }
-
 
 
   function prevPage() {
     if(fileRejectionItems.length) setImage([])
-    // setPage((page) => page -1)
-    if(!errors?.length) setPage((page) => page -1);
+    if(!errors.length) setPage((page) => page -1);
   }
+
+
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     let newErrors = [];
-
-    const data = {
+    const new_event = await dispatch(newEvent({
       hostId,
       name,
       description,
@@ -132,42 +126,67 @@ export default function CreateEvent({ hideForm }) {
       city,
       state: state.value,
       zip,
-      country: country.value,
+      // country: country.value,
       // lat,
       // lng,
       genres,
       types,
       image: image[0],
       video,
-    }
-
-      let new_event = await dispatch(newEvent(data))
-      const id = new_event?.event?.id
-      if(new_event) {
-      history.push(`/events/${id}`)
-      hideForm()
+    }))
+    .then(() => {
+      setName("");
+      setDescription("");
+      setStart_date(null);
+      setEnd_date(null);
+      setVenue("");
+      setVenue_types(null);
+      setCity("");
+      setState("")
+      setCountry("");
+      // setLat(null);
+      // setLng(null);
+      setGenres(null);
+      setTypes([]);
+      setImage([]);
+      setVideo([]);
+    })
+    .catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) {
+        newErrors = data.errors;
+        setErrors(newErrors);
       }
+      });
+      if(new_event) history.push(`/events/${new_event.id}`)
     }
 
-    const sd = moment(start_date).format('ddd MMMM Do')
-    const ed = moment(end_date).format('ddd MMMM Do yyyy')
 
-    // console.log("DATA", 'hostId', hostId,
-    // 'name', name,
-    // 'description',description,
-    // 'start_date',start_date,
-    // 'end_date', end_date,
-    // 'venue', venue,
-    // 'venue_types',  venue_types,
-    // 'address', address,
-    // 'city', city,
-    // 'state', state,
-    // 'zip', zip,
-    // 'country', country,
-    // 'genres',  genres,
-    // 'types', types,
-    // 'image', image )
+    console.log("DATA", 'hostId', hostId,
+    'name', name,
+    'description',description,
+    'start_date',start_date,
+    'end_date', end_date,
+    'venue', venue,
+    'venue_types',  venue_types,
+    'address', address,
+    'city', city,
+    'state', state,
+    'zip', zip,
+    'country', country,
+    'genres',  genres,
+    'types', types,
+    'image', image )
 
+    // const updateImageFile = (e) => {
+    //   const file = e.target.files[0]
+    //   if (file) setImage(file);
+    // };
+
+    // const updateVideoFile = (e) => {
+    //   const file = e.target.files[0];
+    //   if (file) setVideo(file);
+    // };
 
     const genre_options = [
       { value: "1", label: 'Acro' },
@@ -273,10 +292,9 @@ export default function CreateEvent({ hideForm }) {
     { value: "WV", label: 'West Virginia' },
     { value: "WI", label: 'Wisconsin' },
     { value: "WY", label: 'Wyoming' }
-  ]
+    ]
 
-  const country_options = [
-      { value: "USA", label: 'USA' },
+    const country_options = [
       { value: "Afganistan", label: 'Afghanistan' },
       { value: "Albania", label: 'Albania' },
       { value: "Algeria", label: 'Algeria' },
@@ -508,6 +526,7 @@ export default function CreateEvent({ hideForm }) {
       { value: "United Kingdom", label: 'United Kingdom' },
       { value: "Ukraine", label: 'Ukraine' },
       { value: "United Arab Erimates", label: 'United Arab Emirates' },
+      { value: "United States of America", label: 'United States of America' },
       { value: "Uraguay", label: 'Uruguay' },
       { value: "Uzbekistan", label: 'Uzbekistan' },
       { value: "Vanuatu", label: 'Vanuatu' },
@@ -536,26 +555,13 @@ export default function CreateEvent({ hideForm }) {
         <form
           onSubmit={handleSubmit}
           className={styles.form}>
-          {page === 1 || page === 2 ? (
-          <div className={styles.errors_container}>
-            <ul className={styles.errors_ul}>
-              {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>
-          </div>
-            ) : null}
-            {page === 3 && thumb?.length && !fileRejectionItems?.length ? (
-                <div className={styles.img_preview}>
-                {thumb}
-                </div>
-                ) : null}
-            {page === 3 && !thumb?.length ? (
-            <div className={styles.img_preview}>
-                <h3>Upload a photo for your event...</h3>
-                </div>
-                ) : null}
+          <ul>
+            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+          </ul>
+
          {/**************************************************/}
             {page === 1 ? (
-              <div className={styles.page_container}>
+              <div className={styles.top_left}>
                 <h2>General Event Info</h2>
                 <input
                   type="text"
@@ -566,31 +572,29 @@ export default function CreateEvent({ hideForm }) {
                   onChange={(e) => setName(e.target.value)}
                   />
                 <textarea
-                  className={styles.create_event_form_field_d}
+                  className={styles.create_event_form_field}
                   placeholder="Description"
                   autocomplete="new-password"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   />
                 <input
-                  type="text"
+                  type="date"
                   className={styles.create_event_form_field}
                   placeholder="Start Date"
-                  onFocus={(e) => e.target.type = 'date'}
                   autocomplete="new-password"
                   value={start_date}
                   onChange={(e) => setStart_date(e.target.value)}
                   />
                 <input
-                  type="text"
+                  type="date"
                   className={styles.create_event_form_field}
                   placeholder="End Date"
-                  onFocus={(e) => e.target.type = 'date'}
                   autocomplete="new-password"
                   value={end_date}
                   onChange={(e) => setEnd_date(e.target.value)}
                   />
-                {/* <div className={styles.select_fields}>
+                <div className={styles.select_fields}>
                   <Select
                   className={styles.create_event_select_field}
                   isMulti
@@ -608,12 +612,12 @@ export default function CreateEvent({ hideForm }) {
                   options={type_options}
                   placeholder="Event Types"
                   />
-                  </div> */}
+                  </div>
               </div>
             ) : null}
               {/**************************************************/}
             {page === 2 ? (
-              <div className={styles.page_container}>
+              <div className={styles.top_right}>
 
               <h2>Location Info</h2>
               <input
@@ -624,14 +628,14 @@ export default function CreateEvent({ hideForm }) {
               value={venue}
               onChange={(e) => setVenue(e.target.value)}
               />
-              {/* <Select
+              <Select
               className={styles.create_event_form_field_s}
               isMulti
               defaultValue={venue_types}
               onChange={setVenue_types}
               options={venue_type_options}
               placeholder="Venue type (Selcect all that apply)"
-              /> */}
+              />
               <input
               type="text"
               className={styles.create_event_form_field_a}
@@ -694,93 +698,39 @@ export default function CreateEvent({ hideForm }) {
             ) : null}
   {/**************************************************/}
             {page === 3 ? (
+              // <h1>Upload a photo for your event...</h1>
               <div className={styles.dnd_container}>
-
-                {/* {image && !fileRejectionItems.length ? (
+                {image && !fileRejectionItems.length ? (
                 <div className={styles.img_preview}>
+                  <p>Image Preview</p>
                   {thumb}
                   </div>
-                ) : null} */}
-                {image && fileRejectionItems?.length ? (
+                ) : null}
+                {image && fileRejectionItems.length ? (
                 <div>
                   <h4>File Rejected:</h4>
                   <ul>{fileRejectionItems}</ul>
                 </div>
                 ) : null}
 
-                <div {...getRootProps({ className: 'dropzone' })}>
-                  <input {...getInputProps()} />
-                  <p>Drag and drop an image file here, or click to select file</p>
-                  <p>(Only .jpg .jpeg and .png images are allowed)</p>
-                </div>
+              <div {...getRootProps({ className: 'dropzone' })}>
+                <input {...getInputProps()} />
+                <p>Drag 'n' drop an image files here, or click to select file</p>
+                <p>(Only .jpg .jpeg and .png images are allowed)</p>
+              </div>
               </div>
              ) : null}
 
   {/**************************************************/}
-  {page === 4 &&
-                thumb?.length && !fileRejectionItems?.length ? (
-                  <div className={styles.img_preview}>
-                    {thumb}
-                    </div>
-                  ) : null}
-  {page === 4 ? (
-              <div className={styles.summary_page_container}>
-
-                <div className={styles.summary_page_container_left}>
-                  <h3>General Info:</h3>
-                  <p>{name}</p>
-                  <div className={styles.description_scroll}><p>{description}</p></div>
-                  <p>{sd} - {ed}</p>
-                  {/* <div className={styles.genres_types}>
-                    <ul>
-                    {genres?.map((g) => <li>{g.label}</li>)}
-                    </ul>
-                    <ul>
-                    {types?.map((t) => <li>{t.label}</li>)}
-                    </ul>
-                  </div> */}
-                </div>
-
-                <div className={styles.summary_page_container_right}>
-                <h3>Location Info:</h3>
-                  <p>{venue}</p>
-                  {/* <ul>
-                    {venue_types?.map((v) => <li>{v.label}</li>)}
-                  </ul> */}
-                  <p>{address}</p>
-                  <p>{city}</p>
-                  {state ? <p>{state.value}</p> : null}
-                  <p>{country.value}</p>
-                  {zip ? <p>{zip}</p> : null}
-
-
-                </div>
-
-
-            </div>
-            ) : null}
-  {/**************************************************/}
-            <div className={styles.form_nav_buttons}>
-
-              {page !== 1 &&<button
-              onClick={() => prevPage()}
-              className={styles.form_nav_button}
-              id="prev"
-              type="button">
+            {page !== 4 &&<button
+            onClick={() => nextPage()}
+            type="button">
+            Next</button>}
+            {page !== 1 &&<button
+            onClick={() => prevPage()}
+            type="button">
               Prev</button>}
-
-              {page !== 4 &&<button
-              onClick={() => nextPage()}
-              className={styles.form_nav_button}
-              id='next'
-              type="button">
-              Next</button>}
-
-              {page === 4 && <button
-              className={styles.form_nav_button}
-              type="submit">Create Event</button>}
-
-            </div>
+            {page === 4 && <button type="submit">Create Event</button>}
         </form>
       </div>
     </div>

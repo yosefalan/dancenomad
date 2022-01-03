@@ -3,6 +3,8 @@ import { Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getEvents } from '../../store/events';
 import Navigation from '../Navigation/Navigation';
+import ConfirmDelete from '../ConfirmDelete/ConfirmDelete';
+import EditEventModal from '../EditEvent/EditEventModal'
 import moment from 'moment'
 import styles from './ManagedEvents.module.css'
 
@@ -19,7 +21,6 @@ function ManagedEvents ({ user }) {
   let myEvents = 0
   events.map((e) => {
     if (e.hostId === user.id) myEvents +=1
-    console.log("MINE", myEvents, "EVENTS:", events)
   })
 
   return (
@@ -49,12 +50,14 @@ function ManagedEvents ({ user }) {
                 className={styles.my_events_buttons}
                 >Registrations</button>
               </NavLink>
-              <NavLink
+              {/* <NavLink
               to={`/events/manage/edit/${event.id}`}>
                 <button
                 className={styles.my_events_buttons}
                 >Edit Event</button>
-              </NavLink>
+              </NavLink> */}
+              <EditEventModal event={event} />
+              <ConfirmDelete id={event.id} user={user}/>
               </div>
             </div>
 
