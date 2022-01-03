@@ -123,7 +123,8 @@ export const newEvent = (event) => async (dispatch) => {
   if(res.ok) {
     const event = await res.json();
     dispatch(createEvent(event));
-
+    console.log("EVENT RES THUNK", event)
+    return event
   };
 }
 
@@ -180,7 +181,8 @@ const eventsReducer = (state = initialState, action) => {
       return newState
     }
     case CREATE_EVENT: {
-      return { ...state, [action.payload.id]: action.payload }
+      const newState = {[action.payload.id]: action.payload }
+      return newState
     }
       default:
         return state;

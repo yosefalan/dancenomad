@@ -1,14 +1,26 @@
-import styles from './CreateEvent.module.css'
+import React, { useState } from "react";
+import { Modal } from '../../context/Modal';
 import CreateEventForm from './CreateEventForm'
+import styles from './CreateEvent.module.css'
 
-function CreateEvent () {
+
+const CreateEvent = () => {
+
+  const [showModal, setShowModal] = useState(true);
 
   return (
     <>
-      <CreateEventForm />
+    {/* <button onClick={() => setShowModal(true)}
+    className={styles.my_events_buttons}
+    id>Edit Event</button> */}
+    {showModal && (
+      <Modal onClose={() => setShowModal(false)}>
+        <CreateEventForm hideForm={() => setShowModal(false)} />
+      </Modal>
+    )}
     </>
+    )
 
-  )
 }
 
-export default CreateEvent
+export default CreateEvent;

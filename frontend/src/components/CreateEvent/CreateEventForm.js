@@ -4,11 +4,12 @@ import { useHistory } from "react-router-dom";
 import { newEvent } from '../../store/events'
 import Select from 'react-select'
 import { useDropzone } from 'react-dropzone'
+import moment from 'moment'
 import styles from './CreateEvent.module.css'
 
 
 
-export default function CreateEvent() {
+export default function CreateEvent({ hideForm }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session?.user);
@@ -69,7 +70,8 @@ export default function CreateEvent() {
 
     const thumb = image?.map(file => (
           <img src={file.preview}
-          style={{width: '200px' }}/>
+          className={styles.thumb}
+          />
     ));
 
   function nextPage() {
@@ -107,11 +109,11 @@ export default function CreateEvent() {
     if(!errors.length) setPage((page) => page -1);
   }
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     let newErrors = [];
-    const new_event = await dispatch(newEvent({
+
+    const data = {
       hostId,
       name,
       description,
@@ -130,34 +132,19 @@ export default function CreateEvent() {
       types,
       image: image[0],
       video,
-    }))
-    .then(() => {
-      setName("");
-      setDescription("");
-      setStart_date(null);
-      setEnd_date(null);
-      setVenue("");
-      setVenue_types(null);
-      setCity("");
-      setState("")
-      setCountry("");
-      // setLat(null);
-      // setLng(null);
-      setGenres(null);
-      setTypes([]);
-      setImage([]);
-      setVideo([]);
-    })
-    .catch(async (res) => {
-      const data = await res.json();
-      if (data && data.errors) {
-        newErrors = data.errors;
-        setErrors(newErrors);
-      }
-      });
-      if(new_event) history.push(`/events/${new_event.id}`)
     }
 
+      let new_event = await dispatch(newEvent(data))
+      const id = new_event?.event?.id
+      if(new_event) {
+      console.log("***************", new_event.event.id)
+      history.push(`/events/${id}`)
+      hideForm()
+      }
+    }
+
+    const sd = moment(start_date).format('ddd MMMM Do')
+    const ed = moment(end_date).format('ddd MMMM Do yyyy')
 
     // console.log("DATA", 'hostId', hostId,
     // 'name', name,
@@ -543,11 +530,18 @@ export default function CreateEvent() {
         <form
           onSubmit={handleSubmit}
           className={styles.form}>
+          {page !== 4 ? (
           <div className={styles.errors_container}>
-            <ul>
+            {/* <img src={'/images/logo.png'}
+            className={styles.errors_img}></img> */}
+            <ul className={styles.errors_ul}>
               {errors.map((error, idx) => <li key={idx}>{error}</li>)}
             </ul>
           </div>
+            ) : null}
+            {page === 4 ? (
+              <div className={styles.img_preview_summary}>{thumb}</div>
+            ) : null}
 
          {/**************************************************/}
             {page === 1 ? (
@@ -694,7 +688,7 @@ export default function CreateEvent() {
               <div className={styles.dnd_container}>
                 {image && !fileRejectionItems.length ? (
                 <div className={styles.img_preview}>
-                  <p>Image Preview</p>
+
                   {thumb}
                   </div>
                 ) : null}
@@ -705,26 +699,66 @@ export default function CreateEvent() {
                 </div>
                 ) : null}
 
-              <div {...getRootProps({ className: 'dropzone' })}>
-                <input {...getInputProps()} />
-                <p>Drag 'n' drop an image files here, or click to select file</p>
-                <p>(Only .jpg .jpeg and .png images are allowed)</p>
-              </div>
+                <div {...getRootProps({ className: 'dropzone' })}>
+                  <input {...getInputProps()} />
+                  <p>Drag and drop an image file here, or click to select file</p>
+                  <p>(Only .jpg .jpeg and .png images are allowed)</p>
+                </div>
               </div>
              ) : null}
 
+  {/**************************************************/}
+
+  {page === 4 ? (
+              <div className={styles.summary_page_container}>
+
+                <div className={styles.summary_page_container_left}>
+                  <h3>General Info:</h3>
+                  <p>{name}</p>
+                  <div className={styles.description_scroll}><p>{description}</p></div>
+                  <p>{sd} - {ed}</p>
+                  <div className={styles.genres_types}>
+                    <ul>
+                    {genres?.map((g) => <li>{g.label}</li>)}
+                    </ul>
+                    <ul>
+                    {types?.map((t) => <li>{t.label}</li>)}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className={styles.summary_page_container_right}>
+                <h3>Location Info:</h3>
+                  <p>{venue}</p>
+                  <ul>
+                    {venue_types?.map((v) => <li>{v.label}</li>)}
+                  </ul>
+                  <p>{address}</p>
+                  <p>{city}</p>
+                  {state ? <p>{state.value}</p> : null}
+                  <p>{country.value}</p>
+                  {zip ? <p>{zip}</p> : null}
+
+
+                </div>
+
+
+            </div>
+            ) : null}
   {/**************************************************/}
             <div className={styles.form_nav_buttons}>
 
               {page !== 1 &&<button
               onClick={() => prevPage()}
               className={styles.form_nav_button}
+              id="prev"
               type="button">
               Prev</button>}
 
               {page !== 4 &&<button
               onClick={() => nextPage()}
               className={styles.form_nav_button}
+              id='next'
               type="button">
               Next</button>}
 

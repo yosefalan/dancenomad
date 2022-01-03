@@ -21,7 +21,6 @@ import EventCreate from "./components/EventCreate/CreateEventForm new";
 function App() {
   const sessionUser = useSelector((state) => state.session.user);
   const event = useSelector((state) => Object.values(state?.events))[0];
-  console.log("EVENT IN APP", event)
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
 

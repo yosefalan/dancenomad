@@ -16,7 +16,7 @@ function EditEvent () {
   }, [dispatch]);
 
   const event = useSelector((state) => Object.values(state?.events))[0];
-  console.log("EVENT", event)
+
 
   return (
     <>

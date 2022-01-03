@@ -23,7 +23,6 @@ function EventPage () {
   const start_date = moment(event?.start_date).format('MMMM Do')
   const end_date = moment(event?.end_date).format('MMMM Do yyyy')
 
-  console.log("EVENT", event)
 
   return (
     <>
