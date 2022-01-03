@@ -93,6 +93,7 @@ export const editReg = (data, id) => async (dispatch) => {
 
 
 export const removeReg = id => async dispatch => {
+  console.log('THUNKKKKKK', id)
   const response = await csrfFetch(`/api/registrations/${id}`, {
     method: 'DELETE',
   });

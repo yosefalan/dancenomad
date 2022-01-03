@@ -10,13 +10,13 @@ function ConfirmDeleteRegForm ({ reg, hideForm}) {
     dispatch(removeReg(id));
     hideForm();
   }
-
+  console.log("REG", reg)
   return (
-    <div className="confirmDeleteContainer">
+    <div className={styles.confirm_delete_reg}>
       <h2>Are you sure you want to permanently delete this registration?</h2>
       <button
-      className={styles.my_events_buttons}
-      onClick={() => handleDelete(reg.id)}
+      className={styles.delete_reg_button}
+      onClick={() => handleDelete(reg?.id)}
       >Delete</button>
     </div>
   );

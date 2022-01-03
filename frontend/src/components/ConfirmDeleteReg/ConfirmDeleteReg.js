@@ -16,6 +16,7 @@ const ConfirmDeleteReg = ({ reg }) => {
       <Modal onClose={() => setShowModal(false)}>
         <ConfirmDeleteRegForm
         hideForm={() => setShowModal(false)}
+        reg={reg}
         />
       </Modal>
     )}
