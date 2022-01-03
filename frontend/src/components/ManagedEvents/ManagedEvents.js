@@ -21,7 +21,6 @@ function ManagedEvents ({ user }) {
   let myEvents = 0
   events.map((e) => {
     if (e.hostId === user.id) myEvents +=1
-    console.log("MINE", myEvents, "EVENTS:", events)
   })
 
   return (
@@ -58,7 +57,7 @@ function ManagedEvents ({ user }) {
                 >Edit Event</button>
               </NavLink> */}
               <EditEventModal event={event} />
-              <ConfirmDelete id={event.id} />
+              <ConfirmDelete id={event.id} user={user}/>
               </div>
             </div>
 

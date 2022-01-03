@@ -14,7 +14,7 @@
 
 .form {
   width: 75%;
-  height: 800px;
+  /* height: 800px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -45,13 +45,14 @@
 }
 
 .page_container {
-  background-color: #84CEEB;
+  background-color: #F0F0F0;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 50%;
   height: 480px;
   padding: 15px;
+  border-radius: 15px;
 }
 
 .buttons_container {
@@ -75,6 +76,15 @@
   border-radius: 6px;
   border: 1px solid #cccccc;
   margin: 5px;
+}
+
+.select_fields_gt {
+  display: flex;
+  flex-direction: row;
+  width: 92%;
+  margin: 5px 0px 5px 0px;
+  justify-content: space-around;
+  margin-left: -25px;
 }
 
 
@@ -127,7 +137,7 @@
 .dnd_container {
   background-color: #F0F0F0;
   width: 50%;
-  height: 480px;
+  height: 470px;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -142,9 +152,10 @@
 }
 
 .img_preview {
-  width: 100%;
-  height: 40%;
+  width: 200px;
+  height: 130px;
   object-fit: contain;
+  margin-bottom: 30px;
 }
 
 .thumb {
@@ -196,12 +207,13 @@
 }
 
 .summary_page_container {
-  background-color: #84CEEB;
+  background-color: #F0F0F0;
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 100%;
-  height: 475px;
+  width: 80%;
+  height: 500px;
+  border-radius: 15px;
 
 }
 
@@ -209,7 +221,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width:45%;
+  width:50%;
   height: 100%;
   padding: 15px;
 }
@@ -219,7 +231,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width:45%;
+  width:50%;
   height: 100%;
   /* padding: 15px; */
 }
@@ -227,7 +239,7 @@
 
 .img_preview_summary {
   width: 50%;
-  height: 170px;
+  height: 150px;
 
 }
 

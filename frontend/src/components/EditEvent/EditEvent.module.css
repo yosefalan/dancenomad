@@ -60,13 +60,14 @@
 }
 
 .page_container {
-  background-color: #84CEEB;
+  background-color: #F0F0F0;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 50%;
   height: 480px;
   padding: 15px;
+  border-radius: 15px;
 }
 
 .buttons_container {
@@ -167,7 +168,7 @@
 
 
 .img_preview {
-  width: 250px;
+  width: 200px;
   height: 130px;
   object-fit: contain;
   margin-bottom: 30px;
@@ -222,13 +223,13 @@
 }
 
 .summary_page_container {
-  background-color: #84CEEB;
+  background-color: #F0F0F0;
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 80%;
-  height: 470px;
-  padding: 15px;
+  height: 500px;
+  border-radius: 15px;
 
 }
 
@@ -253,7 +254,6 @@
 
 
 .img_preview_summary {
-  background-color: blue;
   width: 50%;
   height: 150px;
 

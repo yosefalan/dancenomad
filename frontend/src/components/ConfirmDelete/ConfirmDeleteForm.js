@@ -3,14 +3,14 @@ import { useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import styles from './ConfirmDelete.module.css'
 
-function ConfirmDelete({ id, hideForm }){
+function ConfirmDelete({ id, hideForm, user }){
 
   const dispatch = useDispatch();
   const history = useHistory();
 
   const handleDelete = () => {
     dispatch(destroyEvent(id))
-    history.push('/')
+    history.push(`/events/manage/all`)
   }
 
   return (

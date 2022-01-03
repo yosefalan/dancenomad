@@ -18,7 +18,6 @@ function RegistrationForm({ event, hideForm }) {
   const [quantity, setQuantity] = useState(null);
   const [errors, setErrors] = useState(null);
 
-  console.log("QQQQQQQQQQQ", quantity)
   const handleReg = async (e) => {
     e.preventDefault();
     const errors = []

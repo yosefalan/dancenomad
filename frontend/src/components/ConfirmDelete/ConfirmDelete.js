@@ -6,11 +6,11 @@ import { Modal } from '../../context/Modal';
 import ConfirmDeleteForm from "./ConfirmDeleteForm";
 import styles from './ConfirmDelete.module.css'
 
-const ConfirmDelete = ({ id }) => {
+const ConfirmDelete = ({ id, user }) => {
 
   const [showModal, setShowModal] = useState(false);
   console.log(id);
-  
+
   return (
     <>
     <button onClick={() => setShowModal(true)}
@@ -18,7 +18,7 @@ const ConfirmDelete = ({ id }) => {
     id>Delete Event</button>
     {showModal && (
       <Modal onClose={() => setShowModal(false)}>
-        <ConfirmDeleteForm id={id} hideForm={() => setShowModal(false)}/>
+        <ConfirmDeleteForm id={id} user={user} hideForm={() => setShowModal(false)}/>
       </Modal>
     )}
     </>
