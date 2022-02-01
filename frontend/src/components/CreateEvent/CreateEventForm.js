@@ -5,6 +5,8 @@ import { newEvent } from '../../store/events'
 import Select from 'react-select'
 import { useDropzone } from 'react-dropzone'
 import moment from 'moment'
+import { Modal } from '../../context/Modal';
+import ConfirmCancel from './ConfirmCancel'
 import styles from './CreateEvent.module.css'
 
 
@@ -33,6 +35,7 @@ export default function CreateEvent({ hideForm }) {
   const [types, setTypes] = useState([]);
   const [page, setPage] = useState(1);
   const [errors, setErrors] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   console.log(image)
 
@@ -116,6 +119,8 @@ export default function CreateEvent({ hideForm }) {
     if(!errors?.length) setPage((page) => page -1);
   }
 
+
+  console.log("XXXXXXXXX", genres, types)
   const handleSubmit = async (e) => {
     e.preventDefault();
     let newErrors = [];
@@ -148,6 +153,11 @@ export default function CreateEvent({ hideForm }) {
       hideForm()
       }
     }
+
+ const handleCancel = () => {
+   setShowModal(true)
+
+    };
 
     const sd = moment(start_date).format('ddd MMMM Do')
     const ed = moment(end_date).format('ddd MMMM Do yyyy')
@@ -530,9 +540,17 @@ export default function CreateEvent({ hideForm }) {
 
   return (
     <div className={styles.event_create_main}>
-
+         {showModal && (
+      <Modal onClose={() => setShowModal(false)}>
+        <ConfirmCancel hideForm={() => setShowModal(false)} />
+      </Modal>
+    )}
       <div className={styles.form_container}>
-        <h1>Let's create your event...</h1>
+        <div className={styles.form_header}><h1>Let's create your event...</h1>
+        <i class="far fa-times-circle" id={styles.cancel_button}
+        onClick={() => handleCancel()}
+        ></i>
+        </div>
         <form
           onSubmit={handleSubmit}
           className={styles.form}>
@@ -590,7 +608,7 @@ export default function CreateEvent({ hideForm }) {
                   value={end_date}
                   onChange={(e) => setEnd_date(e.target.value)}
                   />
-                {/* <div className={styles.select_fields}>
+                <div className={styles.select_fields}>
                   <Select
                   className={styles.create_event_select_field}
                   isMulti
@@ -608,7 +626,7 @@ export default function CreateEvent({ hideForm }) {
                   options={type_options}
                   placeholder="Event Types"
                   />
-                  </div> */}
+                  </div>
               </div>
             ) : null}
               {/**************************************************/}
@@ -624,14 +642,14 @@ export default function CreateEvent({ hideForm }) {
               value={venue}
               onChange={(e) => setVenue(e.target.value)}
               />
-              {/* <Select
+              <Select
               className={styles.create_event_form_field_s}
               isMulti
               defaultValue={venue_types}
               onChange={setVenue_types}
               options={venue_type_options}
               placeholder="Venue type (Selcect all that apply)"
-              /> */}
+              />
               <input
               type="text"
               className={styles.create_event_form_field_a}
@@ -768,6 +786,11 @@ export default function CreateEvent({ hideForm }) {
               id="prev"
               type="button">
               Prev</button>}
+
+              {page === 1 &&<button
+              className={styles.form_invisible_button}
+              type="button">
+              </button>}
 
               {page !== 4 &&<button
               onClick={() => nextPage()}

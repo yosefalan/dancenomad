@@ -36,7 +36,7 @@
 }
 
 .event_page_top_left {
-  width: 60%;
+  width: 80%;
   overflow: hidden;
   /* border-radius: 10px 0px 0px 10px; */
 }
@@ -44,11 +44,12 @@
 .event_img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .event_page_top_right {
   background-color: #C1C8E4;;
-  width: 40%;
+  width: 20%;
   padding: 25px;
   /* border-radius: 0px 10px 10px 0px; */
   font-size: 20px;
@@ -73,6 +74,7 @@
 .event_page_middle {
   background-color: white;
   width: 80%;
+  height: 50px;
   display: flex;
   flex-direction: row;
 }

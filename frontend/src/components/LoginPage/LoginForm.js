@@ -69,7 +69,7 @@ function LoginForm({ }) {
         <button
         onClick={handleDemoLogin}
         className={styles.loginSubmitButton}>Demo User</button>
-        <Link to={'/signup'}>Sign up for Dance Nomad</Link>
+        <Link to={'/signup'} id={styles.signup_link}>Sign up for Dance Nomad</Link>
       </form>
     </div>
   );

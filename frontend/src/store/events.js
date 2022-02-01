@@ -93,7 +93,9 @@ export const newEvent = (event) => async (dispatch) => {
    const g = JSON.stringify(genres)
    const t = JSON.stringify(types)
    const v = JSON.stringify(venue_types)
+   console.log("$$$$$$$$$$", typeof genres, genres,  typeof types, types)
    const formData = new FormData();
+   console.log("GGGGGGGGGGG", typeof g, g, typeof t, t)
    formData.append("hostId", hostId);
    formData.append("name", name);
    formData.append("description", description);
@@ -136,15 +138,22 @@ export const editEvent = (event, id) => async dispatch => {
     description,
     start_date,
     end_date,
+    genres,
+    types,
     image,
     video,
     venue,
+    venue_types,
     address,
     city,
     state,
     zip,
     country,
    } = event;
+   console.log("$$$$$$$$$$", genres, types)
+   const g = JSON.stringify(genres)
+   const t = JSON.stringify(types)
+   const v = JSON.stringify(venue_types)
    const formData = new FormData();
    formData.append("hostId", hostId);
    formData.append("name", name);
@@ -157,6 +166,8 @@ export const editEvent = (event, id) => async dispatch => {
    formData.append("state", state);
    formData.append("zip", zip);
    formData.append("country", country);
+   formData.append("genres", g);
+   formData.append("types", t);
    if (image) formData.append("files", image);
    if (video) formData.append("files", video);
 

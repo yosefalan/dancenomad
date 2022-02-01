@@ -9,7 +9,7 @@ import styles from './ConfirmDelete.module.css'
 const ConfirmDelete = ({ id, user }) => {
 
   const [showModal, setShowModal] = useState(false);
-  console.log(id);
+
 
   return (
     <>

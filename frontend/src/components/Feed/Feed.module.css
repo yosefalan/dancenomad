@@ -28,10 +28,12 @@
 .event_img_container {
   height: 40%;
   overflow: hidden;
+
 }
  .event_img {
    width: 100%;
    height: 100%;
+   object-fit: cover;
  }
 .event_name_link {
   display: flex;

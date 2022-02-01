@@ -86,9 +86,11 @@ function RegistrationForm({ event, hideForm }) {
           options={quantity_options}
           placeholder="Quantity"
         />
-        <button className={styles.reg_button} type="submit">
+        <div className={styles.reg_button_div} >
+          <button className={styles.reg_button} type="submit">
           Register
         </button>
+        </div>
       </form>
     </div>
   );
