@@ -38,23 +38,23 @@ export default function EditEventForm({ event, hideForm }) {
       const [page, setPage] = useState(1);
 
 
-      const updateName = (e) => setName(e?.target?.value);
-      const updateDescription = (e) => setDescription(e?.target?.value);
-      const updateStart_date = (e) => setStart_date(e?.target?.value);
-      const updateEnd_date = (e) => setEnd_date(e?.target?.value);
-      const updateVenue = (e) => setVenue(e?.target?.value);
-      const updateVenue_types = (e) => setVenue_types(e?.target?.value);
-      const updateAddress = (e) => setAddress(e?.target?.value);
-      const updateCity = (e) => setCity(e?.target?.value);
-      const updateState = (e) => setState(e?.target?.value);
-      const updateZip = (e) => setZip(e?.target?.value);
-      const updateCountry = (e) => setCountry(e?.target?.value);
-      // const updateLat = (e) => setLat(e?.target?.value);
-      // const updateLng = (e) => setLng(e?.target?.value);
-      const updateImage = (e) => setImage(e?.target?.value);
-      const updateVideo= (e) => setVideo(e?.target?.value);
-      const updateGenres = (e) => setGenres(e?.target?.value);
-      const updateTypes = (e) => setTypes(e?.target?.value);
+      // const updateName = (e) => setName(e?.target?.value);
+      // const updateDescription = (e) => setDescription(e?.target?.value);
+      // const updateStart_date = (e) => setStart_date(e?.target?.value);
+      // const updateEnd_date = (e) => setEnd_date(e?.target?.value);
+      // const updateVenue = (e) => setVenue(e?.target?.value);
+      // const updateVenue_types = (e) => setVenue_types(e?.target?.value);
+      // const updateAddress = (e) => setAddress(e?.target?.value);
+      // const updateCity = (e) => setCity(e?.target?.value);
+      // const updateState = (e) => setState(e?.target?.value);
+      // const updateZip = (e) => setZip(e?.target?.value);
+      // const updateCountry = (e) => setCountry(e?.target?.value);
+      // // const updateLat = (e) => setLat(e?.target?.value);
+      // // const updateLng = (e) => setLng(e?.target?.value);
+      // const updateImage = (e) => setImage(e?.target?.value);
+      // const updateVideo= (e) => setVideo(e?.target?.value);
+      // const updateGenres = (e) => setGenres(e?.target?.value);
+      // const updateTypes = (e) => setTypes(e?.target?.value);
 
 
         const {
@@ -131,6 +131,28 @@ export default function EditEventForm({ event, hideForm }) {
       //   if (g.id) g[id] = g[label]
       // })
 
+      // const combinedGenres = [genres]
+        // ...Object.values(genres)?.value
+
+
+
+        const combinedGenres = []
+        for (let i in genres) {
+          console.log("GGGGGGGGG", genres[i].genre)
+          if (genres[i]?.genre) combinedGenres.push(genres[i].id.toString())
+          if (genres[i]?.value) combinedGenres.push(genres[i].value)
+        }
+
+        const combinedTypes = []
+        for (let i in types) {
+          if (types[i]?.types) combinedTypes.push(types[i].id.toString())
+          if (types[i]?.value) combinedTypes.push(types[i].value)
+        }
+
+
+
+      console.log("GGGGGGGGGG", combinedGenres, genres)
+      console.log("TTTTTTTTTT", combinedTypes, types)
       const handleSubmit = async (e) => {
         e.preventDefault();
         let newErrors = [];
@@ -149,8 +171,8 @@ export default function EditEventForm({ event, hideForm }) {
           country: country.value,
           // lat,
           // lng,
-          genres:
-          types,
+          genres: combinedGenres,
+          types: combinedTypes,
           image: image[0],
           video
         }
@@ -596,7 +618,7 @@ console.log("IMAGES", image, thumb)
                   value={ed}
                   onChange={(e) => setEnd_date(e.target.value)}
                   />
-                {/* <div className={styles.select_fields_gt}>
+                <div className={styles.select_fields_gt}>
                 <ul id="g">
                   {genres?.map((g) => g.label ? <li>{g.label}</li> : <li>{g.genre}</li>)}
                 </ul>
@@ -608,7 +630,6 @@ console.log("IMAGES", image, thumb)
                   <Select
                   className={styles.create_event_select_field}
                   isMulti
-                  value={genres}
                   onChange={setGenres}
                   options={genre_options}
                   placeholder={"Genres"}
@@ -617,12 +638,11 @@ console.log("IMAGES", image, thumb)
                   className={styles.create_event_select_field}
                   isMulti
                   // value={type_options.filter(obj => selectedTypes.includes(obj.value))}
-                  value={types}
                   onChange={setTypes}
                   options={type_options}
                   placeholder="Event Types"
                   />
-                  </div> */}
+                  </div>
               </div>
             ) : null}
               {/**************************************************/}
@@ -638,17 +658,17 @@ console.log("IMAGES", image, thumb)
               value={venue}
               onChange={(e) => setVenue(e.target.value)}
               />
-              {/* <ul>
+              <ul>
                 {venue_types?.map((t) => <li>{t.type}</li>)}
-              </ul> */}
-              {/* <Select
+              </ul>
+              <Select
               className={styles.create_event_form_field_s}
               isMulti
-              defaultValue={venue_types}
+              value={null}
               onChange={setVenue_types}
               options={venue_type_options}
               placeholder={"Venue type:"}
-              /> */}
+              />
               <input
               type="text"
               className={styles.create_event_form_field_a}
@@ -723,8 +743,8 @@ console.log("IMAGES", image, thumb)
 
               <div {...getRootProps({ className: 'dropzone' })}>
                 <input {...getInputProps()} />
-                <p>Drag 'n' drop an image files here, or click to select file</p>
-                <p>(Only .jpg .jpeg and .png images are allowed)</p>
+                <p>Drag and drop an image file here, or click to select file</p>
+                <p>-------Only .jpg .jpeg and .png images are allowed-------</p>
               </div>
               </div>
              ) : null}
@@ -754,22 +774,22 @@ console.log("IMAGES", image, thumb)
                   <p>{name}</p>
                   <div className={styles.description_scroll}><p>{description}</p></div>
                   <p>{sd} - {ed}</p>
-                  {/* <div className={styles.genres_types}>
+                  <div className={styles.genres_types}>
                     <ul id="g">
                     {genres?.map((g) => g.label ? <li>{g.label}</li> : <li>{g.genre}</li>)}
                     </ul>
                     <ul id='t'>
-                      {types?.map((t) => t.label ? <li>{t.label}</li> : <li>{t.type}</li>)}
+                    {types?.map((t) => t.label ? <li>{t.label}</li> : <li>{t.type}</li>)}
                     </ul>
-                  </div> */}
+                  </div>
                 </div>
 
                 <div className={styles.summary_page_container_right}>
                 <h3>Location Info:</h3>
                   <p>{venue}</p>
-                  {/* <ul>
+                  <ul>
                     {venue_types?.map((v) => <li>{v.label}</li>)}
-                  </ul> */}
+                  </ul>
                   <p>{address}</p>
                   <p>{city}</p>
                   {state ? <p>{state}</p> : null}

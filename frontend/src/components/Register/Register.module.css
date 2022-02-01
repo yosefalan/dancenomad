@@ -1,16 +1,24 @@
 .reg_button {
   background-color: #c1c8e4;
-  width: 75%;
+  width: 200px;
+  height: 35px;
   margin: 10px;
-  margin-top: 20px;
+  margin-top: 10px;
   cursor: pointer;
   border: none;
   padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .reg_button:hover {
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  border: 1px solid #39364f;
+  box-shadow: 3px 6px 3px 3px rgba(0, 0, 0, 0.3);
+  /* border: 1px solid #39364f; */
+}
+
+.reg_button_div {
+ height: 50px;
 }
 
 .reg_main {

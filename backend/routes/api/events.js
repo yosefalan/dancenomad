@@ -86,6 +86,8 @@ router.post(
       // image,
       // files
     } = req.body;
+    console.log("GENRES", typeof genres, genres)
+    console.log("TYPES", typeof types, types)
     const url = await multiplePublicFileUpload(req.files);
     const image_url = url[0]
     const video_url = url[1]
@@ -111,32 +113,34 @@ router.post(
       eventId: eventId
     });
     const venueId = v.id;
-    // const g = JSON.parse(genres)
-    // g.map((genre) => {
+    const g = JSON.parse(genres)
+    console.log("GGGGGGGGG", typeof g, g)
+    g.map((genre) => {
 
-    //   Event_genre.create({
-    //     eventId,
-    //     genreId: +genre.value,
-    //   });
-    // });
+      Event_genre.create({
+        eventId,
+        genreId: +genre.value,
+      });
+    });
 
-    // const t = JSON.parse(types)
-    // t.map((type) => {
+    const t = JSON.parse(types)
+    console.log("TTTTTTT", typeof t, t)
+    t.map((type) => {
 
-    //   Event_type.create({
-    //     eventId,
-    //     typeId: +type.value,
-    //   });
-    // });
+      Event_type.create({
+        eventId,
+        typeId: +type.value,
+      });
+    });
 
-    // const vt = JSON.parse(venue_types)
-    // vt.map((venue_type) => {
+    const vt = JSON.parse(venue_types)
+    vt.map((venue_type) => {
 
-    //   Venue_venue_type.create({
-    //     venueId,
-    //     venue_typeId: +venue_type.value,
-    //   });
-    // });
+      Venue_venue_type.create({
+        venueId,
+        venue_typeId: +venue_type.value,
+      });
+    });
 
     return res.json({
       event
@@ -157,8 +161,8 @@ router.put(
       end_date,
       // image,
       // video,
-      // genres,
-      // types,
+      genres,
+      types,
       venue,
       // venue_types,
       address,
@@ -197,38 +201,40 @@ router.put(
       eventId: event_id
       }
     })
+    console.log("%%%%%%%%%", typeof genres, genres)
+    if(genres){
+      await Event_genre.destroy({
+        where: {
+          eventId: event_id
+        }
+      });
 
-  //   if(genres){
-  //   await Event_genre.destroy({
-  //     where: {
-  //       eventId: event_id
-  //     }
-  //   });
+      const g = JSON.parse(genres)
+      // const g = genres.split(",")
+      g.map((genre) => {
+      Event_genre.create({
+        eventId: event_id,
+        genreId: +genre,
+      });
+    });
+  }
+  console.log("%%%%%%%%%", typeof types, types)
+  if(types){
+    await Event_type.destroy({
+      where: {
+        eventId: event_id
+      }
+    });
 
-  //   genres.map((genre) => {
+    const t = JSON.parse(types)
+    t.map((type) => {
 
-  //     Event_genre.create({
-  //       eventId: event_id,
-  //       genreId: +genre.value,
-  //     });
-  //   });
-  // }
-
-  // if(types){
-  //   await Event_type.destroy({
-  //     where: {
-  //       eventId: event_id
-  //     }
-  //   });
-
-  //   types.map((type) => {
-
-  //     Event_type.create({
-  //       eventId: event_id,
-  //       typeId: +type.value,
-  //     });
-  //   });
-  // }
+      Event_type.create({
+        eventId: event_id,
+        typeId: +type,
+      });
+    });
+  }
     return res.json(event);
   })
 );

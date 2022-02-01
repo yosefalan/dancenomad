@@ -97,7 +97,9 @@ function SignupForm() {
         <button
         onClick={handleDemoLogin}
         className={styles.loginSubmitButton}>Demo User</button>
-        <Link to={'/login'}>Already a Dance Nomad?  Log in</Link>
+        <Link to={'/login'}
+        id={styles.login_link}
+        >Already a Dance Nomad?  Log in</Link>
       </form>
     </div>
   );
