@@ -546,18 +546,26 @@ export default function CreateEvent({ hideForm }) {
       </Modal>
     )}
       <div className={styles.form_container}>
-        <div className={styles.form_header}><h1>Let's create your event...</h1>
+        {/* <div className={styles.form_header}><h1>Let's create your event...</h1>
         <i class="far fa-times-circle" id={styles.cancel_button}
         onClick={() => handleCancel()}
         ></i>
-        </div>
+        </div> */}
         <form
           onSubmit={handleSubmit}
           className={styles.form}>
           {page === 1 || page === 2 ? (
           <div className={styles.errors_container}>
+            {errors.length === 0 && page === 1 ?
+            <>
+              <h2>Let's Create Your Event:</h2>
+              <p>Complete general info then click 'next'</p>
+              <p>Click 'cancel' to exit without saving</p>
+            </>
+              : null
+          }
             <ul className={styles.errors_ul}>
-              {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+              {errors?.map((error, idx) => <li key={idx}>{error}</li>)}
             </ul>
           </div>
             ) : null}
@@ -568,7 +576,17 @@ export default function CreateEvent({ hideForm }) {
                 ) : null}
             {page === 3 && !thumb?.length ? (
             <div className={styles.img_preview}>
-                <h3>Upload a photo for your event...</h3>
+                <h3>Upload a photo for your event</h3>
+                </div>
+                ) : null}
+            {page === 4 && thumb?.length && !fileRejectionItems?.length ? (
+                <div className={styles.img_preview_summary}>
+                {thumb}
+                </div>
+                ) : null}
+            {page === 4 && !thumb?.length ? (
+            <div className={styles.img_preview}>
+                <h3>No photo uploaded</h3>
                 </div>
                 ) : null}
          {/**************************************************/}
@@ -637,7 +655,7 @@ export default function CreateEvent({ hideForm }) {
               <input
               type="text"
               className={styles.create_event_form_field}
-              placeholder="Venue Name"
+              placeholder=" Venue Name"
               autocomplete="new-password"
               value={venue}
               onChange={(e) => setVenue(e.target.value)}
@@ -653,7 +671,7 @@ export default function CreateEvent({ hideForm }) {
               <input
               type="text"
               className={styles.create_event_form_field_a}
-              placeholder="Address"
+              placeholder=" Address"
               autocomplete="new-password"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
@@ -661,7 +679,7 @@ export default function CreateEvent({ hideForm }) {
               <input
               type="text"
               className={styles.create_event_form_field}
-              placeholder="City"
+              placeholder=" City"
               autocomplete="new-password"
               value={city}
               onChange={(e) => setCity(e.target.value)}
@@ -677,7 +695,7 @@ export default function CreateEvent({ hideForm }) {
                 <input
                   type="text"
                   className={styles.create_event_select_field_z}
-                  placeholder="Zip Code (US Only)"
+                  placeholder="  Zip Code (US Only)"
                   autocomplete="new-password"
                   value={zip}
                   onChange={(e) => setZip(e.target.value)}
@@ -729,18 +747,18 @@ export default function CreateEvent({ hideForm }) {
                 <div {...getRootProps({ className: 'dropzone' })}>
                   <input {...getInputProps()} />
                   <p>Drag and drop an image file here, or click to select file</p>
-                  <p>(Only .jpg .jpeg and .png images are allowed)</p>
+                  <p>-------Only .jpg .jpeg and .png images are allowed-------</p>
                 </div>
               </div>
              ) : null}
 
   {/**************************************************/}
-  {page === 4 &&
+  {/* {page === 4 &&
                 thumb?.length && !fileRejectionItems?.length ? (
-                  <div className={styles.img_preview}>
+                  <div className={styles.img_preview_summary}>
                     {thumb}
                     </div>
-                  ) : null}
+                  ) : null} */}
   {page === 4 ? (
               <div className={styles.summary_page_container}>
 
@@ -749,14 +767,14 @@ export default function CreateEvent({ hideForm }) {
                   <p>{name}</p>
                   <div className={styles.description_scroll}><p>{description}</p></div>
                   <p>{sd} - {ed}</p>
-                  {/* <div className={styles.genres_types}>
+                  <div className={styles.genres_types}>
                     <ul>
                     {genres?.map((g) => <li>{g.label}</li>)}
                     </ul>
                     <ul>
                     {types?.map((t) => <li>{t.label}</li>)}
                     </ul>
-                  </div> */}
+                  </div>
                 </div>
 
                 <div className={styles.summary_page_container_right}>
@@ -788,8 +806,9 @@ export default function CreateEvent({ hideForm }) {
               Prev</button>}
 
               {page === 1 &&<button
-              className={styles.form_invisible_button}
-              type="button">
+              onClick={() => handleCancel()}
+              className={styles.form_cancel_button}
+              type="button">Cancel
               </button>}
 
               {page !== 4 &&<button

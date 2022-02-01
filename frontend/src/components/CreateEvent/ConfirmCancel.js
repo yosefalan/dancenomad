@@ -21,7 +21,7 @@ function ConfirmCancel({ id, hideForm, user }){
   return (
     <div
       className={styles.confirm_delete_container}>
-      <h2>Are you sure you cancel event creation?</h2>
+      <h2>Are you sure you want to cancel event creation?</h2>
       <p>Your changes will not be saved</p>
       <div className={styles.event_cancel_buttons}>
         <button
@@ -31,7 +31,7 @@ function ConfirmCancel({ id, hideForm, user }){
           <button
         onClick={() => handleContinue()}
         className={styles.confirm_delete_button_2}
-        >Continue</button>
+        >Don't Cancel</button>
       </div>
     </div>
   );
