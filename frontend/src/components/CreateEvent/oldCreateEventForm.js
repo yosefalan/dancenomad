@@ -81,7 +81,7 @@ function CreateEventForm () {
     }
 
     console.log("IMAGE:", image)
-    
+
     const updateImageFile = (e) => {
       const file = e.target.files[0]
       if (file) setImage(file);
