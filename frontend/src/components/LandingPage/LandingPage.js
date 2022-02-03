@@ -1,6 +1,7 @@
 import React from "react"
 import Navigation from "../Navigation/Navigation"
 import Feed from "../Feed/Feed"
+
 import styles from "./LandingPage.module.css"
 
 

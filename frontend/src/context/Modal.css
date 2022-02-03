@@ -18,7 +18,12 @@
   right: 0;
   left: 0;
   bottom: 0;
-  background-color: rgba(57, 54, 79, .9);
+  /* background-color: rgba(57, 54, 79, .9);
+  background: #65deea; /* Old browsers */
+    background: -moz-linear-gradient(45deg, #65deea 12%, #8761d0 53%, #65deea 87%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(45deg, #65deea 12%,#8761d0 53%,#65deea 87%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(45deg, #65deea 12%,#8761d0 53%,#65deea 87%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#65deea', endColorstr='#65deea',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 #modal-content {

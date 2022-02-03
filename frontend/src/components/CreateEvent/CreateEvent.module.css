@@ -5,12 +5,12 @@
 }
 
 .form_container {
-  width: 100vw;
-  height: 100vh;
+  width: 40vw;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #FFFFFF;
+  background-color: #FAFAFA;
   color: #39364f
 }
 
@@ -35,7 +35,7 @@
 }
 
 .form {
-  width: 75%;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
