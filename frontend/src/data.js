@@ -354,4 +354,4 @@ const country_options = [
 ]
 
 
-export { genre_options }
+export { genre_options, type_options }

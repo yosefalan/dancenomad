@@ -4,6 +4,9 @@ import { NavLink, useHistory } from "react-router-dom";
 import { getEvents } from "../../store/events";
 import moment from 'moment'
 import FilterBar from "../FilterBar/FilterBar"
+import Select from 'react-select'
+import { genre_options, type_options } from "../../data"
+// import styles from "./FilterBar.module.css"
 import styles from './Feed.module.css'
 
 function Feed () {
@@ -11,8 +14,8 @@ function Feed () {
   const dispatch = useDispatch();
   const history = useHistory();
   const [linkId, setLinkId] = useState();
-  const [genreFilter, setGenreFilter] = useState("");
-  const [typeFilter, setTypeFilter] = useState("");
+  const [genreFilter, setGenreFilter] = useState(null);
+  const [typeFilter, setTypeFilter] = useState(null);
   const [regionFilter, setRegionFilter] = useState("");
 
 
@@ -20,44 +23,63 @@ function Feed () {
     dispatch(getEvents());
   }, [dispatch]);
 
-  const events = useSelector(state => Object.values(state?.events)).sort((a, b) => (a.start_date > b.start_date) ? 1 : -1)
+  let events = useSelector(state => Object.values(state?.events)).sort((a, b) => (a.start_date > b.start_date) ? 1 : -1)
 
-  const handleLink = (e) => {
+
+    if (genreFilter){
+    events = events?.filter(event => event?.event_genre?.some(({ genre }) => genre === genreFilter?.label))
+    }
+
+    if (typeFilter){
+      events = events?.filter(event => event?.event_type?.some(({ type }) => type === typeFilter?.label))
+      }
+
+  console.log("WOOOOOOOOOOO", events)
+
+
+  const handleLink = (e, eventId) => {
         e.preventDefault();
-        history.push(`/events/${linkId}`)
+        history.push(`/events/${eventId}`)
   }
-
-  console.log("GENRE FILTER", genreFilter)
-
 
   return (
     <>
-    <FilterBar
-      setGenreFilter={() => setGenreFilter()}
-    />
+       <div className={styles.filter_main}>
+        <Select
+            className={styles.filter_genre}
+            // defaultValue={genres}
+            onChange={setGenreFilter}
+            isClearable={true}
+            options={genre_options}
+            placeholder="Filter by Genre"
+        />
+           <Select
+            className={styles.filter_genre}
+            // defaultValue={genres}
+            onChange={setTypeFilter}
+            isClearable={true}
+            options={type_options}
+            placeholder="Filter by Event Type"
+        />
+      </div>
     <div className={styles.feed_main_container}>
       <div className={styles.event_tiles_container}>
-          {events?.map(event => {
+          {
+          events
+
+          .map(event => {
             return (
               <div>
                   <div
-                  onClick={(e) => setLinkId(event.id)}
+                  onClick={(e) => handleLink(e, event.id)}
                   className={styles.event_card}>
                     <div className={styles.event_img_container}>
-                      <NavLink
-                    to={`/events/${event?.id}`}>
                         <img className={styles.event_img} src={event?.image_url}></img>
-                        </NavLink></div>
-                    <NavLink className={styles.event_name_link} to={`/events/${event?.id}`}>{event?.name}</NavLink>
-                    <NavLink
-                    className={styles.event_date_link}
-                    to={`/events/${event?.id}`}>
-                    {moment(event?.end_date).format('ddd MMM D')} - {moment(event?.end_date).format('ddd MMM D yyyy')}
-                    </NavLink>
-                    <NavLink
-                    className={styles.event_loc_link}
-                    to={`/events/${event?.id}`}>
-                    {event?.Venues[0]?.city},
+                        </div>
+                      <div className={styles.event_card_text}>
+                      <h4>{event?.name}</h4>
+                    <span>{moment(event?.end_date).format('ddd MMM D')} - {moment(event?.end_date).format('ddd MMM D yyyy')}</span>
+                    <p>{event?.Venues[0]?.city},
                     {event?.Venues[0]?.state ?
                     " " :
                     null
@@ -66,16 +88,18 @@ function Feed () {
                     event?.Venues[0]?.state :
                     event?.Venues[0]?.country
                   }
-                    </NavLink>
-                    {/* <NavLink
-                    className={styles.event_loc_link}
-                    to={`/events/${event?.id}`}>
-                    <ul>
-                    Event type: {event.event_type.map ((t) => {
-                      <li>{t.type}</li>
+                  </p>
+                  <p>Genres:</p>
+                    {event?.event_genre.map((g, idx ) => {
+
+                      return <span>{idx > 0 ? " | " : null}{g.genre}</span>
                     })}
-                    </ul>
-                  </NavLink> */}
+                      <p>Event Type:</p>
+                       {event?.event_type.map((t, idx ) => {
+
+                        return <span>{idx > 0 ? " | " : null}{t.type}</span>
+                        })}
+                    </div>
                   </div>
                 </div>
             )})}
