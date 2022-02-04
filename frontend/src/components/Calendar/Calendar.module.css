@@ -1,0 +1,169 @@
+.feed_main_container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+
+.banner {
+  width: 100vw;
+  position: absolute;
+  opacity: 0;
+  animation: fadeOut 3000ms;
+  animation-fill-mode: forwards;
+  -webkit-animation: fadeOut 3000ms;
+  -moz-animation: fadeOut 3000ms;
+  -o-animation: fadeOut 3000ms;
+  -ms-animation: fadeOut 3000ms;
+}
+
+@keyframes fadeOut {
+  0% {opacity:1;}
+  100% {opacity:0;}
+}
+
+@-moz-keyframes fadeOut {
+  0% {opacity:1;}
+  100% {opacity:0;}
+}
+
+@-webkit-keyframes fadeOut {
+  0% {opacity:1;}
+  100% {opacity:0;}
+}
+
+@-o-keyframes fadeOut {
+  0% {opacity:1;}
+  100% {opacity:0;}
+}
+
+@-ms-keyframes fadeOut {
+  0% {opacity:1;}
+  100% {opacity:0;}
+}
+
+
+.filter_main {
+  width: 100vw;
+  height: 100px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  position: relative;
+  /* transition-duration: 1000ms; */
+  animation: mymove 3000ms;
+}
+
+
+.filter_genre {
+  width: 300px;
+
+}
+
+.filter_genre {animation-timing-function: ease-out;}
+
+@keyframes mymove {
+  0% {top: 400px; }
+  100% {top: 0px; }
+}
+
+/* div {
+  width: 100px;
+  height: 50px;
+  background-color: red;
+  font-weight: bold;
+  position: relative;
+  animation: mymove 5s infinite;
+} */
+
+/* #div1 {animation-timing-function: linear;} */
+/* #div2 {animation-timing-function: ease;} */
+/* #div3 {animation-timing-function: ease-in;} */
+/* #div5 {animation-timing-function: ease-in-out;} */
+
+
+
+
+
+
+
+
+
+
+
+
+/********************/
+
+/* .event_tiles_container{
+  width: 90%;
+  position: relative;
+  display: grid;
+  grid-template-columns: 23% 23% 23% 23%;
+  gap: 2%;
+  margin-top: 25px;
+}
+
+.event_card {
+  width: 20vw;
+  height: 40vh;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0px 8px 32px 0px rgba(0,0,0,0.05);
+
+ }
+
+ .event_card:hover {
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.event_img_container {
+  height: 40%;
+  overflow: hidden;
+
+}
+ .event_img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+ }
+
+.event_card_text {
+  padding: 15px;
+}
+
+.event_card_text > h4 {
+  margin: 5px 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.event_card_text > p {
+  margin: 5px 0px;
+} */
+/* .event_date_link {
+  display: flex;
+  font-weight: bold;
+  text-decoration: none;
+  justify-content: center;
+  padding: 1em;
+  font-size: 12px;
+  padding: 5px;
+}
+
+.event_loc_link {
+  display: flex;
+  font-weight: bold;
+  text-decoration: none;
+  justify-content: center;
+  padding: 1em;
+  font-size: 12px;
+  padding: 5px;
+} */
+
+
+
+
+
+
+/****************************/

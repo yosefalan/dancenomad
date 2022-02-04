@@ -17,6 +17,7 @@ import ManagedEvents from "./components/ManagedEvents/ManagedEvents";
 import EventRegistrations from "./components/EventRegistrations/EventRegistrations";
 import EventCreate from "./components/EventCreate/CreateEventForm new";
 import Footer from "./components/Footer/Footer";
+import Calendar from "./components/Calendar/Calendar";
 
 function App() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -34,7 +35,7 @@ function App() {
       <Switch>
         <Route exact path="/">
           <LandingPage />
-          <Footer />
+          {/* <Footer /> */}
         </Route>
         <Route exact path="/login">
           <LoginPage sessionUser={sessionUser} />
@@ -44,6 +45,8 @@ function App() {
           <SignupPage />
           <Footer />
         </Route>
+
+
 
         <ProtectedRoute exact path="/main">
           <Main />
@@ -66,11 +69,12 @@ function App() {
         <ProtectedRoute path="/registrations/users/:id">
           <UserRegistrations user={sessionUser} />
         </ProtectedRoute>
-
+        <ProtectedRoute path="/calendar">
+          <Calendar user={sessionUser} />
+        </ProtectedRoute>
         <Route path="/event-create">
           <EventCreate />
         </Route>
-
       </Switch>
     </BrowserRouter>
 

@@ -5,10 +5,10 @@ import { getEvents } from "../../store/events";
 import moment from 'moment'
 import Select from 'react-select'
 import { genre_options, type_options } from "../../data"
-// import styles from "./FilterBar.module.css"
-import styles from './Feed.module.css'
+import Navigation from "../Navigation/Navigation";
+import styles from './Calendar.module.css'
 
-function Feed () {
+function Calendar () {
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -43,7 +43,14 @@ function Feed () {
 
   return (
     <>
-       <div className={styles.filter_main}>
+      <Navigation />
+      <div className={styles.main}>
+        <img
+        className={styles.banner}
+        src ={'images/main.png'}></img>
+      </div>
+
+      <div className={styles.filter_main}>
         <Select
             className={styles.filter_genre}
             // defaultValue={genres}
@@ -69,7 +76,7 @@ function Feed () {
             placeholder="Filter by Country"
         />
       </div>
-    <div className={styles.feed_main_container}>
+    {/* <div className={styles.feed_main_container}>
       <div className={styles.event_tiles_container}>
           {
           events
@@ -111,9 +118,9 @@ function Feed () {
                 </div>
             )})}
       </div>
-    </div>
+    </div> */}
   </>
   )
 }
 
-export default Feed
+export default Calendar

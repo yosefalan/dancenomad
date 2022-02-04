@@ -18,14 +18,20 @@
   right: 0;
   left: 0;
   bottom: 0;
-  background-color: rgba(57, 54, 79, .9);
+  /* background-color: rgba(57, 54, 79, .9);
+  background: #65deea; /* Old browsers */
+    background: -moz-linear-gradient(45deg, rgba(101, 222, 234, 1) 12%, rgba(135, 97, 208, 1) 53%, rgba(101, 222, 234, 1) 87%), rgba(0, 0, 0, .5);
+    background: -webkit-linear-gradient(45deg, rgba(101, 222, 234, 1) 12%, rgba(135, 97, 208, 1) 53%, rgba(101, 222, 234, 1) 87%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(45deg, rgba(101, 222, 234, 1) 12%, rgba(135, 97, 208, 1) 53%, rgba(101, 222, 234, 1) 87%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#65deea', endColorstr='#65deea',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    background: rgba()
 }
 
 #modal-content {
   display: flex;
   flex-direction: column;
   position: absolute;
-  background-color:white;
+  /* background-color:white; */
   border-radius: 3px;
   /* -webkit-animation-name: animateModal;
   -webkit-animation-duration: 0.3s;

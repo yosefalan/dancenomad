@@ -17,6 +17,16 @@ function Navigation({ isLoaded }){
         </div>
         {sessionUser ?
         <div className={styles.navBarRight}>
+             <div className={styles.navBarLink}>
+            <NavLink exact to="/events/manage/map"
+            className={styles.navBarLinkText}
+            >Map</NavLink>
+          </div>
+           <div className={styles.navBarLink}>
+            <NavLink exact to="/calendar"
+            className={styles.navBarLinkText}
+            >Calendar</NavLink>
+          </div>
           <div className={styles.navBarLink}>
             <NavLink exact to="/events/manage/create"
             className={styles.navBarLinkText}

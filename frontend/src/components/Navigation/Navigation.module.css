@@ -5,6 +5,7 @@
 
 .mainNavContainer {
   width: 100vw;
+  height: 75px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -68,10 +69,12 @@
 .navBarLink {
   display: flex;
   height: 100%;
+  width: 110px;
   margin-right: 10px;
   font-size: 18px;
   align-items: center;
-  padding: 0px 15px 0px 15px
+  justify-content: center;
+  padding: 0px 15px 0px 15px;
 }
 
 .navBarLinkText {
@@ -82,4 +85,3 @@
 .navBarLink:hover {
   background-color: #C1C8E4;
 }
-

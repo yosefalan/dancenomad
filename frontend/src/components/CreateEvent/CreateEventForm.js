@@ -118,7 +118,7 @@ export default function CreateEvent({ hideForm }) {
     // setPage((page) => page -1)
     if(!errors?.length) setPage((page) => page -1);
   }
-
+  <p>Event Type:</p>
 
   console.log("XXXXXXXXX", genres, types)
   const handleSubmit = async (e) => {
