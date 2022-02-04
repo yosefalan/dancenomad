@@ -20,6 +20,7 @@
   height: 40vh;
   border-radius: 15px;
   overflow: hidden;
+  box-shadow: 0px 8px 32px 0px rgba(0,0,0,0.05);
 
  }
 
@@ -48,6 +49,10 @@
   text-overflow: ellipsis;
 }
 
+
+.event_card_text > p {
+  margin: 5px 0px;
+}
 /* .event_date_link {
   display: flex;
   font-weight: bold;
@@ -76,15 +81,15 @@
 /****************************/
 
 .filter_main {
-  background-color: aqua;
   width: 100vw;
   height: 100px;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
 }
 
 
 .filter_genre {
   width: 300px;
+
 }
