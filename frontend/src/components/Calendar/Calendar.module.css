@@ -9,12 +9,13 @@
   width: 100vw;
   position: absolute;
   opacity: 0;
-  animation: fadeOut 3000ms;
+  animation: fadeOut 1000ms;
   animation-fill-mode: forwards;
-  -webkit-animation: fadeOut 3000ms;
-  -moz-animation: fadeOut 3000ms;
-  -o-animation: fadeOut 3000ms;
-  -ms-animation: fadeOut 3000ms;
+  -webkit-animation: fadeOut 1000ms;
+  -moz-animation: fadeOut 1000ms;
+  -o-animation: fadeOut 1000ms;
+  -ms-animation: fadeOut 1000ms;
+  z-index: -9999;
 }
 
 @keyframes fadeOut {
@@ -51,7 +52,7 @@
   align-items: center;
   position: relative;
   /* transition-duration: 1000ms; */
-  animation: mymove 3000ms;
+  animation: mymove 1000ms;
 }
 
 
@@ -66,6 +67,108 @@
   0% {top: 400px; }
   100% {top: 0px; }
 }
+
+.calendar_format {
+  height: 60px;
+  width: 100vw;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  opacity: 100;
+  animation: fadeIn 2500ms;
+  animation-fill-mode: forwards;
+  -webkit-animation: fadeIn 2500ms;
+  -moz-animation: fadeIn 2500ms;
+  -o-animation: fadeIn 2500ms;
+  -ms-animation: fadeIn 2500ms;
+}
+
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+.month {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  min-height: 200px;
+  opacity: 100;
+  animation: fadeIn 2500ms;
+  animation-fill-mode: forwards;
+  -webkit-animation: fadeIn 2500ms;
+  -moz-animation: fadeIn 2500ms;
+  -o-animation: fadeIn 2500ms;
+  -ms-animation: fadeIn 2500ms;
+}
+
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+
+.month_border {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 800px;
+  color: #CCCCCC;
+  border-bottom: solid 1px #CCCCCC;
+  padding-bottom: 10px;
+}
+/* .month > span {
+} */
+
+.calendar_events {
+  background-color: aqua;
+  /* height: 100px; */
+  width: 800px;
+}
+
+
 
 /* div {
   width: 100px;

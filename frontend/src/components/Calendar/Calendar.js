@@ -4,19 +4,22 @@ import { NavLink, useHistory } from "react-router-dom";
 import { getEvents } from "../../store/events";
 import moment from 'moment'
 import Select from 'react-select'
-import { genre_options, type_options } from "../../data"
+import { genre_options, type_options, months } from "../../data"
 import Navigation from "../Navigation/Navigation";
 import styles from './Calendar.module.css'
 
 function Calendar () {
+
+  const date = new Date();
+  const currentYear = date.getFullYear();
 
   const dispatch = useDispatch();
   const history = useHistory();
   const [linkId, setLinkId] = useState();
   const [genreFilter, setGenreFilter] = useState(null);
   const [typeFilter, setTypeFilter] = useState(null);
-  const [regionFilter, setRegionFilter] = useState("");
-
+  const [countryFilter, setCountryFilter] = useState(null);
+  const [year, setYear] = useState(currentYear)
 
   useEffect(() => {
     dispatch(getEvents());
@@ -24,6 +27,7 @@ function Calendar () {
 
   let events = useSelector(state => Object.values(state?.events)).sort((a, b) => (a.start_date > b.start_date) ? 1 : -1)
 
+    events = events?.filter(event => moment(event?.start_date).format('YYYY') == year)
 
     if (genreFilter){
     events = events?.filter(event => event?.event_genre?.some(({ genre }) => genre === genreFilter?.label))
@@ -76,7 +80,71 @@ function Calendar () {
             placeholder="Filter by Country"
         />
       </div>
-    {/* <div className={styles.feed_main_container}>
+      <div className={styles.calendar_format}>
+        <span>{currentYear}</span><span>{currentYear + 1}</span>
+        </div>
+        {Object.values(months).map(month => {
+            return (
+              <div className={styles.month}>
+                 <div className={styles.month_border}><span>{month.label}</span></div>
+                 <div className={styles.calendar_events}>
+                  {events
+                  .filter(event => moment(event?.start_date).format('MMMM') == month.label)
+                  .map(event => {
+                    return (
+                      <p>event</p>
+                    )
+                  })}
+                 </div>
+              </div>
+        )})}
+
+
+
+
+
+
+        {/* <div className={styles.month}>
+          <div className={styles.month_border}><span>January</span></div>
+        </div>
+        <div className={styles.month}>
+          <div className={styles.month_border}><span>February</span></div>
+        </div>
+        <div className={styles.month}>
+          <div className={styles.month_border}><span>March</span></div>
+        </div>
+        <div className={styles.month}>
+          <div className={styles.month_border}><span>April</span></div>
+        </div>
+        <div className={styles.month}>
+          <div className={styles.month_border}><span>May</span></div>
+        </div>
+        <div className={styles.month}>
+          <div className={styles.month_border}><span>June</span></div>
+        </div>
+        <div className={styles.month}>
+          <div className={styles.month_border}><span>July</span></div>
+        </div>
+        <div className={styles.month}>
+          <div className={styles.month_border}><span>August</span></div>
+        </div>
+        <div className={styles.month}>
+          <div className={styles.month_border}><span>September</span></div>
+        </div>
+        <div className={styles.month}>
+          <div className={styles.month_border}><span>October</span></div>
+        </div>
+        <div className={styles.month}>
+          <div className={styles.month_border}><span>November</span></div>
+        </div>
+        <div className={styles.month}>
+          <div className={styles.month_border}><span>December</span></div>
+        </div> */}
+
+
+
+
+    <div className={styles.feed_main_container}>
       <div className={styles.event_tiles_container}>
           {
           events
@@ -118,7 +186,7 @@ function Calendar () {
                 </div>
             )})}
       </div>
-    </div> */}
+    </div>
   </>
   )
 }
