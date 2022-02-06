@@ -7,10 +7,10 @@ module.exports = {
         genre: 'Acro'
       },
       {
-        genre: 'Afro Cuban '
+        genre: 'Afro Cuban'
       },
       {
-        genre: 'Bachata '
+        genre: 'Bachata'
       },
       {
         genre: 'Ballroom'
@@ -19,7 +19,7 @@ module.exports = {
         genre: 'Blues'
       },
       {
-        genre: 'Brazilian Zouk '
+        genre: 'Brazilian Zouk'
       },
       {
         genre: 'Breakdance'

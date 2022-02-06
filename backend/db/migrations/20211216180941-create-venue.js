@@ -33,12 +33,12 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(255)
       },
-      // lat: {
-      //   type: Sequelize.DECIMAL
-      // },
-      // lng: {
-      //   type: Sequelize.DECIMAL
-      // },
+      lat: {
+        type: Sequelize.DECIMAL
+      },
+      lng: {
+        type: Sequelize.DECIMAL
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

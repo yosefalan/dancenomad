@@ -62,13 +62,13 @@
 
 .reg_card_img {
   width: 30%;
-  object-fit: contain;
   justify-self: flex-end;
   border-radius: 0px 15px 15px 0px;
   padding: 15px;
 }
 
 .reg_img {
+  object-fit: cover;
   height: 100%;
   width: 100%;
   border-radius: 0px 15px 15px 0px;
