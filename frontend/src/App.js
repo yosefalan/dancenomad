@@ -18,6 +18,9 @@ import EventRegistrations from "./components/EventRegistrations/EventRegistratio
 import EventCreate from "./components/EventCreate/CreateEventForm new";
 import Footer from "./components/Footer/Footer";
 import Calendar from "./components/Calendar/Calendar";
+import Map from "./components/Map/Maps";
+
+
 
 function App() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -71,6 +74,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/calendar">
           <Calendar user={sessionUser} />
+        </ProtectedRoute>
+        <ProtectedRoute path="/maps">
+          <Map user={sessionUser} />
         </ProtectedRoute>
         <Route path="/event-create">
           <EventCreate />

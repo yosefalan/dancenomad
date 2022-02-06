@@ -3,7 +3,9 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const eventsRouter = require('./events.js');
 const registrationsRouter = require('./registrations.js');
+const mapsRouter = require('./maps');
 
+router.use('/maps', mapsRouter);
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 router.use('/events', eventsRouter);
