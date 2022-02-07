@@ -187,7 +187,6 @@
 /*****************************/
 
 .maps_page_container {
-  background-color: pink;
   position: relative;
   top: 230px;
   width: 100vw;
@@ -287,6 +286,7 @@
   height: 100%;
   width: 50%;
   right: 0;
+  top: 175px;
 }
 
 .containerStyle {
