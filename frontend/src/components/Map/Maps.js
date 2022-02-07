@@ -4,7 +4,7 @@ import { NavLink, useHistory, Link } from "react-router-dom";
 import { getEvents } from "../../store/events";
 import moment from 'moment'
 import Select from 'react-select'
-import { genre_options, type_options, months } from "../../data"
+import { genre_options, type_options, months, country_options } from "../../data"
 import Navigation from "../Navigation/Navigation";
 import MapContainer from "./index";
 import styles from './Maps.module.css'
@@ -13,6 +13,7 @@ function Maps () {
 
   const date = new Date();
   const currentYear = date.getFullYear();
+  const nextYear  = currentYear + 1;
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -21,6 +22,11 @@ function Maps () {
   const [typeFilter, setTypeFilter] = useState(null);
   const [countryFilter, setCountryFilter] = useState(null);
   const [year, setYear] = useState(currentYear)
+
+  const year_options = [
+    { value: currentYear, label: currentYear },
+    { value: nextYear, label: nextYear  },
+  ]
 
   useEffect(() => {
     dispatch(getEvents());
@@ -36,10 +42,14 @@ function Maps () {
 
     if (typeFilter){
       events = events?.filter(event => event?.event_type?.some(({ type }) => type === typeFilter?.label))
-      }
+    }
 
-  console.log("WOOOOOOOOOOO", events)
+    if (countryFilter){
+      events = events?.filter(event => event?.Venues[0]?.country === countryFilter?.label)
+    }
 
+
+console.log("YYYYYYYYYYY", year)
 
   const handleLink = (e, eventId) => {
         e.preventDefault();
@@ -57,8 +67,15 @@ function Maps () {
 
       <div className={styles.filter_main}>
         <Select
+        className={styles.filter_genre}
+        // defaultValue={genres}
+        onChange={() => setYear(null)}
+        isClearable={true}
+        options={year_options}
+        placeholder="Year"
+        />
+        <Select
             className={styles.filter_genre}
-            // defaultValue={genres}
             onChange={setGenreFilter}
             isClearable={true}
             options={genre_options}
@@ -66,7 +83,6 @@ function Maps () {
         />
            <Select
             className={styles.filter_genre}
-            // defaultValue={genres}
             onChange={setTypeFilter}
             isClearable={true}
             options={type_options}
@@ -74,23 +90,23 @@ function Maps () {
         />
            <Select
             className={styles.filter_genre}
-            // defaultValue={genres}
-            onChange={setTypeFilter}
+            onChange={setCountryFilter}
             isClearable={true}
-            options={type_options}
+            options={country_options}
             placeholder="Filter by Country"
         />
+
       </div>
-      <div className={styles.calendar_format}>
+      {/* <div className={styles.calendar_format}>
         <span>{currentYear}</span><span>{currentYear + 1}</span>
-        </div>
+        </div> */}
 
         <div className={styles.maps_page_container}>
           <div className={styles.maps_page_events}>
 
           {Object.values(months).map(month => {
             return (
-             
+
 
                   <div className={styles.calendar_events}>
                     {events
@@ -132,7 +148,7 @@ function Maps () {
         )})}
         </div>
         <div className={styles.map_page_map}>
-        <MapContainer />
+        <MapContainer events={events} />
         </div>
         </div>
 
