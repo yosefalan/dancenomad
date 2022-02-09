@@ -5,7 +5,8 @@ import { editEvent } from '../../store/events'
 import Select from 'react-select'
 import moment from 'moment'
 import { useDropzone } from 'react-dropzone'
-import styles from './EditEvent.module.css'
+import styles from '../CreateEvent/CreateEvent.module.css'
+// import styles from './EditEvent.module.css'
 
 
 export default function EditEventForm({ event, hideForm }) {
@@ -557,7 +558,7 @@ console.log("IMAGES", image, thumb)
     <div className={styles.event_create_main}>
 
       <div className={styles.form_container}>
-        <h1>Edit your event...</h1>
+        {/* <h1>Edit your event...</h1> */}
         <form
           onSubmit={handleSubmit}
           className={styles.form}>

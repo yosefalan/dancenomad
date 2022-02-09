@@ -67,14 +67,14 @@ function Maps () {
       </div> */}
 
       <div className={styles.filter_main}>
-        <Select
+        {/* <Select
         className={styles.filter_genre}
         // defaultValue={genres}
         onChange={setYear}
         isClearable={true}
         options={year_options}
         placeholder="Year"
-        />
+        /> */}
         <Select
             className={styles.filter_genre}
             onChange={setGenreFilter}
@@ -105,8 +105,8 @@ function Maps () {
         <div className={styles.maps_page_container}>
           <div className={styles.maps_page_events}>
 
-          {Object.values(months).map(month => {
-            return (
+          {/* {Object.values(months).map(month => {
+            return ( */}
 
                   <>
                   {/* <div className={styles.calendar_events}> */}
@@ -149,7 +149,7 @@ function Maps () {
                  {/* </div> */}
                  </>
 
-        )})}
+        {/* )})} */}
         </div>
         <div className={styles.map_page_map}>
         <MapContainer events={events} />
