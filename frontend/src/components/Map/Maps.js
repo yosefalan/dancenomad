@@ -21,7 +21,7 @@ function Maps () {
   const [genreFilter, setGenreFilter] = useState(null);
   const [typeFilter, setTypeFilter] = useState(null);
   const [countryFilter, setCountryFilter] = useState(null);
-  const [year, setYear] = useState(currentYear)
+  const [year, setYear] = useState(null)
 
   const year_options = [
     { value: currentYear, label: currentYear },
@@ -34,7 +34,11 @@ function Maps () {
 
   let events = useSelector(state => Object.values(state?.events)).sort((a, b) => (a.start_date > b.start_date) ? 1 : -1)
 
-    events = events?.filter(event => moment(event?.start_date).format('YYYY') == year)
+    if (year) {
+      events = events?.filter(event => moment(event?.start_date).format('YYYY') == year)
+    }
+
+    console.log("YYYYYYYYYYY", year)
 
     if (genreFilter){
     events = events?.filter(event => event?.event_genre?.some(({ genre }) => genre === genreFilter?.label))
@@ -48,9 +52,6 @@ function Maps () {
       events = events?.filter(event => event?.Venues[0]?.country === countryFilter?.label)
     }
 
-
-console.log("YYYYYYYYYYY", year)
-
   const handleLink = (e, eventId) => {
         e.preventDefault();
         history.push(`/events/${eventId}`)
@@ -59,17 +60,17 @@ console.log("YYYYYYYYYYY", year)
   return (
     <>
       <Navigation />
-      <div className={styles.main}>
+      {/* <div className={styles.main}>
         <img
         className={styles.banner}
         src ={'images/main.png'}></img>
-      </div>
+      </div> */}
 
       <div className={styles.filter_main}>
         <Select
         className={styles.filter_genre}
         // defaultValue={genres}
-        onChange={() => setYear(null)}
+        onChange={setYear}
         isClearable={true}
         options={year_options}
         placeholder="Year"
@@ -107,12 +108,14 @@ console.log("YYYYYYYYYYY", year)
           {Object.values(months).map(month => {
             return (
 
-
-                  <div className={styles.calendar_events}>
+                  <>
+                  {/* <div className={styles.calendar_events}> */}
                     {events
                     .map(event => {
                       return (
-                        <div className={styles.reg_card}>
+                        <div
+                        onClick={(e) => handleLink(event.id)}
+                        className={styles.reg_card}>
                         <div className={styles.reg_card_img}>
                         <img src={event?.image_url}
                           className={styles.reg_img}
@@ -143,7 +146,8 @@ console.log("YYYYYYYYYYY", year)
                       </div>
             )
           })}
-                 </div>
+                 {/* </div> */}
+                 </>
 
         )})}
         </div>

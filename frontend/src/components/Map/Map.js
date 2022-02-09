@@ -10,7 +10,7 @@ import {
 
 const containerStyle = {
   width: '950px',
-  height: '100%',
+  height: '82%',
 };
 
 
