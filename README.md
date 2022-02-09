@@ -4,7 +4,7 @@ https://dancenomad.herokuapp.com/
 
 <img src='https://i.imgur.com/lzzmLuI.png'>
 
-Dance Nomad is an site for event organizers to post adnd promote social dance events and for dancers to browse and sign up for events.  It is inspired by Eventbrite. 
+Dance Nomad is a site for event organizers to post and promote social dance events and for dancers to browse and sign up for events.  It is inspired by Eventbrite. 
 
 # Project Installation
 
