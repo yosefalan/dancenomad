@@ -73,14 +73,14 @@ function Calendar () {
 
       <div className={styles.filter_main}>
 
-      <Select
+      {/* <Select
         className={styles.filter_genre}
         // defaultValue={genres}
         onChange={setYear}
         isClearable={true}
         options={year_options}
         placeholder="Year"
-        />
+        /> */}
         <Select
             className={styles.filter_genre}
             onChange={setGenreFilter}

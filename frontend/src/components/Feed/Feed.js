@@ -4,7 +4,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import { getEvents } from "../../store/events";
 import moment from 'moment'
 import Select from 'react-select'
-import { genre_options, type_options } from "../../data"
+import { genre_options, type_options, country_options } from "../../data"
 // import styles from "./FilterBar.module.css"
 import styles from './Feed.module.css'
 
@@ -15,7 +15,7 @@ function Feed () {
   const [linkId, setLinkId] = useState();
   const [genreFilter, setGenreFilter] = useState(null);
   const [typeFilter, setTypeFilter] = useState(null);
-  const [regionFilter, setRegionFilter] = useState("");
+  const [countryFilter, setCountryFilter] = useState(null);
 
 
   useEffect(() => {
@@ -33,6 +33,9 @@ function Feed () {
       events = events?.filter(event => event?.event_type?.some(({ type }) => type === typeFilter?.label))
       }
 
+      if (countryFilter){
+        events = events?.filter(event => event?.Venues[0]?.country === countryFilter?.label)
+      }
   console.log("WOOOOOOOOOOO", events)
 
 
@@ -63,9 +66,9 @@ function Feed () {
            <Select
             className={styles.filter_genre}
             // defaultValue={genres}
-            onChange={setTypeFilter}
+            onChange={setCountryFilter}
             isClearable={true}
-            options={type_options}
+            options={country_options}
             placeholder="Filter by Country"
         />
       </div>
