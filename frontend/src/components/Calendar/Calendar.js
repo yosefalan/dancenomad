@@ -4,7 +4,7 @@ import { NavLink, useHistory, Link } from "react-router-dom";
 import { getEvents } from "../../store/events";
 import moment from 'moment'
 import Select from 'react-select'
-import { genre_options, type_options, months } from "../../data"
+import { genre_options, type_options, months, country_options } from "../../data"
 import Navigation from "../Navigation/Navigation";
 import styles from './Calendar.module.css'
 
@@ -12,14 +12,22 @@ function Calendar () {
 
   const date = new Date();
   const currentYear = date.getFullYear();
+  const nextYear  = currentYear + 1;
 
+  const year_options = [
+    { value: currentYear, label: currentYear },
+    { value: nextYear, label: nextYear  },
+  ]
   const dispatch = useDispatch();
   const history = useHistory();
   const [linkId, setLinkId] = useState();
   const [genreFilter, setGenreFilter] = useState(null);
   const [typeFilter, setTypeFilter] = useState(null);
   const [countryFilter, setCountryFilter] = useState(null);
-  const [year, setYear] = useState(currentYear)
+  const [year, setYear] = useState(null)
+
+
+  console.log("YYYYYYYYYYYYYYYYY", year)
 
   useEffect(() => {
     dispatch(getEvents());
@@ -27,7 +35,10 @@ function Calendar () {
 
   let events = useSelector(state => Object.values(state?.events)).sort((a, b) => (a.start_date > b.start_date) ? 1 : -1)
 
-    events = events?.filter(event => moment(event?.start_date).format('YYYY') == year)
+
+    if (year) {
+      events = events?.filter(event => moment(event?.start_date).format('YYYY') == year)
+    }
 
     if (genreFilter){
     events = events?.filter(event => event?.event_genre?.some(({ genre }) => genre === genreFilter?.label))
@@ -37,7 +48,9 @@ function Calendar () {
       events = events?.filter(event => event?.event_type?.some(({ type }) => type === typeFilter?.label))
       }
 
-  console.log("WOOOOOOOOOOO", events)
+    if (countryFilter){
+      events = events?.filter(event => event?.Venues[0]?.country === countryFilter?.label)
+    }
 
 
   const handleLink = (e, eventId) => {
@@ -54,10 +67,22 @@ function Calendar () {
         src ={'images/main.png'}></img>
       </div>
 
+
+
+
+
       <div className={styles.filter_main}>
+
+      <Select
+        className={styles.filter_genre}
+        // defaultValue={genres}
+        onChange={setYear}
+        isClearable={true}
+        options={year_options}
+        placeholder="Year"
+        />
         <Select
             className={styles.filter_genre}
-            // defaultValue={genres}
             onChange={setGenreFilter}
             isClearable={true}
             options={genre_options}
@@ -65,7 +90,6 @@ function Calendar () {
         />
            <Select
             className={styles.filter_genre}
-            // defaultValue={genres}
             onChange={setTypeFilter}
             isClearable={true}
             options={type_options}
@@ -73,16 +97,15 @@ function Calendar () {
         />
            <Select
             className={styles.filter_genre}
-            // defaultValue={genres}
-            onChange={setTypeFilter}
+            onChange={setCountryFilter}
             isClearable={true}
-            options={type_options}
+            options={country_options}
             placeholder="Filter by Country"
         />
       </div>
-      <div className={styles.calendar_format}>
+      {/* <div className={styles.calendar_format}>
         <span>{currentYear}</span><span>{currentYear + 1}</span>
-        </div>
+        </div> */}
         {Object.values(months).map(month => {
             return (
               <div className={styles.month}>
