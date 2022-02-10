@@ -23,6 +23,8 @@ function EventPage () {
   const start_date = moment(event?.start_date).format('MMMM Do')
   const end_date = moment(event?.end_date).format('MMMM Do yyyy')
 
+console.log("EEEEEEEEEEEEEEE", event)
+
 
   return (
     <>
@@ -38,17 +40,27 @@ function EventPage () {
           src={event?.image_url}></img>
         </div>
         <div className={styles.event_page_top_right}>
-          <p>{event?.name}</p>
-          <p>{start_date} to {end_date}</p>
+          <h4>{event?.name}</h4>
+          <p>{start_date} to</p>
+          <p>{end_date}</p>
           <p>Event by: {event?.User?.username}</p>
+          <ul>Genres:
+          {event?.event_genre?.map(g => ( <li>{g.genre}</li>))}
+          </ul>
+          <ul>Event Type:
+          {event?.event_type?.map(t => ( <li>{t.type}</li>))}
+          </ul>
+         <div className={styles.reg_btn_container}>
+           <Register event={event}/>
+          </div>
         </div>
       </div>
-      <div className={styles.event_page_middle}>
+      {/* <div className={styles.event_page_middle}>
         <div className={styles.event_page_middle_left}></div>
         <div className={styles.event_page_middle_right}>
            <Register event={event}/>
         </div>
-      </div>
+      </div> */}
       <div className={styles.event_page_bottom}>
         <div className={styles.event_page_bottom_inner}>
           <p className={styles.event_page_d}>{event?.description}</p>
@@ -74,9 +86,9 @@ function EventPage () {
           )})}
           </p>
           <p>Event by: {event?.User?.username}</p> */}
-        </div>
-        {/* <div className={styles.event_page_bottom_right}> */}
         {/* </div> */}
+        {/* <div className={styles.event_page_bottom_right}> */}
+        </div>
       </div>
     </div>
     </>

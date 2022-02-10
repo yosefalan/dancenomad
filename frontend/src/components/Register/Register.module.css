@@ -2,7 +2,6 @@
   background-color: #c1c8e4;
   width: 200px;
   height: 35px;
-  margin: 10px;
   margin-top: 10px;
   cursor: pointer;
   border: none;
@@ -13,13 +12,10 @@
 }
 
 .reg_button:hover {
-  box-shadow: 3px 6px 3px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 3px 4px 0px rgba(0, 0, 0, 0.3);
   /* border: 1px solid #39364f; */
 }
 
-.reg_button_div {
- height: 50px;
-}
 
 .reg_main {
   padding: 15px;
