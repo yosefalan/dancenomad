@@ -90,13 +90,10 @@ function Feed () {
                       <h4>{event?.name}</h4>
                     <span>{moment(event?.end_date).format('ddd MMM D')} - {moment(event?.end_date).format('ddd MMM D yyyy')}</span>
                     <p>{event?.Venues[0]?.city},
-                    {event?.Venues[0]?.state ?
-                    " " :
-                    null
-                  }
-                    {event?.Venues[0]?.state ?
-                    event?.Venues[0]?.state :
-                    event?.Venues[0]?.country
+
+                     {event?.Venues[0]?.state ?
+                     ` ${event?.Venues[0]?.state}` :
+                     ` ${event?.Venues[0]?.country}`
                   }
                   </p>
                   <p>Genres:</p>
