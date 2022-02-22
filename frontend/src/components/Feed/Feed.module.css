@@ -119,7 +119,8 @@
       display: grid;
       grid-template-columns: 45% 45%;
       gap: 4%;
-      margin-top: 25px;
+      margin-top: 50px;
+      justify-content: center;
     }
 
     .event_card {

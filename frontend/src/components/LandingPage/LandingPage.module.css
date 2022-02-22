@@ -6,4 +6,8 @@
 
  .banner {
    width: 100vw;
+   height: 100%;
+   position: relative;
+   top: 60px;
+   margin-bottom: 75px;
  }

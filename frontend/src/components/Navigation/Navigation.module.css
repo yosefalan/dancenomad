@@ -88,3 +88,26 @@
 .navBarLinkText:hover {
   color: #C1C8E4;
 }
+
+
+/*************media queries***************************/
+
+/*  850    */
+
+
+
+@media screen and (max-width: 850px) {
+
+
+.centerNavContainer {
+  width: 100vw;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  z-index: 1;
+  background-color: #FFFFFF;
+}
+
+}
