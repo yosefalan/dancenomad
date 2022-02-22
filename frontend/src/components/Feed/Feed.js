@@ -79,7 +79,7 @@ function Feed () {
 
           .map(event => {
             return (
-              <div>
+              <>
                   <div
                   onClick={(e) => handleLink(e, event.id)}
                   className={styles.event_card}>
@@ -108,7 +108,7 @@ function Feed () {
                         })}
                     </div>
                   </div>
-                </div>
+                </>
             )})}
       </div>
     </div>
