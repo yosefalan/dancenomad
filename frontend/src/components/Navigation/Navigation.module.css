@@ -23,9 +23,17 @@
 
 }
 
+/* font-size: 50px; */
+/* color: black; */
+.hamburgerContainer {
+  height: 100%;
+  width: 100%;
+
+}
+
 .homeLogo {
 
-  justify-self: flex-start;
+  /* justify-self: flex-start; */
   margin: 10px;
 }
 
@@ -70,6 +78,7 @@
 
 
 .navBarLink {
+  color: #39364F;
   display: flex;
   height: 100%;
   /* width: 110px; */
@@ -101,9 +110,9 @@
 
 .centerNavContainer {
   width: 100vw;
-  height: 150px;
+  height: 75px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   position: fixed;
   z-index: 1;
