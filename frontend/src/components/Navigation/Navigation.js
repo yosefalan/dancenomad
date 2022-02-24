@@ -12,9 +12,23 @@ function Navigation({ isLoaded }){
   return (
     <div className={styles.mainNavContainer}>
       <div className={styles.centerNavContainer}>
+          {/* <div className-={styles.hamburgerContainer}>
+            <h1>Hi!</h1>
+            <i className="fa-solid fa-bars" fa-camera fa-10x ></i>
+            </div> */}
         <div className={styles.homeLogo}>
+        {/* <i className="fa-solid fa-bars" fa-camera fa-10x ></i> */}
           <NavLink exact to="/"><img className={styles.navLogo} src={'/images/logo.png'}></img></NavLink>
         </div>
+
+        <div className={styles.navBarLink}>
+            {/* <NavLink exact to="/maps"
+            className={styles.navBarLinkText}
+            >Map</NavLink> */}
+            <i class="fa-solid fa-bars fa-5x"></i>
+          </div>
+
+
         {sessionUser ?
         <div className={styles.navBarRight}>
              <div className={styles.navBarLink}>
