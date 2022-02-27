@@ -1,4 +1,4 @@
-* {
+body {
   font-family: 'Roboto', sans-serif;
 }
 
@@ -76,6 +76,10 @@
   flex-direction: row;
 }
 
+.hamburger {
+  display:none;
+}
+
 
 .navBarLink {
   color: #39364F;
@@ -99,6 +103,9 @@
 }
 
 
+
+
+
 /*************media queries***************************/
 
 /*  850    */
@@ -118,5 +125,12 @@
   z-index: 1;
   background-color: #FFFFFF;
 }
+
+.hamburger {
+  display: inline
+  
+}
+
+
 
 }
