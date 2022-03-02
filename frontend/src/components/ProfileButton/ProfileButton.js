@@ -38,7 +38,7 @@ function ProfileButton({ user }) {
   };
 
   return (
-    <div className={styles.userLinks}>
+    <div className={styles.buttonLinks}>
       <div className={styles.buttonContainer}
       // onClick={openMenu}>
       >
