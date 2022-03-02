@@ -49,12 +49,14 @@ body {
   display: flex;
   flex-direction: row;
   height: 100%;
+  align-items: center;
 }
 
 .userLinks {
   height: 100%;
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .userText {
@@ -77,9 +79,14 @@ body {
 }
 
 .hamburger {
-  display:none;
+  display: none;
 }
 
+.hamburger_container {
+  width: 50px;
+  height: 100%;
+  background-color: blue;
+}
 
 .navBarLink {
   color: #39364F;
@@ -127,10 +134,14 @@ body {
 }
 
 .hamburger {
-  display: inline
-  
+  display: inline;
+  left: 0;
+
 }
 
+.navBarRight {
+ display: none;
+}
 
 
 }

@@ -12,18 +12,16 @@ function Navigation({ isLoaded }){
   return (
     <div className={styles.mainNavContainer}>
       <div className={styles.centerNavContainer}>
+           <div className={styles.hamburger}>
+              <i class="fa fa-solid fa-bars fa-3x"></i> </div>
 
         <div className={styles.homeLogo}>
           <NavLink exact to="/"><img className={styles.navLogo} src={'/images/logo.png'}></img></NavLink>
         </div>
 
-        <div className={styles.hamburger}>
 
-            <i class="fa fa-solid fa-bars fa-3x"></i>
 
-          </div>
 
-        
         {sessionUser ?
         <div className={styles.navBarRight}>
              <div className={styles.navBarLink}>
@@ -44,6 +42,7 @@ function Navigation({ isLoaded }){
           <div>
             <ProfileButton user={sessionUser} />
           </div>
+
         </div>
         : <div className={styles.linksContainer}>
           {/* <div
