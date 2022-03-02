@@ -109,7 +109,36 @@ body {
   color: #C1C8E4;
 }
 
+/*************************************/
+.dropdownContent {
+  min-height: 220px;
+  margin-top: 10px;
+  display: none;
+  position: absolute;
+  left: 0;
+  background-color: #FFFFFF;
+  width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 2;
+}
 
+.dropdownContent a {
+  color: #39364F;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+
+.hamburger:hover
+.dropdownContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdownContent a:hover {
+  background-color: #C1C8E4;
+}
 
 
 
@@ -127,15 +156,23 @@ body {
   height: 75px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  /* justify-content: center; */
   position: fixed;
   z-index: 1;
   background-color: #FFFFFF;
+  padding: 0px 25px;
 }
+
+
 
 .hamburger {
   display: inline;
   left: 0;
+  margin-left: 25px;
+  margin-top: 25px;
+  cursor: pointer;
+  height: 100%;
+  /* justify-content: center */
 
 }
 
@@ -143,5 +180,8 @@ body {
  display: none;
 }
 
+.homeLogo {
+  margin-right: 25px;
+}
 
 }

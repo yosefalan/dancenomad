@@ -13,7 +13,11 @@ function Navigation({ isLoaded }){
     <div className={styles.mainNavContainer}>
       <div className={styles.centerNavContainer}>
            <div className={styles.hamburger}>
-              <i class="fa fa-solid fa-bars fa-3x"></i> </div>
+              <i class="fa fa-solid fa-bars fa-3x"></i>
+              <div className={styles.dropdownContent}>
+
+                </div>
+              </div>
 
         <div className={styles.homeLogo}>
           <NavLink exact to="/"><img className={styles.navLogo} src={'/images/logo.png'}></img></NavLink>
@@ -39,9 +43,9 @@ function Navigation({ isLoaded }){
             className={styles.navBarLinkText}
             >Create Event</NavLink>
           </div>
-          <div>
+          {/* <div> */}
             <ProfileButton user={sessionUser} />
-          </div>
+          {/* </div> */}
 
         </div>
         : <div className={styles.linksContainer}>
