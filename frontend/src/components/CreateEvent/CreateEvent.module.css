@@ -1,7 +1,5 @@
 * {
   color: #39364f;
-
-
 }
 
 .form_container {
@@ -20,9 +18,6 @@
   background: linear-gradient(45deg, rgba(101, 222, 234, 1) 12%, rgba(135, 97, 208, 1) 53%, rgba(101, 222, 234, 1) 87%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#65deea', endColorstr='#65deea',GradientType=1 );
   background: rgba()
-
-
-
 }
 
 .form_header {
@@ -47,12 +42,12 @@
 
 .form {
   width: 600px;
-  height: ;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: rgba(250, 250, 250, 0.6);
   border-radius: 15px 15px 15px 15px;
+  position: absolute;
 }
 
 .errors_container {
@@ -244,6 +239,10 @@
     border: 1px solid #39364f;
 }
 
+.form_cancel_button:hover {
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border: 1px solid #39364f;
+}
 
 .form_nav_buttons {
   position:relative;
@@ -291,6 +290,37 @@
   border: 1px solid #39364f;
 }
 
+#prev:hover{
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border: 1px solid #39364f;
+}
+
+.fill_bottom {
+  position:absolute;
+  top: 0;
+  background-color: #FAFAFA;
+  width: 800px;
+  height: 75px;
+  padding: 15px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-radius: 0px 0px 15px 15px;
+}
+
+.fill_bottom_container {
+  position:relative;
+  top: 0;
+  background-color: #FAFAFA;
+  width: 800px;
+  height: 75px;
+  padding: 15px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-radius: 0px 0px 15px 15px;
+}
+
 .img_preview_summary {
   width: 800px;
   height: 370px;
@@ -303,14 +333,12 @@
 }
 
 .summary_page_container {
-  /* position: absolute; */
   background-color: #FAFAFA;
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 800px;
   height: 330px;
-  border-radius: 0px 0px 15px 15px;
 }
 
 
