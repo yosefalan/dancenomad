@@ -10,9 +10,6 @@ const CreateEvent = () => {
 
   return (
     <>
-    {/* <button onClick={() => setShowModal(true)}
-    className={styles.my_events_buttons}
-    id>Edit Event</button> */}
     {showModal && (
       <Modal onClose={() => setShowModal(false)}>
         <CreateEventForm hideForm={() => setShowModal(false)} />

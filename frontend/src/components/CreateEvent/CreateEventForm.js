@@ -120,7 +120,6 @@ export default function CreateEvent({ hideForm }) {
   }
   <p>Event Type:</p>
 
-  console.log("XXXXXXXXX", genres, types)
   const handleSubmit = async (e) => {
     e.preventDefault();
     let newErrors = [];
@@ -161,23 +160,6 @@ export default function CreateEvent({ hideForm }) {
 
     const sd = moment(start_date).format('ddd MMMM Do')
     const ed = moment(end_date).format('ddd MMMM Do yyyy')
-
-    // console.log("DATA", 'hostId', hostId,
-    // 'name', name,
-    // 'description',description,
-    // 'start_date',start_date,
-    // 'end_date', end_date,
-    // 'venue', venue,
-    // 'venue_types',  venue_types,
-    // 'address', address,
-    // 'city', city,
-    // 'state', state,
-    // 'zip', zip,
-    // 'country', country,
-    // 'genres',  genres,
-    // 'types', types,
-    // 'image', image )
-
 
     const genre_options = [
       { value: "1", label: 'Acro' },
@@ -546,11 +528,6 @@ export default function CreateEvent({ hideForm }) {
       </Modal>
     )}
       <div className={styles.form_container}>
-        {/* <div className={styles.form_header}><h1>Let's create your event...</h1>
-        <i class="far fa-times-circle" id={styles.cancel_button}
-        onClick={() => handleCancel()}
-        ></i>
-        </div> */}
         <form
           onSubmit={handleSubmit}
           className={styles.form}>
@@ -752,13 +729,8 @@ export default function CreateEvent({ hideForm }) {
               </div>
              ) : null}
 
-  {/**************************************************/}
-  {/* {page === 4 &&
-                thumb?.length && !fileRejectionItems?.length ? (
-                  <div className={styles.img_preview_summary}>
-                    {thumb}
-                    </div>
-                  ) : null} */}
+  {/* ************************************************ */}
+
   {page === 4 ? (
               <div className={styles.summary_page_container}>
 
@@ -796,9 +768,18 @@ export default function CreateEvent({ hideForm }) {
             </div>
             ) : null}
   {/**************************************************/}
+
+            {page !== 4 &&
             <div className={styles.form_nav_buttons}>
 
-              {page !== 1 &&<button
+              {page === 2 &&<button
+              onClick={() => prevPage()}
+              className={styles.form_nav_button}
+              id="prev"
+              type="button">
+              Prev</button>}
+
+              {page === 3 &&<button
               onClick={() => prevPage()}
               className={styles.form_nav_button}
               id="prev"
@@ -817,12 +798,23 @@ export default function CreateEvent({ hideForm }) {
               id='next'
               type="button">
               Next</button>}
+            </div>}
+
+           {page === 4 ?
+           <div className={styles.fill_bottom_container}>
+
+              {page === 4 &&<button
+              onClick={() => prevPage()}
+              className={styles.form_nav_button}
+              id="prev"
+              type="button">
+              Prev</button>}
 
               {page === 4 && <button
               className={styles.form_nav_button}
               type="submit">Create Event</button>}
-
-            </div>
+           </div>
+           :null}
         </form>
       </div>
     </div>
