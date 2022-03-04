@@ -38,7 +38,6 @@ function Maps () {
       events = events?.filter(event => moment(event?.start_date).format('YYYY') == year)
     }
 
-    console.log("YYYYYYYYYYY", year)
 
     if (genreFilter){
     events = events?.filter(event => event?.event_genre?.some(({ genre }) => genre === genreFilter?.label))
