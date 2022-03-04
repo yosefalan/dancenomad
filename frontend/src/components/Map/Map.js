@@ -8,10 +8,11 @@ import {
 } from '@react-google-maps/api';
 
 
+
 const containerStyle = {
-  width: '950px',
+  width: '100%',
   height: '82%',
-  // zIndex: '9999'
+
 };
 
 
@@ -41,7 +42,7 @@ const Map = ({ apiKey, events }) => {
   const latt = +events[3]?.Venues[0]?.lat
   const lngg = +events[3]?.Venues[0]?.lng
 
-
+console.log("SELECTED:", selected)
   return (
     <>
       {isLoaded && (

@@ -317,16 +317,38 @@
     z-index: 1; */
 
   }
+  .map_page_map {
+    position:fixed;
+    height: 100%;
+    width: 100%;
+    top: 175px;
+    z-index: 1;
+  }
+
+  .map_page_map {
+    position:fixed;
+    height: 100%;
+    width: 100%;
+    top: 250px;
+    z-index: 1;
+  }
 }
 
-.map_page_map {
-  position:fixed;
-  height: 100%;
-  width: 100%;
-  right: 0;
-  top: 175px;
-  z-index: 1;
+
+@media screen and (max-width: 700px) {
+  .filter_main {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+  .filter_genre {
+    width: 75%;
+    margin-top: 5px;
+  }
+
 }
+
 
 
 
