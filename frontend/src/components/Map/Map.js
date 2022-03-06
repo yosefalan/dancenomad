@@ -1,5 +1,8 @@
 // frontend/src/components/Maps/Maps.js
+
 import React from 'react';
+import { useHistory, NavLink } from 'react-router-dom';
+import moment from 'moment'
 import {
   GoogleMap,
   useJsApiLoader,
@@ -42,7 +45,14 @@ const Map = ({ apiKey, events }) => {
   const latt = +events[3]?.Venues[0]?.lat
   const lngg = +events[3]?.Venues[0]?.lng
 
-console.log("SELECTED:", selected)
+console.log('SELECTED', selected)
+
+  const history = useHistory()
+  const handleLink = (id) => {
+    history.push(`/events/${id}`)
+  }
+
+
   return (
     <>
       {isLoaded && (
@@ -72,7 +82,10 @@ console.log("SELECTED:", selected)
               }}
               >
                 <div>
+                  <NavLink to={`/events/${selected.id}`}>
                   <h2>{selected.name}</h2>
+                  {moment(selected?.start_date).format('ddd MMMM Do')} - {moment(selected?.end_date).format('ddd MMMM Do yyyy')}
+                  </NavLink>
                 </div>
               </InfoWindow>
               )  : null}

@@ -101,48 +101,43 @@ function Maps () {
         <span>{currentYear}</span><span>{currentYear + 1}</span>
         </div> */}
 
-        <div className={styles.maps_page_container}>
+        {/* <div className={styles.maps_page_container}> */}
           <div className={styles.maps_page_events}>
-
-          {/* {Object.values(months).map(month => {
-            return ( */}
-
-                  <>
-                  {/* <div className={styles.calendar_events}> */}
-                    {events
-                    .map(event => {
-                      return (
-                        <div
-                        onClick={(e) => handleLink(event.id)}
-                        className={styles.reg_card}>
-                        <div className={styles.reg_card_img}>
-                        <img src={event?.image_url}
-                          className={styles.reg_img}
-                          ></img>
-                        </div>
-                        <div className={styles.reg_card_info}>
-                          <Link
-                            to={`/events/${event?.id}`}
-                            id={styles.reg_name}>{event?.name}</Link>
-                          <Link
-                            to={`/events/${event?.id}`}
-                            id={styles.reg_date}>{moment(event?.start_date).format('ddd MMMM Do')} - {moment(event?.end_date).format('ddd MMMM Do yyyy')}</Link>
-                          <div className={styles.my_events_buttons_container}>
-                          {/* <NavLink to={`/events/manage/${event.id}/registrations`}>
-                            <button
-                            className={styles.my_events_buttons}
-                            >Registrations</button>
-                          </NavLink> */}
-                          {/* <NavLink
-                          to={`/events/manage/edit/${event.id}`}>
-                          <button
-                          className={styles.my_events_buttons}
-                          >Edit Event</button>
-                        </NavLink> */}
-                          </div>
-                        </div>
-                        <div></div>
-                      </div>
+            <>
+          {events
+          .map(event => {
+            return (
+              <div
+              onClick={(e) => handleLink(event.id)}
+              className={styles.reg_card}>
+              <div className={styles.reg_card_img}>
+              <img src={event?.image_url}
+                className={styles.reg_img}
+                ></img>
+              </div>
+              <div className={styles.reg_card_info}>
+                <Link
+                  to={`/events/${event?.id}`}
+                  id={styles.reg_name}>{event?.name}</Link>
+                <Link
+                  to={`/events/${event?.id}`}
+                  id={styles.reg_date}>{moment(event?.start_date).format('ddd MMMM Do')} - {moment(event?.end_date).format('ddd MMMM Do yyyy')}</Link>
+                <div className={styles.my_events_buttons_container}>
+                {/* <NavLink to={`/events/manage/${event.id}/registrations`}>
+                  <button
+                  className={styles.my_events_buttons}
+                  >Registrations</button>
+                </NavLink> */}
+                {/* <NavLink
+                to={`/events/manage/edit/${event.id}`}>
+                <button
+                className={styles.my_events_buttons}
+                >Edit Event</button>
+              </NavLink> */}
+                </div>
+              </div>
+              <div></div>
+            </div>
             )
           })}
                  {/* </div> */}
@@ -153,7 +148,7 @@ function Maps () {
         <div className={styles.map_page_map}>
         <MapContainer events={events} />
         </div>
-        </div>
+        {/* </div> */}
 
   </>
   )
