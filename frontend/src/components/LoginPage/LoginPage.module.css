@@ -73,3 +73,62 @@
 #signup_link {
  color: #8860CF
 }
+
+
+/*******************************/
+
+@media screen and (max-width: 1400px) {
+
+  .loginRight {
+    width: 60vw;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+
+    /* right: 0; */
+  }
+
+
+  .loginImg {
+    height: 100vh;
+    position: relative;
+    right: 0;
+    /* object-position: right bottom; */
+
+  }
+
+  .loginLeft {
+    width: 60vw;
+    height: 100vh;
+  }
+
+}
+
+
+@media screen and (max-width: 700px) {
+
+  .loginRight {
+    display: none;
+
+  }
+
+  .loginImg {
+    height: 100vh;
+    position: relative;
+    right: 0;
+
+  }
+
+  .loginLeft {
+    width: 100vw;
+    height: 100vh;
+  }
+
+
+
+  .form {
+
+    width: 60%;
+
+  }
+}
