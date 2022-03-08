@@ -132,3 +132,31 @@
 
   }
 }
+
+/* @media screen and (max-width: 700px) {
+
+  .loginRight {
+    display: none;
+
+  }
+
+  .loginImg {
+    height: 100vh;
+    position: relative;
+    right: 0;
+
+  }
+
+  .loginLeft {
+    width: 100vw;
+    height: 100vh;
+  }
+
+
+
+  .form {
+
+    width: 60%;
+
+  }
+} */
