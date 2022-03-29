@@ -119,8 +119,8 @@ body {
   background-color: #FFFFFF;
   width: 200px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 2;
-  padding: 10px;
+  z-index: 9;
+  padding: 10px 0px 10px 10px;
 }
 
 .dropdownContent a {
@@ -150,6 +150,17 @@ body {
 
 @media screen and (max-width: 850px) {
 
+
+/* .dropdownContent {
+  z-index: 3;
+} */
+
+
+.mainNavContainer {
+
+  z-index: 9;
+
+}
 .centerNavContainer {
   width: 100vw;
   height: 75px;

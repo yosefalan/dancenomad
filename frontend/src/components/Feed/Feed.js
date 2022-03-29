@@ -36,7 +36,7 @@ function Feed () {
       if (countryFilter){
         events = events?.filter(event => event?.Venues[0]?.country === countryFilter?.label)
       }
-  console.log("WOOOOOOOOOOO", events)
+
 
 
   const handleLink = (e, eventId) => {
