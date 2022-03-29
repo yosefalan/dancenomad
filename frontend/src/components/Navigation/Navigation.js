@@ -16,7 +16,26 @@ function Navigation({ isLoaded }){
               <i class="fa fa-solid fa-bars fa-3x"></i>
               <div className={styles.dropdownContent}>
 
+                {sessionUser ?
+                <>
 
+                  <NavLink exact to="/maps"
+                  className={styles.navBarLinkText}
+                  >Map</NavLink>
+
+                  <NavLink exact to="/calendar"
+                  className={styles.navBarLinkText}
+                  >Calendar</NavLink>
+
+                  <NavLink exact to="/events/manage/create"
+                  className={styles.navBarLinkText}
+                  >Create Event</NavLink>
+                  <ProfileButton user={sessionUser} />
+                  </>
+
+                  : null
+
+                }
                 {sessionUser ?
                 <div className={styles.navBarRight}>
                   <div className={styles.navBarLink}>
