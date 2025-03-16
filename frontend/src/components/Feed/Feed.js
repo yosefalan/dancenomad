@@ -18,6 +18,7 @@ function Feed () {
   const [countryFilter, setCountryFilter] = useState(null);
 
 
+
   useEffect(() => {
     dispatch(getEvents());
   }, [dispatch]);
@@ -36,8 +37,6 @@ function Feed () {
       if (countryFilter){
         events = events?.filter(event => event?.Venues[0]?.country === countryFilter?.label)
       }
-
-
 
   const handleLink = (e, eventId) => {
         e.preventDefault();
@@ -96,7 +95,7 @@ function Feed () {
                      ` ${event?.Venues[0]?.country}`
                   }
                   </p>
-                  <p>Genres:</p>
+                  {/* <p>Genres:</p>
                     {event?.event_genre.map((g, idx ) => {
 
                       return <span>{idx > 0 ? " | " : null}{g.genre}</span>
@@ -105,7 +104,7 @@ function Feed () {
                        {event?.event_type.map((t, idx ) => {
 
                         return <span>{idx > 0 ? " | " : null}{t.type}</span>
-                        })}
+                        })} */}
                     </div>
                   </div>
                 </>

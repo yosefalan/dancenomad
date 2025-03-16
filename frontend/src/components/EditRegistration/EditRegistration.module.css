@@ -10,7 +10,7 @@
   cursor: pointer;
   border: none;
   padding: 5px;
-
+  border-radius: 5px;
 }
 
 .my_events_buttons:hover {
@@ -48,6 +48,7 @@
   border: none;
   padding: 5px;
   width: 200px;
+  border-radius: 5px;
 }
 
 .delete_reg_button:hover {

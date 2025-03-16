@@ -23,6 +23,7 @@
     "git-filter-repo": "^0.0.30",
     "install": "^0.13.0",
     "multer": "^1.4.4",
+    "sequelize": "^6.37.6",
     "sequelize-cli": "^6.3.0"
   },
   "repository": {

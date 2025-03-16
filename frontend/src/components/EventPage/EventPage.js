@@ -42,8 +42,8 @@ console.log("EEEEEEEEEEEEEEE", event)
         <div className={styles.event_page_top_right}>
           <h4>{event?.name}</h4>
           <p>{start_date} to</p>
-          <p>{end_date}</p>
           <p>Event by: {event?.User?.username}</p>
+          <p>{end_date}</p>
           <ul>Genres:
           {event?.event_genre?.map(g => ( <li>{g.genre}</li>))}
           </ul>
@@ -64,8 +64,8 @@ console.log("EEEEEEEEEEEEEEE", event)
       <div className={styles.event_page_bottom}>
         <div className={styles.event_page_bottom_inner}>
           <p className={styles.event_page_d}>{event?.description}</p>
-          <p className={styles.event_page_p}>Location: {event?.Venues[0]?.name}</p>
-          <p className={styles.event_page_p}>{event?.Venues[0]?.address}</p>
+          {/* <p className={styles.event_page_p}>Location: {event?.Venues[0]?.name}</p> */}
+          {/* <p className={styles.event_page_p}>{event?.Venues[0]?.address}</p> */}
           <p className={styles.event_page_p}>{event?.Venues[0]?.city}, {event?.Venues[0]?.state}</p>
           {/* <p>Genres:</p> */}
           {/* <p> */}

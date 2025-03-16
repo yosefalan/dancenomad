@@ -9,6 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 5px;
 }
 
 .reg_button:hover {

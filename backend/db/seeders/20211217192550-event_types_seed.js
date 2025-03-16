@@ -1,73 +1,153 @@
+
 'use strict';
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Event_types', [
-      {
-        eventId: 1,
-        typeId: 6
-      },
-      {
-        eventId: 2,
-        typeId: 1
-      },
-
-      {
-        eventId: 3,
-        typeId: 6
-      },
-
-      {
-        eventId: 4,
-        typeId: 10
-      },
-
-      {
-        eventId: 5,
-        typeId: 1
-      },
-
-      {
-        eventId: 6,
-        typeId: 1
-      },
-
-      {
-        eventId: 7,
-        typeId: 1
-      },
-
-      {
-        eventId: 8,
-        typeId: 1
-      },
-      {
-        eventId: 8,
-        typeId: 2
-      },
-      {
-        eventId: 8,
-        typeId: 7
-      },
-      {
-        eventId: 8,
-        typeId: 8
-      },
-      {
-        eventId: 8,
-        typeId: 3
-      },
-      {
-        eventId: 9,
-        typeId: 1
-      },
-
-      {
-        eventId: 10,
-        typeId: 1
-      },
-
-
+      { eventId: 1, typeId: 5 },
+      { eventId: 1, typeId: 1 },
+      { eventId: 2, typeId: 2 },
+      { eventId: 2, typeId: 4 },
+      { eventId: 3, typeId: 8 },
+      { eventId: 4, typeId: 1 },
+      { eventId: 4, typeId: 10 },
+      { eventId: 5, typeId: 5 },
+      { eventId: 6, typeId: 3 },
+      { eventId: 6, typeId: 6 },
+      { eventId: 7, typeId: 5 },
+      { eventId: 8, typeId: 6 },
+      { eventId: 9, typeId: 3 },
+      { eventId: 9, typeId: 6 },
+      { eventId: 9, typeId: 4 },
+      { eventId: 10, typeId: 3 },
+      { eventId: 11, typeId: 8 },
+      { eventId: 11, typeId: 9 },
+      { eventId: 12, typeId: 5 },
+      { eventId: 13, typeId: 4 },
+      { eventId: 13, typeId: 3 },
+      { eventId: 13, typeId: 1 },
+      { eventId: 14, typeId: 4 },
+      { eventId: 14, typeId: 2 },
+      { eventId: 15, typeId: 2 },
+      { eventId: 15, typeId: 7 },
+      { eventId: 16, typeId: 7 },
+      { eventId: 17, typeId: 4 },
+      { eventId: 18, typeId: 6 },
+      { eventId: 19, typeId: 3 },
+      { eventId: 19, typeId: 2 },
+      { eventId: 20, typeId: 6 },
+      { eventId: 20, typeId: 4 },
+      { eventId: 20, typeId: 7 },
+      { eventId: 21, typeId: 4 },
+      { eventId: 21, typeId: 1 },
+      { eventId: 22, typeId: 4 },
+      { eventId: 23, typeId: 2 },
+      { eventId: 23, typeId: 6 },
+      { eventId: 24, typeId: 1 },
+      { eventId: 25, typeId: 7 },
+      { eventId: 25, typeId: 8 },
+      { eventId: 26, typeId: 10 },
+      { eventId: 26, typeId: 4 },
+      { eventId: 26, typeId: 1 },
+      { eventId: 27, typeId: 2 },
+      { eventId: 27, typeId: 10 },
+      { eventId: 27, typeId: 5 },
+      { eventId: 28, typeId: 3 },
+      { eventId: 28, typeId: 8 },
+      { eventId: 29, typeId: 10 },
+      { eventId: 29, typeId: 1 },
+      { eventId: 30, typeId: 7 },
+      { eventId: 30, typeId: 5 },
+      { eventId: 30, typeId: 6 },
+      { eventId: 31, typeId: 9 },
+      { eventId: 31, typeId: 1 },
+      { eventId: 32, typeId: 7 },
+      { eventId: 32, typeId: 1 },
+      { eventId: 33, typeId: 2 },
+      { eventId: 33, typeId: 4 },
+      { eventId: 34, typeId: 3 },
+      { eventId: 34, typeId: 4 },
+      { eventId: 35, typeId: 8 },
+      { eventId: 36, typeId: 8 },
+      { eventId: 36, typeId: 9 },
+      { eventId: 37, typeId: 5 },
+      { eventId: 38, typeId: 10 },
+      { eventId: 38, typeId: 3 },
+      { eventId: 39, typeId: 3 },
+      { eventId: 40, typeId: 5 },
+      { eventId: 40, typeId: 9 },
+      { eventId: 41, typeId: 6 },
+      { eventId: 42, typeId: 10 },
+      { eventId: 43, typeId: 6 },
+      { eventId: 43, typeId: 7 },
+      { eventId: 44, typeId: 8 },
+      { eventId: 44, typeId: 4 },
+      { eventId: 45, typeId: 3 },
+      { eventId: 46, typeId: 7 },
+      { eventId: 47, typeId: 8 },
+      { eventId: 47, typeId: 7 },
+      { eventId: 47, typeId: 5 },
+      { eventId: 48, typeId: 2 },
+      { eventId: 48, typeId: 9 },
+      { eventId: 48, typeId: 4 },
+      { eventId: 49, typeId: 2 },
+      { eventId: 49, typeId: 3 },
+      { eventId: 49, typeId: 9 },
+      { eventId: 50, typeId: 1 },
+      { eventId: 50, typeId: 9 },
+      { eventId: 51, typeId: 9 },
+      { eventId: 51, typeId: 4 },
+      { eventId: 51, typeId: 1 },
+      { eventId: 52, typeId: 6 },
+      { eventId: 52, typeId: 10 },
+      { eventId: 53, typeId: 4 },
+      { eventId: 53, typeId: 9 },
+      { eventId: 54, typeId: 5 },
+      { eventId: 55, typeId: 2 },
+      { eventId: 56, typeId: 9 },
+      { eventId: 56, typeId: 10 },
+      { eventId: 57, typeId: 10 },
+      { eventId: 57, typeId: 1 },
+      { eventId: 57, typeId: 5 },
+      { eventId: 58, typeId: 5 },
+      { eventId: 58, typeId: 7 },
+      { eventId: 59, typeId: 10 },
+      { eventId: 59, typeId: 4 },
+      { eventId: 60, typeId: 2 },
+      { eventId: 60, typeId: 6 },
+      { eventId: 61, typeId: 7 },
+      { eventId: 61, typeId: 8 },
+      { eventId: 61, typeId: 10 },
+      { eventId: 62, typeId: 10 },
+      { eventId: 63, typeId: 10 },
+      { eventId: 64, typeId: 1 },
+      { eventId: 65, typeId: 6 },
+      { eventId: 65, typeId: 5 },
+      { eventId: 66, typeId: 4 },
+      { eventId: 66, typeId: 5 },
+      { eventId: 67, typeId: 2 },
+      { eventId: 67, typeId: 3 },
+      { eventId: 68, typeId: 10 },
+      { eventId: 69, typeId: 6 },
+      { eventId: 69, typeId: 10 },
+      { eventId: 69, typeId: 3 },
+      { eventId: 70, typeId: 10 },
+      { eventId: 71, typeId: 8 },
+      { eventId: 71, typeId: 3 },
+      { eventId: 71, typeId: 1 },
+      { eventId: 72, typeId: 7 },
+      { eventId: 73, typeId: 5 },
+      { eventId: 73, typeId: 8 },
+      { eventId: 74, typeId: 9 },
+      { eventId: 74, typeId: 4 },
+      { eventId: 75, typeId: 3 },
+      { eventId: 76, typeId: 5 },
+      { eventId: 76, typeId: 8 },
+      { eventId: 76, typeId: 7 },
+      { eventId: 77, typeId: 1 },
+      { eventId: 77, typeId: 10 },
+      { eventId: 77, typeId: 3 },
+      { eventId: 78, typeId: 1 }
     ], {});
   },
 

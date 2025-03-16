@@ -27,8 +27,6 @@ function Calendar () {
   const [year, setYear] = useState(null)
 
 
-  console.log("YYYYYYYYYYYYYYYYY", year)
-
   useEffect(() => {
     dispatch(getEvents());
   }, [dispatch]);
@@ -61,26 +59,7 @@ function Calendar () {
   return (
     <>
       <Navigation />
-      <div className={styles.main}>
-        <img
-        className={styles.banner}
-        src ={'images/main.png'}></img>
-      </div>
-
-
-
-
-
       <div className={styles.filter_main}>
-
-      {/* <Select
-        className={styles.filter_genre}
-        // defaultValue={genres}
-        onChange={setYear}
-        isClearable={true}
-        options={year_options}
-        placeholder="Year"
-        /> */}
         <Select
             className={styles.filter_genre}
             onChange={setGenreFilter}
@@ -103,9 +82,6 @@ function Calendar () {
             placeholder="Filter by Country"
         />
       </div>
-      {/* <div className={styles.calendar_format}>
-        <span>{currentYear}</span><span>{currentYear + 1}</span>
-        </div> */}
         {Object.values(months).map(month => {
             return (
               <div className={styles.month}>
@@ -115,15 +91,9 @@ function Calendar () {
                   .filter(event => moment(event?.start_date).format('MMMM') == month.label)
                   .map(event => {
                     return (
-
-
-
-
-
-
-
-                      <div className={styles.reg_card}>
-
+                      <div
+                      onClick={(e) => handleLink(e, event.id)}
+                      className={styles.reg_card}>
             <div className={styles.reg_card_img}>
             <img src={event?.image_url}
               className={styles.reg_img}
@@ -137,40 +107,15 @@ function Calendar () {
                 to={`/events/${event?.id}`}
                 id={styles.reg_date}>{moment(event?.start_date).format('ddd MMMM Do')} - {moment(event?.end_date).format('ddd MMMM Do yyyy')}</Link>
                <div className={styles.my_events_buttons_container}>
-              {/* <NavLink to={`/events/manage/${event.id}/registrations`}>
-                <button
-                className={styles.my_events_buttons}
-                >Registrations</button>
-              </NavLink> */}
-              {/* <NavLink
-              to={`/events/manage/edit/${event.id}`}>
-                <button
-                className={styles.my_events_buttons}
-                >Edit Event</button>
-              </NavLink> */}
-
-
               </div>
             </div>
-
             <div></div>
           </div>
-
-
-
-
-
-
-
-
-
-
                     )
                   })}
                  </div>
               </div>
         )})}
-
   </>
   )
 }
