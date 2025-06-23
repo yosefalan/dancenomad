@@ -111,7 +111,7 @@ module.exports = {
           url: "https://dancenomad.s3.us-east-2.amazonaws.com/profile_pics/17.jfif",
         },
         {
-          username: "Demo-lition",
+          username: "Demo User",
           email: "demo-lition@mail.com",
           hashedPassword: bcrypt.hashSync("password"),
           url: "https://dancenomad.s3.us-east-2.amazonaws.com/profile_pics/18.jfif",

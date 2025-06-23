@@ -11,9 +11,9 @@ import * as sessionActions from "./store/session";
 
 const store = configureStore();
 
-if (process.env.NODE_ENV !== "production") {
-  restoreCSRF();
+restoreCSRF();  // Always run this to set the XSRF-TOKEN cookie
 
+if (process.env.NODE_ENV !== "production") {
   window.csrfFetch = csrfFetch;
   window.store = store;
   window.sessionActions = sessionActions;
